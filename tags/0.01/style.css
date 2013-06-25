@@ -1,0 +1,81 @@
+#index-body {
+//TODO this fixes the width, which is bad
+	width: 800px;
+}
+
+#index-body div {
+  //margin: 5px;
+}
+
+#index-header {
+  width: 800px;
+  height: 200px;
+  overflow: hidden;
+  background-image: url('images/index-header-800x200.png');
+  background-color: #8a17db;
+}
+
+#index-header p {
+//TODO this isn't hiding the text properly!
+  position: relative;
+  left: 9000;
+}
+
+#index-content {
+  background-color: #eeeeee;
+  float: left;
+  width: 80%;
+  min-width: 600px;
+  min-height: 400px;
+}
+
+#index-login {
+//TODO delete this bg color
+  background-color: green;
+  float: left;
+  width: 20%;
+//TODO min-width causes the div to clear if window is too small. I don't want that.
+  min-width: 200px;
+}
+
+#index-footer {
+  background-color: red;
+  clear: both;
+  width: 800px;
+}
+
+#index-footer a {
+  color: #000000;
+}
+
+/* database or general error */
+.db-error, .error {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+/* the roster page body */
+#roster-body {
+	background-color: #ffffff;
+}
+
+/* the div that holds the roster table */
+#roster {
+
+}
+
+#roster table th {
+	background-color: #dddddd;
+}
+
+.gender-female {
+	background-color: #ffccff;
+}
+
+.gender-male {
+	background-color: #99ffff;
+}
+
+.gender-missing {
+	background-color: #cccccc;
+}

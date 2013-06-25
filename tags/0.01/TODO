@@ -1,0 +1,14 @@
+TODO db info must not be hard-coded in php files. Why? Obviously, there are problems having that in several places. Less obviously, it may be easier to get PHP to *not* do it's normal processing and return the file with that sensitive info to an attacker. That info should be in a file that the web server will refuse to serve (like wordpress)
+TODO player profiles (and every time the name appears, it should link to the profile)
+TODO foreign keys! i.e. player names in the 'team' table should 'point to' some data in a player table. so a team is just a composite of players from the player table
+TODO create players table and update team table to use entries in players table as foreign keys
+TODO allow different views? i.e. players and managers could have different landing pages after logging in. Or is this only for managers?
+TODO need unique IDs for players and leagues and teams, etc.
+TODO concurrent db editing?
+TODO need to read up on relational tables and figure out how to structure my db with leagues/games/teams/players
+TODO have a way to add notes
+TODO use javascript for reordering game lineups
+TODO need to read up on relational tables and figure out how to structure my db with leagues/games/teams/players
+
+DONE need to find out how to include php files so i can move the lineup display code into a separate file/function
+
