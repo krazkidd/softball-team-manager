@@ -1,10 +1,10 @@
 #index-body {
-//TODO this fixes the width, which is bad
+/*TODO this fixes the width, which is bad*/
 	width: 800px;
 }
 
 #index-body div {
-  //margin: 5px;
+  /*margin: 5px;*/
 }
 
 #index-header {
@@ -16,7 +16,7 @@
 }
 
 #index-header p {
-//TODO this isn't hiding the text properly!
+/*TODO this isn't hiding the text properly!*/
   position: relative;
   left: 9000;
 }
@@ -30,11 +30,11 @@
 }
 
 #index-login {
-//TODO delete this bg color
+/*TODO delete this bg color*/
   background-color: green;
   float: left;
   width: 20%;
-//TODO min-width causes the div to clear if window is too small. I don't want that.
+/*TODO min-width causes the div to clear if window is too small. I don't want that.*/
   min-width: 200px;
 }
 

@@ -15,7 +15,10 @@
 		</div>
 
 		<div id="player-profile-content">
-			<p>This should be pulling player info from a 'players' db table and displaying it. But it's not yet.</p>
+<?php
+	require("player-common-functions.php");
+	displayPlayerInfo($_GET['id']);
+?>
 		</div>
 	</div> <!-- body -->
   </body>

@@ -14,11 +14,13 @@
 			<h1>Roster</h1>
 		</div>
 
+		<div id="roster">
 <?php
 	require("roster-common-functions.php");
 
-	displayRoster();
+	displayRosterTable();
 ?>
+		</div> <!-- roster -->
 
 		<div id="form-edit-roster">
 			<form action="edit-roster.php" method="post">
