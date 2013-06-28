@@ -63,13 +63,15 @@ else
 
 ?>
 
+		<div id="roster">
 <?php
 
 	require("roster-common-functions.php");
 
-	displayRoster();
+	displayRosterTable();
 
 ?>
+		</div> <!-- roster -->
 
 			<div id="form-add-player">
 <!-- //TODO labels for input fields! -->
