@@ -15,6 +15,7 @@ TODO pictures! how to keep track of file locations? in the database? however i d
 TODO write function to format phone numbers
 TODO need a secondary key in players table (i.e. driver's license #) because that would more easily ensure players don't accidentally get grouped together on the player profile page
 TODO add nickName column to players table
+TODO there are global variables I can watch to keep track of state. meh.
 
 DONE need to find out how to include php files so i can move the lineup display code into a separate file/function
 
