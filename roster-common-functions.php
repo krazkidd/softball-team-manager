@@ -19,8 +19,7 @@ function displayRosterTable()
 //TODO fix query below and delete this
 echo "<p>This only shows the roster of the Oddballs from Spring 2013 at Golf Links on Mondays.</p>";
 //END DEBUG
-	// display just about everything from the 'team' table
-	$db_query_result = mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber, gender FROM players INNER JOIN teams on players.associatedTeam = teams.teamID WHERE teamID = 1");
+	$db_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber, gender FROM players INNER JOIN teams ON players.associatedTeam = teams.teamID WHERE teamID = 1 ORDER BY lastName");
 	echo "<table><tr><th>Player Name</th><th>Number</th><th>Gender</th></tr>";
 //DEBUG
 // show an error if the query failed

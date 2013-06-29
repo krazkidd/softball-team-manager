@@ -68,6 +68,19 @@
 	background-color: #dddddd;
 }
 
+/* the div that holds the table that shows the teams the player is currently on */
+#player_s-teams {
+
+}
+
+#player_s-teams table th {
+	background-color: #dddddd;
+}
+
+.spring13 {
+	background-color: #99ff66;
+}
+
 .gender-female {
 	background-color: #ffccff;
 }
@@ -78,4 +91,8 @@
 
 .gender-missing {
 	background-color: #cccccc;
+}
+
+.bold {
+	font-weight: bold;
 }
