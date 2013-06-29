@@ -12,6 +12,9 @@ TODO need to read up on relational tables and figure out how to structure my db 
 TODO display relevant (or funny quotes) from deGrasse Tyson or Bill Nye or somebody lol
 TODO I really must use prepared statements to be prepared against dats
 TODO pictures! how to keep track of file locations? in the database? however i do it, i want to use a hash of player id + salt so the images can't be easily pulled from an attacker
+TODO write function to format phone numbers
+TODO need a secondary key in players table (i.e. driver's license #) because that would more easily ensure players don't accidentally get grouped together on the player profile page
+TODO add nickName column to players table
 
 DONE need to find out how to include php files so i can move the lineup display code into a separate file/function
 

@@ -32,6 +32,5 @@
 		<!-- <div>
 			<p><a href="edit-roster.php">Edit Roster</a></p>
 		</div> -->
-	</div> <!-- body -->
-  </body>
+	</body>
 </html>

@@ -12,14 +12,15 @@
 	<body id="player-profile-body">
 		<div id="player-profile-header">
 			<h1>Player Profile</h1>
-		</div>
+		</div> <!-- player-profile-header -->
 
 		<div id="player-profile-content">
 <?php
+
 	require("player-common-functions.php");
 	displayPlayerInfo($_GET['id']);
+
 ?>
-		</div>
-	</div> <!-- body -->
-  </body>
+		</div> <!-- player-profile-content -->
+	</body>
 </html>

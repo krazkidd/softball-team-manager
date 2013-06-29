@@ -73,14 +73,13 @@ else
 ?>
 		</div> <!-- roster -->
 
-			<div id="form-add-player">
+		<div id="form-add-player">
 <!-- //TODO labels for input fields! -->
-				<form action="edit-roster.php" method="post">
-					<input type="input" name="playerName" />
+			<form action="edit-roster.php" method="post">
+				<input type="input" name="playerName" />
 <!-- //TODO use btnName or nameBtn for form elements (in given case, a button) -->
-					<input type="submit" name="addplayer" value="Add this player to my roster" />
-				</form>
-			</div> <!-- form-addplayer -->
-		</div> <!-- body -->
+				<input type="submit" name="addplayer" value="Add this player to my roster" />
+			</form>
+		</div> <!-- form-addplayer -->
 	</body>
 </html>
