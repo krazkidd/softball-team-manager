@@ -25,7 +25,7 @@ echo "<p>This only shows the roster of the Oddballs from Spring 2013 at Golf Lin
 	if (isset($_GET['orderby']) && $_GET['orderby'] == "name")
 		$orderBy = "lastName";
 	else
-		$orderBy = "gender";
+		$orderBy = "gender, lastName";
 
 	$db_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber, gender FROM players INNER JOIN teams ON players.associatedTeam = teams.teamID WHERE teamID = 1 ORDER BY " . $orderBy);
 $thisFile = $_SERVER["PHP_SELF"];
