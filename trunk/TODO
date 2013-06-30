@@ -15,7 +15,14 @@ TODO pictures! how to keep track of file locations? in the database? however i d
 TODO write function to format phone numbers
 TODO need a secondary key in players table (i.e. driver's license #) because that would more easily ensure players don't accidentally get grouped together on the player profile page
 TODO add nickName column to players table
-TODO there are global variables I can watch to keep track of state. meh.
+TODO TODO add dayOfWeek column to leagues table
+TODO now i need a way to keep track of "state". i.e. when i go to roster page, i need to know which season/league/team. OR i can just use a default and allow a selection box to change
+     * can i pass POST data between pages? or do i have to use hidden forms? there are global variables I can watch to keep track of state. meh.
+TODO add dayOfWeek column to leagues table
+     * and update entries in the table to have a dayOfWeek
+TODO UPDATE games table so that team columns are foreign keys:
+     * CREATE TABLE games (gameID INT UNSIGNED AUTO_INCREMENT KEY NOT NULL, date DATE, time TIME, homeTeam VARCHAR(64), visitingTeam VARCHAR(64), finalHomeScore INT UNSIGNED, finalVisitingScore INT UNSIGNED, associatedLeague INT UNSIGNED, FOREIGN KEY(associatedLeague) REFERENCES leagues(leagueID), FOREIGN KEY(homeTeam) REFERENCES teams(teamID), FOREIGN KEY(visitingTeam) REFERENCES teams(teamID));
+TODO add manager info to teams table (since manager doesn't have to be player)
 
 DONE need to find out how to include php files so i can move the lineup display code into a separate file/function
 
