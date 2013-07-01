@@ -73,6 +73,23 @@
 
 }
 
+#calendar {
+
+}
+
+#calendar table {
+	text-align: center;
+}
+
+#calendar table th {
+	background-color: #ffffcc;
+}
+
+#calendar .gameday {
+	background-image: url('images/ball.png');
+	font-weight: bold;
+}
+
 #player_s-teams table th {
 	background-color: #dddddd;
 }

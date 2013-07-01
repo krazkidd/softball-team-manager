@@ -22,15 +22,15 @@
 ?>
 		</div> <!-- roster -->
 
-		<div id="form-edit-roster">
+		<!-- <div id="form-edit-roster">
 			<form action="edit-roster.php" method="post">
-				<!-- <input type="submit" name="addplayer" value="Add Player" />
-				<input type="submit" name="removeplayer" value="Remove Player" /> -->
+				COMMENTOUT <input type="submit" name="addplayer" value="Add Player" />
+				<input type="submit" name="removeplayer" value="Remove Player" /> COMMENTOUT
 				<input type="submit" name="edit" value="Edit Roster" />
 			</form>
-		</div> <!-- form-edit-roster -->
-		<!-- <div>
-			<p><a href="edit-roster.php">Edit Roster</a></p>
-		</div> -->
+		</div> --> <!-- form-edit-roster -->
+		<div>
+			<p><a href="edit-roster.php">Edit Roster &gt; &gt;</a></p>
+		</div>
 	</body>
 </html>
