@@ -21,7 +21,6 @@ echo "<p>This only shows the roster of the Oddballs from Spring 2013 at Golf Lin
 //END DEBUG
 
 //TODO is there a proper way to compare strings?
-//TODO how to stop warning when 'orderby' is not in URL?
 	if (isset($_GET['orderby']) && $_GET['orderby'] == "name")
 		$orderBy = "lastName";
 	else
