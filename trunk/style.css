@@ -104,10 +104,12 @@
 
 .gender-female {
 	background-color: #ffccff;
+        /*color: #FF00FF;*/ /* unimaginitive pink */
 }
 
 .gender-male {
 	background-color: #99ffff;
+        /*color: #3333FF;*/ /* electric booga-blue */
 }
 
 .gender-missing {
@@ -117,3 +119,106 @@
 .bold {
 	font-weight: bold;
 }
+
+/************* field layout rules *************/
+
+#field-layout-body {
+        /*width: 600px;
+        height: 330px;*/
+}
+      
+#softballField { 
+        background-image: url('images/baseball-field-w-t-ball-positions-hi.png');
+        background-repeat: no-repeat;
+        width: 600px;
+        height: 330px;
+        position: relative;
+        padding: 0px;
+        margin: 0px;
+}
+      
+#gameInfo {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 2px;
+        background-color: #000000;
+        /*width: 100%;*/
+}
+
+#gameInfo p {
+	font-family: sans-serif;
+	font-weight: bold;
+	color: #dd3300;
+	padding: 0px;
+	text-align: center;
+	/*margin: auto 0 auto 0;*/
+}
+
+.playerPos {
+	position: absolute;
+	background-color: white;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+}
+
+.playerPos p {
+	font-family: sans-serif;
+	font-weight: bold;
+	padding: 0px;
+	margin: 0px;
+}
+
+#pitcher {
+	left: 128px;
+	top: 214px;
+}
+
+#catcher {
+	left: 14px;
+	top: 284px;
+}
+
+#firstBaseman {
+	left: 236px;
+	top: 274px;
+}
+
+#secondBaseman {
+	left: 241px;
+	top: 184px;
+}
+
+#thirdBaseman {
+	left: 76px;
+	top: 150px;
+}
+
+#shortstop {
+	left: 148px;
+	top: 121px;
+}
+
+#leftFielder {
+	left: 73px;
+	top: 33px;
+}
+
+/* a.k.a. left center */
+#centerFielder {
+	left: 219px;
+	top: 55px;
+}
+
+#rightFielder {
+	left: 361px;
+	top: 216px;
+}
+
+/* a.k.a. right center */
+#rover {
+	left: 348px;
+	top: 91px;
+}
+
+/************* END field layout rules *************/

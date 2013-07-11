@@ -24,6 +24,7 @@ TODO UPDATE games table so that team columns are foreign keys:
      * CREATE TABLE games (gameID INT UNSIGNED AUTO_INCREMENT KEY NOT NULL, date DATE, time TIME, homeTeam VARCHAR(64), visitingTeam VARCHAR(64), finalHomeScore INT UNSIGNED, finalVisitingScore INT UNSIGNED, associatedLeague INT UNSIGNED, FOREIGN KEY(associatedLeague) REFERENCES leagues(leagueID), FOREIGN KEY(homeTeam) REFERENCES teams(teamID), FOREIGN KEY(visitingTeam) REFERENCES teams(teamID));
 TODO add manager info to teams table (since manager doesn't have to be player)
 TODO add license (AGPL) footer to every page. and make it possible to download according to license
+TODO mysql_connect("your.hostaddress.com", "username", "password") or die(mysql_error()); 
 
 DONE need to find out how to include php files so i can move the lineup display code into a separate file/function
 DONE add dayOfWeek column to leagues table
