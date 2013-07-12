@@ -1,3 +1,8 @@
+BIG TODO add roster table to database? instead of multiple players in players table where the only difference is the leagues/teams they are in
+BIG TODO add lineups table. every game may have a different lineup
+
+
+
 TODO db info must not be hard-coded in php files. Why? Obviously, there are problems having that in several places. Less obviously, it may be easier to get PHP to *not* do it's normal processing and return the file with that sensitive info to an attacker. That info should be in a file that the web server will refuse to serve (like wordpress)
      * look up PHP session variables. but are those for all of PHP? what about user session variables? (i.e. let the user select a default season/league)
 TODO player profiles (and every time the name appears, it should link to the profile)
