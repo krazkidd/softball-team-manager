@@ -28,8 +28,8 @@
 //TODO parse date from URL
 	}
 	else
-//TODO pick better default date
 	{
+//TODO pick better default date. 
 		$date = mktime(0, 0, 0, 3, 25, 2013);
 	}
 
@@ -68,24 +68,62 @@ if ($db_query_result == NULL)
 }
 //END DEBUG
 
-		echo "<table><tr><th>Time</th><th>Home Team</th><th>Visiting Team</th>";
-//TODO if date/time of game is passed, show result
-		//if ...
-		//	"echo <th>Final Home Score</th><th>Final Visiting Score</th>";
-		echo "</tr>";
 //DEBUG
-echo date("Y-m-d", $date); 
+echo "<p>" . date("Y-m-d", $date) . "</p>"; 
 //END DEBUG
-		while ($row = mysqli_fetch_array($db_query_result))
+
+//TODO move these definition somewhere else
+function getHourFromMySQLTime($timeString)
+{
+	return substr($timeString, 0, 2);
+}
+function getMinuteFromMySQLTime($timeString)
+{
+	return substr($timeString, 3, 2);
+}
+function getYearFromMySQLDate($dateString)
+{
+	return substr($dateString, 0, 4);
+}
+function getMonthFromMySQLDate($dateString)
+{
+	return substr($dateString, 5, 2);
+}
+function getDayFromMySQLDate($dateString)
+{
+	return substr($dateString, 8, 2);
+}
+
+
+//TODO need ID for table
+		echo "<table><tr><th>Time</th><th>Home Team</th><th>Visiting Team</th>";
+		$row = mysqli_fetch_array($db_query_result);
+		// if date/time of first game + 1 hour is passed, show result columns
+//TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page
+		$showResults = false;
+		if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
+		{
+			echo "<th>Final Home Score</th><th>Final Visiting Score</th>";
+			$showResults = true;
+		}
+
+		echo "</tr>";
+
+		do
 		{
 			$thisFile = $_SERVER["PHP_SELF"];
 			$parts = Explode('/', $thisFile);
 			$thisFile = $parts[count($parts) - 1];
 //TODO make every row element a link?
-			echo "<tr><td><a href=\"" . $thisFile . "?gameid={$row['gameid']}\">{$_GET['time']}</a></td><td>{$_GET['homeTeam']}</td><td>{$_GET['visitingTeam']}</td></tr>";
-		}
+			echo "<tr><td><a href=\"" . $thisFile . "?gameid={$row['gameId']}\">{$row['time']}</a></td><td>{$row['homeTeam']}</td><td>{$row['visitingTeam']}</td>";
 
-		
+			if ($showResults)
+				echo "<td>{$row['finalHomeScore']}</td><td>{$row['finalVisitingScore']}</td>";
+
+			echo "</tr>";
+		}  while ($row = mysqli_fetch_array($db_query_result));
+
+		echo "</table>";
 	}
 	else
 //TODO don't use die(), and close the db if needed
