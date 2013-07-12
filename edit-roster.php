@@ -66,7 +66,7 @@ else
 		<div id="roster">
 <?php
 
-	require("roster-common-functions.php");
+	require_once("roster-common-functions.php");
 
 	displayRosterTable();
 

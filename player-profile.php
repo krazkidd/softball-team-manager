@@ -17,7 +17,7 @@
 		<div id="player-profile-content">
 <?php
 
-	require("player-common-functions.php");
+	require_once("player-common-functions.php");
 	displayPlayerInfo($_GET['id']);
 
 ?>

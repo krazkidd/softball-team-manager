@@ -16,10 +16,10 @@
 		</div>
 
 
-TODO get next game data (or user-select game from GET/POST) 
-TODO get list of players in that game
 
 <?php
+//TODO get next game data (or user-select game from GET/POST) 
+//TODO get list of players in that game
 	// create db connection
 	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs") or die(mysqli_error());
 
