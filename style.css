@@ -73,6 +73,15 @@
 
 }
 
+
+#game-list table th {
+	font-weight: bold;
+}
+
+#game-list table td {
+	background-color: #cccccc;
+}
+
 #calendar {
 
 }
