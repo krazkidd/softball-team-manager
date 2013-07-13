@@ -91,12 +91,31 @@ if ($db_query_result == NULL)
 	}
 	else
 	{
+//TODO move this up and remove the same code from above if case
+		// create db connection
+		$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
+		// check for success
+		if (mysqli_connect_errno($db_con))
+		{
+			echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
+			exit();
+		}
+
 		// print this month's calendar
-		$currentDate = time();
+//		$currentDate = time();
+//TODO change this back to current time (above line)
+//TODO this shouldn't really be called currentDate but rather default date (or date given by argument)
+//     Or target date or something. This gets *compared* against the current date. Maybe this should just be target MONTH???
+ERROR okay, this page should take over for specific dates--what Game Info is doing now
+		$currentDate = mktime(0, 0, 0, 5, 1, 2013);
 
 		$dayPart = date('d', $currentDate);
 		$monthPart = date('m', $currentDate);
 		$yearPart = date('Y', $currentDate);
+
+//TODO select ALL games for a team, or just for one league, depending on user preference
+//TODO better query result var name
+		$db_query_result = mysqli_query($db_con, "SELECT gameID, date FROM games JOIN leagues ON associatedLeague = leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE games.date LIKE '$yearPart-$monthPart-%' GROUP BY date ORDER BY date");
 
 		// get the 1st of the month
 		$firstDay = mktime(0, 0, 0, $monthPart, 1, $yearPart);
@@ -162,21 +181,34 @@ if ($db_query_result == NULL)
 			$weeklyDayCount++;
 		}
 
-		// keep track of the day of the month
+//TODO move this somewhere else 
+function getDayFromMySQLDate($dateString)
+{
+//TODO check for NULL argument?
+	return substr($dateString, 8, 2);
+}
+		// print the days of the month
 		$monthlyDayCount = 1;
+//TODO need to check that this is not null!
+		$gameDateRow = mysqli_fetch_array($db_query_result);
 		while ($monthlyDayCount <= $numDaysInMonth)
 		{
-//TODO this gameday check below will have to change when i decide what to link to in the calendar
-//TODO the check for past dates will need a change when I allow different months to be viewed
-			$elementClass = '';
-			if ($weeklyDayCount == 2 || $weeklyDayCount == 4)
-				$elementClass = "gameday";
-//TODO yes this check here is redundant...but only until I allow different months to be displayed
-			if ($yearPart <= date('Y') && $monthPart <= date('m') && $monthlyDayCount < date('d'))
-				$elementClass = $elementClass . " calDatePassed";
+			$gameDate = NULL;
+			$elementClass = NULL;
 
-//TODO is it okay to have the class attribute if it's empty?
-			echo "<td class=\"{$elementClass}\">{$monthlyDayCount}</td>";
+			// if there is/was a game on this date, link to it and set the next game date to check for
+			if ($monthlyDayCount == getDayFromMySQLDate($gameDateRow['date']))
+			{
+				$elementClass = "gameday";
+				$gameDate = $gameDateRow['date'];
+				$gameDateRow = mysqli_fetch_array($db_query_result);
+			}
+			// but if the date has already passed, don't put a cute image
+			if (mktime(0, 0, 0, $monthPart, $dayPart + 1, $yearPart) < time())
+				$elementClass = "calDatePassed";
+
+//TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
+			echo "<td" . ($elementClass != NULL ? " class=\"$elementClass\"" : "") . ">" . ($gameDate != NULL ? "<a href=\"game-info.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount) . "</td>";
 			
 			$monthlyDayCount++;
 			
