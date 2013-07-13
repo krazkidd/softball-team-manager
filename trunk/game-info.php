@@ -29,6 +29,11 @@
 	}
 	else
 	{
+
+
+ERROR this page should only take a game ID, not a date. Dates should go to calendar page
+
+
 //TODO pick better default date. 
 		$date = mktime(0, 0, 0, 3, 25, 2013);
 	}
@@ -134,6 +139,7 @@ function mktimeFromMySQLTime($timeString)
 			{
 				$finalHome = $row['finalHomeScore'];
 				$finalAway = $row['finalVisitingScore'];
+//TODO check to see if the scores are NULL and output something appropriate (I show the score columns before all games have finished)
 				echo "<td>{$finalHome}" . ($finalHome > $finalAway ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td><td>{$finalAway}" . ($finalAway > $finalHome ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td>";
 			}
 			echo "</tr>";
