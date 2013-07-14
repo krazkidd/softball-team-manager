@@ -18,8 +18,49 @@
 
 		<div id="calendar">
 <?php
+//TODO move these definition somewhere else
+function getHourFromMySQLTime($timeString)
+{
+	return substr($timeString, 0, 2);
+}
+function getMinuteFromMySQLTime($timeString)
+{
+	return substr($timeString, 3, 2);
+}
+function getYearFromMySQLDate($dateString)
+{
+	return substr($dateString, 0, 4);
+}
+function getMonthFromMySQLDate($dateString)
+{
+	return substr($dateString, 5, 2);
+}
+function getDayFromMySQLDate($dateString)
+{
+//TODO check for NULL argument?
+	return substr($dateString, 8, 2);
+}
+
+//TODO add second parameter for date?
+function mktimeFromMySQLTime($timeString)
+{
+	return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString));
+}
+
+//TODO move this to another file!
+	// create db connection
+	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
+	// check for success
+	if (mysqli_connect_errno($db_con))
+	{
+		echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
+		exit();
+	}
+
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
 
+//TODO so, do i want to use 'view' variable or 'date' (see next condition)
+//     Well, this is for when the user clicks on the day of the week, so it needs to be kept
 	if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 	{
 //TODO delete this line below when this page is prettified
@@ -54,15 +95,6 @@ echo "<p class=\"error\">This still needs some work.</p>";
 				exit();
 		}
 
-		// create db connection
-		$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-		// check for success
-		if (mysqli_connect_errno($db_con))
-		{
-			echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-			exit();
-		}
-
 		$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day'");
 //DEBUG
 // show an error if the query failed
@@ -85,28 +117,72 @@ if ($db_query_result == NULL)
 			echo "<tr><td>{$row['division']}</td><td>{$row['class']}</td></tr>";
 		}
 		echo "</table>";
+	}
+	else if (isset($_GET['date']))
+	{
+//TODO make sure date argument is in proper format
+		$db_game_info_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
+//DEBUG
+// show an error if the query failed
+if ($db_game_info_query_result == NULL)
+{
+  echo "<p class=\"db-error\">The game info query result was NULL :(</p>";
+}
+//END DEBUG
 
-//TODO Do I really *not* have to close the connection?
-		mysqli_close($db_con);
+//DEBUG
+echo "<p>{$_GET['date']}</p>"; 
+//END DEBUG
+
+//TODO I think i would like a better ID for this div, and i would especially like to merge it's style with the case where a game ID is present
+		echo "<div id=\"game-list\">";
+		echo "<table><tr><th>Time</th><th>Home Team</th><th>Visiting Team</th>";
+		$row = mysqli_fetch_array($db_game_info_query_result);
+		// if date/time of first game + 1 hour is passed, show result columns
+//TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page
+		$showResults = false;
+		if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
+		{
+			echo "<th>Final Home Score</th><th>Final Visiting Score</th>";
+			$showResults = true;
+		}
+
+		echo "</tr>";
+
+		do
+		{
+			$thisFile = $_SERVER["PHP_SELF"];
+			$parts = Explode('/', $thisFile);
+			$thisFile = $parts[count($parts) - 1];
+//TODO make every row element a link?
+//TODO this isn't working. right now, i can get the team names from the one query but i have to use a numerical index, which can change... Either fix the original query to fix that,
+// or fix pulling the team names from the teams table
+			// get team names
+			//$tmpArray = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
+			//$homeTeam = $tmpArray['homeTeam'];
+			//$visitingTeam = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"))['visitingTeam'];
+			echo "<tr><td><a href=\"game-info.php?gameid={$row['gameID']}\">" . date("g\:i a", mktimeFromMySQLTime($row['time'])) . "</a></td><td>{$row[9]}</td><td>{$row[12]}</td>";
+
+			if ($showResults)
+			{
+				$finalHome = $row['finalHomeScore'];
+				$finalAway = $row['finalVisitingScore'];
+//TODO check to see if the scores are NULL and output something appropriate (I show the score columns before all games have finished)
+				echo "<td>{$finalHome}" . ($finalHome > $finalAway ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td><td>{$finalAway}" . ($finalAway > $finalHome ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td>";
+			}
+			echo "</tr>";
+		}  while ($row = mysqli_fetch_array($db_game_info_query_result));
+
+		echo "</table>";
+		echo "</div> <!-- game-list -->";
 	}
 	else
 	{
-//TODO move this up and remove the same code from above if case
-		// create db connection
-		$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-		// check for success
-		if (mysqli_connect_errno($db_con))
-		{
-			echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-			exit();
-		}
-
 		// print this month's calendar
 //		$currentDate = time();
 //TODO change this back to current time (above line)
 //TODO this shouldn't really be called currentDate but rather default date (or date given by argument)
 //     Or target date or something. This gets *compared* against the current date. Maybe this should just be target MONTH???
-ERROR okay, this page should take over for specific dates--what Game Info is doing now
 		$currentDate = mktime(0, 0, 0, 5, 1, 2013);
 
 		$dayPart = date('d', $currentDate);
@@ -181,12 +257,6 @@ ERROR okay, this page should take over for specific dates--what Game Info is doi
 			$weeklyDayCount++;
 		}
 
-//TODO move this somewhere else 
-function getDayFromMySQLDate($dateString)
-{
-//TODO check for NULL argument?
-	return substr($dateString, 8, 2);
-}
 		// print the days of the month
 		$monthlyDayCount = 1;
 //TODO need to check that this is not null!
@@ -208,7 +278,7 @@ function getDayFromMySQLDate($dateString)
 				$elementClass = "calDatePassed";
 
 //TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
-			echo "<td" . ($elementClass != NULL ? " class=\"$elementClass\"" : "") . ">" . ($gameDate != NULL ? "<a href=\"game-info.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount) . "</td>";
+			echo "<td" . ($elementClass != NULL ? " class=\"$elementClass\"" : "") . ">" . ($gameDate != NULL ? "<a href=\"calendar.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount) . "</td>";
 			
 			$monthlyDayCount++;
 			
@@ -229,7 +299,9 @@ function getDayFromMySQLDate($dateString)
 		// close table
 		echo "</tr>\n</table>";
 	}
-		
+
+//TODO Do I really *not* have to close the connection?
+	mysqli_close($db_con);
 
 ?>
 		</div> <!-- calendar -->
