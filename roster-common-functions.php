@@ -4,16 +4,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 //END DEBUG
 
+require_once("common-functions.php");
+
 function displayRosterTable()
 {
-	// create db connection
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-	// check for success
-	if (mysqli_connect_errno($db_con))
-	{
-		echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-		exit();
-	}
+	$db_con = connectToDB();
 
 //DEBUG
 //TODO fix query below and delete this
@@ -60,8 +55,7 @@ if ($db_query_result == NULL)
 
 	echo "<p class=\"bold\">Total: " . $total . "</p>";
 
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
+	closeDB($db_con);
 }
 
 ?>

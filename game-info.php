@@ -8,6 +8,9 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" /> 
+<?php
+	require_once("common-functions.php");
+?>
 	</head>
 
 	<body id="game-info-body">
@@ -19,9 +22,7 @@
 <?php
 //TODO check GET or POST for a game ID. if nothing, redirect to calendar? or just show a table? or pick next game?
 
-	// create db connection
-//TODO don't use die()
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs") or die(mysqli_error());
+	$db_con = connectToDB();
 
 	// check if a whole night is requested or just a single game
 //TODO to be more robust, i should prioritize gameid over date, i.e. ignore date if gameid is present
@@ -51,8 +52,7 @@ if ($db_team_info_query_result == NULL)
 //TODO don't use die(), and close the db if needed
 		die("I need a gameid.");
 
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
+	closeDB($db_con);
 
 ?>
 

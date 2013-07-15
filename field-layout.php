@@ -8,6 +8,9 @@
 		<meta http-equiv="content-type" 
 			content="text/html;charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="style.css" /> 
+<?php
+	require_once("common-functions.php");
+?>
 	</head>
 
 	<body id="field-layout-body">
@@ -15,13 +18,10 @@
 			<h1>Field Layout</h1>
 		</div>
 
-
-
 <?php
 //TODO get next game data (or user-select game from GET/POST) 
 //TODO get list of players in that game
-	// create db connection
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs") or die(mysqli_error());
+	$db_con = connectToDB();
 
 //TODO check GET or POST for a game ID. if nothing, redirect to calendar? or just show a table? or pick next game?
 	if (isset($_GET['gameid']) && isset($_GET['teamid']))
@@ -42,17 +42,10 @@ if ($db_query_result == NULL)
 		//ERROR do switch block here, use css classes from google stuff
 	}
 
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
+	closeDB($db_con);
 }
 
 ?>
-
-
-
-
-
-
 
 
 <?php

@@ -1,19 +1,10 @@
 <?php
 
+require_once("common-functions.php");
+
 function displayPlayerInfo($playerID)
 {
-//DEBUG
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-//END DEBUG
-	// create db connection
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-	// check for success
-	if (mysqli_connect_errno($db_con))
-	{
-		echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-		exit();
-	}
+	$db_con = connectToDB();
 
 	$db_query_result = mysqli_query($db_con, "SELECT firstName, lastName, phoneNumber, emailAddress, shirtNumber, gender FROM players WHERE players.playerID = $playerID");
 //DEBUG
@@ -64,8 +55,8 @@ if ($db_query_result == NULL)
 		echo "</table>";
 
 	echo "</div> <!-- player_s-teams -->";
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
+
+	closeDB($db_con);
 }
 
 ?>

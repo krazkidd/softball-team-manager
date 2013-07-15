@@ -1,15 +1,11 @@
 THIS IS NOT BEING USED.
 
 <?php
-	// create db connection
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-	// check for success
-	if (mysqli_connect_errno($db_con))
-	{
-//TODO this file isn't supposed to return HTML, so I need a different way of communicating this error
-		echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-		exit();
-	}
+	require_once("common-functions.php");
+?>
+
+<?php
+	$db_con = connectToDB();
 
 	// get player names and numbers and show them in a table
 //TODO user input needs to be sanitized
@@ -33,6 +29,5 @@ if ($db_query_result == NULL)
 	}
 	echo "</table>";
 
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
+	closeDB($db_con);
 ?>
