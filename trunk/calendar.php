@@ -9,6 +9,10 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" /> 
+<?php
+	require_once("common-functions.php");
+	require_once("calendar-common-functions.php");
+?>
 	</head>
 
 	<body id="calendar-body">
@@ -18,44 +22,7 @@
 
 		<div id="calendar">
 <?php
-//TODO move these definition somewhere else
-function getHourFromMySQLTime($timeString)
-{
-	return substr($timeString, 0, 2);
-}
-function getMinuteFromMySQLTime($timeString)
-{
-	return substr($timeString, 3, 2);
-}
-function getYearFromMySQLDate($dateString)
-{
-	return substr($dateString, 0, 4);
-}
-function getMonthFromMySQLDate($dateString)
-{
-	return substr($dateString, 5, 2);
-}
-function getDayFromMySQLDate($dateString)
-{
-//TODO check for NULL argument?
-	return substr($dateString, 8, 2);
-}
-
-//TODO add second parameter for date?
-function mktimeFromMySQLTime($timeString)
-{
-	return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString));
-}
-
-//TODO move this to another file!
-	// create db connection
-	$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-	// check for success
-	if (mysqli_connect_errno($db_con))
-	{
-		echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-		exit();
-	}
+	$db_con = connectToDB();
 
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
 
@@ -300,9 +267,7 @@ echo "<p>{$_GET['date']}</p>";
 		echo "</tr>\n</table>";
 	}
 
-//TODO Do I really *not* have to close the connection?
-	mysqli_close($db_con);
-
+	closeDB($db_con);
 ?>
 		</div> <!-- calendar -->
 

@@ -7,6 +7,9 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" /> 
+<?php
+	require_once("common-functions.php");
+?>
 	</head>
 
 	<body id="edit-roster-body">
@@ -20,18 +23,11 @@
 	{
 		// I don't need to do anything here, really
 	}
+	// the user has put a name into the field and pressed the 'Add' button. Try adding to the db
 	else if (!empty($_POST['addplayer']))
 	{
 //TODO sanitize user input!!!
-		// the user has put a name into the field and pressed the 'Add' button. Try adding to the db
-		// connect to the db
-		$db_con = mysqli_connect("localhost", "OddAdmin", "OddPass", "oddballs");
-		// check for success
-		if (mysqli_connect_errno($db_con))
-		{
-			echo "<p class=\"db-error\">Connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-			exit();
-		}
+		$db_con = connectToDB();
 
 		// add the new player
 		$db_query_result = mysqli_query($db_con, "INSERT INTO team (name, number, gender) VALUES (\"" . $_POST['playerName'] . "\", NULL, NULL)");
@@ -46,7 +42,7 @@ else
 }*/
 //END DEBUG
 
-		mysqli_close($db_con);
+		closeDB($db_con);
 	}
 	else if (!empty($_POST['removeplayer']))
 	{

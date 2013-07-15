@@ -3,6 +3,8 @@ BIG TODO add lineups table. every game may have a different lineup
 
 
 
+TODO add functions like linkToTeam(teamID) that can be called from anywhere (but don't overdo it)
+TODO add more info to page titles (i.e. name of site)
 TODO on Calendar page, allow options to show all games for a league/season/team/player
 TODO on Calendar page, put link on single-date page back to calendar, or even better, show the calendar!
 TODO tourney page/table
