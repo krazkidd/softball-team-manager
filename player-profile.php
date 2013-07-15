@@ -7,6 +7,9 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" /> 
+<?php
+	require_once("player-common-functions.php");
+?>
 	</head>
 
 	<body id="player-profile-body">
@@ -17,7 +20,6 @@
 		<div id="player-profile-content">
 <?php
 
-	require_once("player-common-functions.php");
 	displayPlayerInfo($_GET['id']);
 
 ?>
