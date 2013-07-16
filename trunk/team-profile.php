@@ -23,6 +23,18 @@
 	{
 		$db_con = connectToDB();
 
+
+
+
+
+//TODO Team Profile page should show current season. put link to see past/all seasons)
+
+
+
+
+
+
+
 //TODO i think this page should show all leagues in current season (and maybe past seaons). so do a query on the name, not ID. (unfortunately, names aren't necessarily unique)
 //TODO a single team gets different ID's across leagues/seasons. make that known to the user; provide links to see all leagues the team is in
 		$db_query_result = mysqli_query($db_con, "SELECT * FROM teams JOIN leagues ON teams.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE teams.teamID = {$_GET['id']}");

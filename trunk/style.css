@@ -235,3 +235,33 @@
 }
 
 /************* END field layout rules *************/
+
+#home-team {
+	background-color: yellow;
+	float: left;
+	width: 40%;
+	padding:10px;
+	margin: 2px;
+}
+
+#away-team {
+	background-color: orange;
+	float: left;
+	width: 40%;
+	padding:10px;
+	margin: 2px;
+}
+
+#home-team h3, #away-team h3 {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#final-score {
+	background-color: #ffcccc;
+	clear: both;
+}
+
+#final-score p {
+	text-align: center;
+}
