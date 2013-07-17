@@ -60,16 +60,16 @@ if ($db_team_info_query_result == NULL)
 		<div id="game-info">
 			<p><?= $gameInfo['description'] ?></p>
 			<?php $gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date'])); ?>
-			<p><?= date('l\, F j\, Y', $gameTime) ?></p>
-			<p><?= date('g\:i', $gameTime) ?></p>
+			<p><?= date("l\, F j\, Y", $gameTime) ?></p>
+			<p><?= date("g\:i a", $gameTime) ?></p>
 			<p><?php echo $gameInfo['park'] . ", Field #" . $gameInfo['field']; ?></p>
 					
 		</div> <!-- game-info -->
 
-TODO get regular season record (ONLY UP TO the game date?)
 		<div id="home-team">
 			<h2>Home - <a href="team-profile.php?id=<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
 			<img alt="<?= $homeTeamInfo['name'] ?>" src="images/team-no-image.png" />
+			<p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
 		</div> <!-- home-team -->
 		
 		<div id="away-team">
