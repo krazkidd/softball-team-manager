@@ -3,6 +3,9 @@ BIG TODO add lineups table. every game may have a different lineup
 
 
 
+TODO add tourney games from last season. I think i need to alter the table definition first so games can have a tourney/regular/bye type
+TODO team-style.css -- gets written to with PHP? each team in the teams table gets a hash and that hash is used as an id/class that can be used from CSS
+TODO instead of checking time to see if a game has passed, just check if final scores are in the table...duh
 TODO put interesting links on frontpage, like rulebooks, maybe?. put "powered by" + logos on frontpage
 TODO add a little trophy icon next to name of team in 1st place of standings
 TODO require password before database edits? as in: user can be logged in but must enter a password still for edits

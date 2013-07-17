@@ -103,10 +103,16 @@
 	font-weight: bold;
 }
 
-.calDatePassed {
+#calendar .calDatePassed {
 	background-image: none;
 	background-color: #dddddd;
 }
+
+#calendar .todays-date {
+	border-color: #22eecc;
+	border-width: 2px;
+}
+
 #player_s-teams table th {
 	background-color: #dddddd;
 }
