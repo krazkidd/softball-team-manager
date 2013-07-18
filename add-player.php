@@ -1,7 +1,7 @@
 THIS IS NOT BEING USED.
 
 <?php
-	require_once("common-functions.php");
+	require_once("common-definitions.php");
 ?>
 
 <?php

@@ -1,6 +1,6 @@
 <?php
 
-require_once("common-functions.php");
+require_once("common-definitions.php");
 
 function getHourFromMySQLTime($timeString)
 {
@@ -123,6 +123,7 @@ function displayCalendar($month, $year)
 			$gameDate = $gameRow['date'];
 			$gameRow = mysqli_fetch_array($gameList);
 		}
+//TODO check for roster freeze date (use a border style and *append* the class so i doesn't conflict with another, except it should override the style for today's date)
 		// but if the date has already passed, don't put a cute image
 		if (mktime(0, 0, 0, $month, $monthlyDayCount + 1, $year) < time())
 			$elementClass = "calDatePassed";
