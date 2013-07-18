@@ -33,4 +33,15 @@ function closeDB($db_con)
 	return mysqli_close($db_con);
 }
 
+function isLoggedIn()
+{
+//TODO check PHP session
+	return true;
+}
+
+function getUserName()
+{
+	return "Username";
+}
+
 ?>
