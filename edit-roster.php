@@ -38,7 +38,7 @@
 }
 else
 {
-	echo "<p>Add player success?<br />\$db_query_result = " . $db_query_result . "</p>";
+	echo "<p>Add player success?<br>\$db_query_result = " . $db_query_result . "</p>";
 }*/
 //END DEBUG
 

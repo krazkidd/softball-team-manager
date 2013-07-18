@@ -14,6 +14,11 @@ $_DBTABLE = $_DBPREFIX . "oddballs";
  */
 function connectToDB()
 {
+	global $_DBHOST;
+	global $_DBUSER;
+	global $_DBPASS;
+	global $_DBTABLE;
+
 	// create db connection
 //TODO this info should be outside the web root and be user-configurable, like WordPress/Joomla!
 	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBTABLE);
@@ -41,7 +46,11 @@ function isLoggedIn()
 
 function getUserName()
 {
-	return "Username";
+	if (isLoggedIn())
+		return "LoggedInUser";
+	else
+//TODO don't allow a username like "Guest"
+		return "Guest";
 }
 
 ?>

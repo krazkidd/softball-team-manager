@@ -24,14 +24,16 @@
 	if (isLoggedIn())
 	{
 ?>
-			<p><a href="roster.php">Go to Roster &gt; &gt;</a><br />
+			<p><a href="roster.php">Go to Roster &gt; &gt;</a><br>
 			<a href="calendar.php">Go to Calendar &gt; &gt;</a></p>
 <?php
 	}
 	else
 	{
+//TODO I can still start a session for a not-logged in user. They should be able to see games, but not players
 ?>
-			<p>You are not logged in.</p>
+			<p>You are not logged in.
+			<a href="calendar.php">Go to Calendar &gt; &gt;</a></p>
 <?php
 	}
 ?>
