@@ -20,8 +20,8 @@ if ($db_query_result == NULL)
 	echo "<img title=\"" . $playerInfo['firstName'] . " " . $playerInfo['lastName'] . "\" src=\"images/player-no-image.gif\" />";
 	echo "<h2 id=\"player-name-header\">" . $playerInfo['firstName'] . " " . $playerInfo['lastName'] . "</h2>";
 	echo "<h3>#" . $playerInfo['shirtNumber'] . "</h3>";
-	echo "<p><span class=\"bold\">Phone:</span> " . $playerInfo['phoneNumber'] . "<br />";
-	echo "<span class=\"bold\">Email:</span> " . $playerInfo['emailAddress'] . "<br />";
+	echo "<p><span class=\"bold\">Phone:</span> " . $playerInfo['phoneNumber'] . "<br>";
+	echo "<span class=\"bold\">Email:</span> " . $playerInfo['emailAddress'] . "<br>";
 	echo "<span class=\"bold\">Gender:</span> " . $playerInfo['gender'] . "</p>";
 
 	// print current/most recent teams in a table
