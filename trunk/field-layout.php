@@ -9,7 +9,7 @@
 			content="text/html;charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="style.css" /> 
 <?php
-	require_once("common-functions.php");
+	require_once("common-definitions.php");
 ?>
 	</head>
 
