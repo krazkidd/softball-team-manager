@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	require_once("common-definitions.php");
+
+	if (!isLoggedIn())
+		header("Location: index.php");
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -22,10 +29,21 @@
 
 		<div id="roster">
 <?php
-//TODO check if user is logged in. if not, send them to the home page
+	$db_con = connectToDB();
+	// get this user's teams for the preferred season
+//TODO the teams table should have a manager column that is a foreign key to the user/login table. then i could get all teams with the manager who is the currently logged-in user
+	$db_team_query_result = mysqli_query($db_con, "SELECT teamID FROM teams JOIN leagues ON teams.associatedLeague = leagues.LeagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE name = '" . getUserTeamName() . "' AND seasonID = '" . getUserSeasonID() . "'");
+//DEBUG
+if ($db_team_query_result == NULL)
+	echo "<p class=\"db-error\">Team query result was NULL :(</p>";
+//END DEBUG
 
-//TODO check what team the user wants/is associated with and display that roster. if you don't know, ask.
-	displayRosterTable();
+	while ($teamRow = mysqli_fetch_array($db_team_query_result))
+	{
+		displayRosterTable($teamRow["teamID"]);
+	}
+
+	closeDB($db_con);
 ?>
 		</div> <!-- roster -->
 
