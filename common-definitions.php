@@ -1,4 +1,5 @@
 <?php
+//TODO use a persistent/global db connection
 
 $_DEFAULTSEASON = 1;
 
