@@ -32,6 +32,7 @@
 	$db_con = connectToDB();
 	// get this user's teams for the preferred season
 //TODO the teams table should have a manager column that is a foreign key to the user/login table. then i could get all teams with the manager who is the currently logged-in user
+//TODO need a way to order by dayOfWeek, but not alphabetically... Can I specify an order?
 	$db_team_query_result = mysqli_query($db_con, "SELECT teamID FROM teams JOIN leagues ON teams.associatedLeague = leagues.LeagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE name = '" . getUserTeamName() . "' AND seasonID = '" . getUserSeasonID() . "'");
 //DEBUG
 if ($db_team_query_result == NULL)
