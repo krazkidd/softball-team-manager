@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -32,7 +35,7 @@
 	{
 //TODO I can still start a session for a not-logged in user. They should be able to see games, but not players
 ?>
-			<p>You are not logged in.
+			<p>You are not logged in.<br>
 			<a href="calendar.php">Go to Calendar &gt; &gt;</a></p>
 <?php
 	}

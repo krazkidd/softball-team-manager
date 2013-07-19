@@ -41,15 +41,17 @@ function closeDB($db_con)
 function isLoggedIn()
 {
 //TODO check PHP session
-	return true;
+//TODO should I *not* assume session_start() has been called?
+//TODO if i am going to allow guests to have sessions, this might actually return true for them, if I decide to use it
+	return isset($_SESSION["username"]);
 }
 
 function getUserName()
 {
 	if (isLoggedIn())
-		return "LoggedInUser";
+		return $_SESSION["username"];
 	else
-//TODO don't allow a username like "Guest"
+//TODO don't allow a username like "Guest", or use NULL here
 		return "Guest";
 }
 
