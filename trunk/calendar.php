@@ -121,14 +121,13 @@ echo "<p>{$_GET['date']}</p>";
 			$thisFile = $_SERVER["PHP_SELF"];
 			$parts = Explode('/', $thisFile);
 			$thisFile = $parts[count($parts) - 1];
-//TODO make every row element a link?
-//TODO this isn't working. right now, i can get the team names from the one query but i have to use a numerical index, which can change... Either fix the original query to fix that,
+//TODO this isn't working. right now, i can get the team names from the one query but i have to use a numerical index, which can change (there is a clash on "name")... Either fix the original query to fix that,
 // or fix pulling the team names from the teams table
+
 			// get team names
-			//$tmpArray = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
-			//$homeTeam = $tmpArray['homeTeam'];
-			//$visitingTeam = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"))['visitingTeam'];
-			echo "<tr><td><a href=\"game-info.php?gameid={$row['gameID']}\">" . date("g\:i a", mktimeFromMySQLTime($row['time'])) . "</a></td><td>{$row[9]}</td><td>{$row[12]}</td>";
+			$homeTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
+			$awayTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"));
+			echo "<tr><td><a href=\"game-info.php?gameid={$row['gameID']}\">" . date("g\:i a", mktimeFromMySQLTime($row['time'])) . "</a></td><td><a href=\"team-profile.php?id={$homeTeamRow["teamID"]}\">{$homeTeamRow["name"]}</a></td><td><a href=\"team-profile.php?id={$awayTeamRow["teamID"]}\">{$awayTeamRow["name"]}</a></td>";
 
 			if ($showResults)
 			{

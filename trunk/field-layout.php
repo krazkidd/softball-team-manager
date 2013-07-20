@@ -26,7 +26,20 @@
 //TODO check GET or POST for a game ID. if nothing, redirect to calendar? or just show a table? or pick next game?
 	if (isset($_GET['gameid']) && isset($_GET['teamid']))
 	{
-//ERROR I need a table to track game lineups!! fix query below
+
+
+
+
+
+
+ERROR I need a table to track game lineups!! fix query below
+
+
+
+
+
+
+
 		//$db_team_info_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN teamsgames .homeTeam = teams.teamID OR games.visitingTeam = teams.teamID");
 //DEBUG
 // show an error if the query failed
