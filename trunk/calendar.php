@@ -1,4 +1,8 @@
-
+<?php
+	session_start();
+	require_once("common-definitions.php");
+	require_once("calendar-common-functions.php");
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -9,10 +13,6 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" /> 
-<?php
-	require_once("common-definitions.php");
-	require_once("calendar-common-functions.php");
-?>
 	</head>
 
 	<body id="calendar-body">
@@ -25,40 +25,31 @@
 	$db_con = connectToDB();
 
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
+//make an array of the leagues for the current user
 
-//TODO so, do i want to use 'view' variable or 'date' (see next condition)
-//     Well, this is for when the user clicks on the day of the week, so it needs to be kept
+	// show all leagues that play on a certain day of the week when the user clicks on the day header
 	if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 	{
-//TODO delete this line below when this page is prettified
-echo "<p class=\"error\">This still needs some work.</p>";
 		// show leagues that play on selected day
-		switch (substr(strtolower($_GET['day']), 0, 3))
+		switch (strtolower(substr($_GET['day']), 0, 3))
 		{
 			case 'sun':
-				$day = 'Sun';
-				break;
 			case 'mon':
-				$day = 'Mon';
-				break;
 			case 'tue':
-				$day = 'Tue';
-				break;
 			case 'wed':
-				$day = 'Wed';
-				break;
 			case 'thu':
-				$day = 'Thu';
-				break;
 			case 'fri':
-				$day = 'Fri';
-				break;
 			case 'sat':
-				$day = 'Sat';
+				$day = ucwords(strtolower(substr($_GET['day']), 0, 3));
 				break;
 			default:
-				echo "<p>There was an error in your request. Click <a href=\"calendar.php\">here</a> to go to the Calendar page.</p>";
-				echo "</div></body></html>";
+?>
+			<p>There was an error in your request. Click <a href="calendar.php">here</a> to go to the default Calendar page.</p>
+			</div>
+
+		</body>
+</html>
+<?php
 				exit();
 		}
 
@@ -72,18 +63,31 @@ if ($db_query_result == NULL)
 //END DEBUG
 
 		// print a table that shows leagues that play on that day of the week
+//TODO add the table header columns below. I got real lazy here
 //TODO add a colspan to this table
-		echo "<h2>$day Leagues</h2>";
-//TODO add the table header columns. I got real lazy here
-		echo "<table><tr><th>table header here</th></tr>";
+?>
+			<h2><?= $day ?> Leagues</h2>
+
+			<table>
+				<tr>
+					<th>table header here</th>
+				</tr>
+<?php
 		// iterate through each row of the result
 		while ($row = mysqli_fetch_array($db_query_result))
 		{
 //TODO add a link to league info (i think i don't have a league info page yet)
-//TODO add the other columns retrieved in query above. I'm REALLY lazy now.
-			echo "<tr><td>{$row['division']}</td><td>{$row['class']}</td></tr>";
+//TODO add the other columns retrieved in query above.
+?>
+				<tr>
+					<td><?= $row['division'] ?></td>
+					<td><?= $row['class'] ?></td>
+				</tr>
+<?php
 		}
-		echo "</table>";
+?>
+			</table>
+<?php
 	}
 	else if (isset($_GET['date']))
 	{
@@ -97,50 +101,59 @@ if ($db_game_info_query_result == NULL)
 }
 //END DEBUG
 
-//DEBUG
-echo "<p>{$_GET['date']}</p>"; 
-//END DEBUG
-
-//TODO I think i would like a better ID for this div, and i would especially like to merge it's style with the case where a game ID is present
-		echo "<div id=\"game-list\">";
-		echo "<table><tr><th>Time</th><th>Home Team</th><th>Visiting Team</th>";
+?>
+			<h3><?= $_GET['date'] ?></h3> 
+			<div id="game-list"> <!-- TODO I think i would like a better ID for this div, and i would especially like to merge it's style with the case where a game ID is present -->
+			<table>
+				<tr>
+					<th>Time</th>
+					<th>Home Team</th>
+					<th>Visiting Team</th>
+<?php
 		$row = mysqli_fetch_array($db_game_info_query_result);
 		// if date/time of first game + 1 hour is passed, show result columns
 //TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page
 		$showResults = false;
 		if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
 		{
-			echo "<th>Final Home Score</th><th>Final Visiting Score</th>";
+?>
+					<th>Final Home Score</th>
+					<th>Final Visiting Score</th>
+<?php
 			$showResults = true;
 		}
-
-		echo "</tr>";
-
+?>
+				</tr>
+<?php
 		do
 		{
-			$thisFile = $_SERVER["PHP_SELF"];
-			$parts = Explode('/', $thisFile);
-			$thisFile = $parts[count($parts) - 1];
-//TODO this isn't working. right now, i can get the team names from the one query but i have to use a numerical index, which can change (there is a clash on "name")... Either fix the original query to fix that,
-// or fix pulling the team names from the teams table
-
 			// get team names
 			$homeTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
 			$awayTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"));
-			echo "<tr><td><a href=\"game-info.php?gameid={$row['gameID']}\">" . date("g\:i a", mktimeFromMySQLTime($row['time'])) . "</a></td><td><a href=\"team-profile.php?id={$homeTeamRow["teamID"]}\">{$homeTeamRow["name"]}</a></td><td><a href=\"team-profile.php?id={$awayTeamRow["teamID"]}\">{$awayTeamRow["name"]}</a></td>";
-
+?>
+				<tr>
+					<td><a href="game-info.php?gameid=<?= $row['gameID'] ?>"><?= date("g\:i a", mktimeFromMySQLTime($row['time'])) ?></a></td>
+					<td><?= $homeTeamRow["name"] ?></td>
+					<td><?= $awayTeamRow["name"] ?></td>
+<?php
 			if ($showResults)
 			{
 				$finalHome = $row['finalHomeScore'];
 				$finalAway = $row['finalVisitingScore'];
 //TODO check to see if the scores are NULL and output something appropriate (I show the score columns before all games have finished)
-				echo "<td>{$finalHome}" . ($finalHome > $finalAway ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td><td>{$finalAway}" . ($finalAway > $finalHome ? "&nbsp;<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "") . "</td>";
+?>
+					<td><?= $finalHome ?> <?= $finalHome > $finalAway ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
+					<td><?= $finalAway ?> <?= $finalAway > $finalHome ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
+<?php
 			}
-			echo "</tr>";
+?>
+				</tr>
+<?php
 		}  while ($row = mysqli_fetch_array($db_game_info_query_result));
-
-		echo "</table>";
-		echo "</div> <!-- game-list -->";
+?>
+			</table>
+		</div> <!-- game-list -->
+<?php
 	}
 	else
 	{
