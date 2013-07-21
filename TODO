@@ -1,8 +1,11 @@
 BIG TODO add roster table to database? instead of multiple players in players table where the only difference is the leagues/teams they are in
 BIG TODO add lineups table. every game may have a different lineup
+BIG TODO more meaningful query error messages
 
 =================================================================
 
+TODO do i want to call center field positions CF/Rover or LC/RC? 
+TODO check lineup for correct # of guys and girls and display warning if not (so far, i've only thought of getting the gender-alternating batting order right)
 TODO for editing pages, where database writes are made, use one-time-use session variables so that a refresh can send the action again. That is, the user needs to get authentication by putting in a password, a session variable is set, and when the action goes through, it gets unset.
 TODO add tourney games from last season. I think i need to alter the table definition first so games can have a tourney/regular/bye type
 TODO team-style.css -- gets written to with PHP? each team in the teams table gets a hash and that hash is used as an id/class that can be used from CSS
