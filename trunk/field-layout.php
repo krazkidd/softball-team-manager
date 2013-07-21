@@ -2,12 +2,15 @@
 	session_start();
 	require_once("common-definitions.php");
 
-	if (!isLoggedIn)
+	if (!isLoggedIn())
 	{
 		header("Location: index.php");
 //TODO is exit() okay here? Anyway, an error message should be shown to the user.
 		exit();
 	}
+
+	$db_con = connectToDB();
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -22,30 +25,70 @@
 	</head>
 
 	<body id="field-layout-body">
+
 		<div id="field-layout-header">
 			<h1>Field Layout</h1>
 		</div>
 <?php
-//TODO get next game data (or user-select game from GET/POST) 
-	$db_con = connectToDB();
-
-//TODO if no game ID, redirect to calendar? or just show a table? or pick next game?
-//TODO i don't check for a team ID here because I don't foresee allowing anybody to see the lineup of a team they're not on
-	if (isset($_GET['gameid']))
+	if (!isset($_GET["gameid"]))
 	{
-		$lineup = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
+		$db_next_games_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= CURDATE() ORDER BY games.date LIMIT 6");
+		if ($db_next_games_query_result == NULL)
+		{
+?>
+		<p>I need a game ID. Try using the <a href="calendar.php">Calendar</a>.</p>
+<?php
+		}
+		else
+		{
+?>
+		<p>I need a game ID. Try using the <a href="calendar.php">Calendar</a> or one of the following games in your default season:</p>
+		<ul>
+<?php
+			while ($row = mysqli_fetch_array($db_next_games_query_result))
+			{
+				$thisFile = $_SERVER["PHP_SELF"];
+				$parts = Explode('/', $thisFile);
+				$thisFile = $parts[count($parts) - 1];
+?>
+			<li><a href="<?= $thisFile ?>?gameid=<?= $row["gameID"] ?>"><?= $row["date"] ?> @ <?= $row["time"] ?></a></li>
+<?php
+			}
+		}
+?>
+		</ul>
+
+	</body>
+</html>
+<?php
+		closeDB();
+		exit();
+	}
+
+//TODO get next game data (or user-select game from GET/POST) 
+
+//TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too
+		$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
 		$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
 //DEBUG
 // show an error if the query failed
 if ($lineup == NULL)
   echo "<p class=\"db-error\">The lineup result was NULL :(</p>";
 //END DEBUG
-	}
+
+//TODO this seems to be getting double results. i wonder why.
+	$playerIDList = implode(",", $lineup);
+	$db_player_query_result = mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID IN ($playerIDList)");
+
+	/*$lineup = Array(
+	            "P" => */
+	
 
 	closeDB($db_con);
+
 ?>
 
-TODO make date prettier
+TODO make date prettier (and above too in the list of the next few games)
 		<div id="softballField">
 			<div id="gameInfo">
 				<p><?= $gameInfo["date"] ?> @ <?= $gameInfo["time"] ?></p>
