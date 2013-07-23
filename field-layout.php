@@ -236,6 +236,8 @@ TODO I need to space the names better (but really I need an original field image
 	}
 ?>
 
+		<p>View the batting order in a table format on the <a href="lineup.php?gameid=<?= $_GET["gameid"] ?>">Lineup</a> page.</p>
+
 	</body>
 </html>
 
