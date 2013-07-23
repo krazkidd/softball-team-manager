@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once("common-definitions.php");
+	require_once("calendar-common-functions.php");
 
 	if (!isLoggedIn())
 	{
@@ -33,6 +34,7 @@
 	if (!isset($_GET["gameid"]))
 	{
 		$db_next_games_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= CURDATE() ORDER BY games.date LIMIT 6");
+
 		if ($db_next_games_query_result == NULL)
 		{
 ?>
@@ -45,13 +47,15 @@
 		<p>I need a game ID. Try using the <a href="calendar.php">Calendar</a> or one of the following games in your default season:</p>
 		<ul>
 <?php
+			$thisFile = $_SERVER["PHP_SELF"];
+			$parts = Explode('/', $thisFile);
+			$thisFile = $parts[count($parts) - 1];
+
 			while ($row = mysqli_fetch_array($db_next_games_query_result))
 			{
-				$thisFile = $_SERVER["PHP_SELF"];
-				$parts = Explode('/', $thisFile);
-				$thisFile = $parts[count($parts) - 1];
+				$gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
 ?>
-			<li><a href="<?= $thisFile ?>?gameid=<?= $row["gameID"] ?>"><?= $row["date"] ?> @ <?= $row["time"] ?></a></li>
+			<li><a href="<?= $thisFile ?>?gameid=<?= $row["gameID"] ?>"><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></a></li>
 <?php
 			}
 		}
@@ -72,26 +76,28 @@
 		$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
 //DEBUG
 // show an error if the query failed
-if ($lineup == NULL)
+if ($lineupPlayerIDs == NULL)
   echo "<p class=\"db-error\">The lineup result was NULL :(</p>";
 //END DEBUG
 
-//TODO this seems to be getting double results. i wonder why.
 	$playerIDList = implode(",", $lineup);
+//TODO this seems to be getting double results. i wonder why.
 	$db_player_query_result = mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID IN ($playerIDList)");
 
-	/*$lineup = Array(
-	            "P" => */
+	
+	$lineup = Array(
+	            "P" => 
 	
 
 	closeDB($db_con);
 
+	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>
 
-TODO make date prettier (and above too in the list of the next few games)
+TODO make the date prettier; use long month name (and above too, in the list of the next few games)
 		<div id="softballField">
 			<div id="gameInfo">
-				<p><?= $gameInfo["date"] ?> @ <?= $gameInfo["time"] ?></p>
+				<p><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></p>
 			</div>
 
 			<div id="pitcher" class="playerPos">
