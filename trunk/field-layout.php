@@ -69,32 +69,109 @@
 		exit();
 	}
 
-//TODO get next game data (or user-select game from GET/POST) 
-
 //TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too
-		$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
-		$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
+	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
+	$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
 //DEBUG
 // show an error if the query failed
 if ($lineupPlayerIDs == NULL)
   echo "<p class=\"db-error\">The lineup result was NULL :(</p>";
 //END DEBUG
 
-	$playerIDList = implode(",", $lineup);
+	$playerIDList = implode(",", $lineupPlayerIDs);
 //TODO this seems to be getting double results. i wonder why.
-	$db_player_query_result = mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID IN ($playerIDList)");
+	$db_player_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber FROM players WHERE playerID IN ($playerIDList)");
 
-	
-	$lineup = Array(
-	            "P" => 
-	
+//TODO there has got to be an easier way to do this.....I really can't think of it right now
+//TODO I probably want to show gender as well, so I'm really going to need a way to loop either through the IDs or the positions and record everything in a big array
+	$lineup = Array();
+	if ($lineupPlayerIDs["P"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["P"]}"));
+		$lineup["P"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["C"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["C"]}"));
+		$lineup["C"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["1B"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["1B"]}"));
+		$lineup["1B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["2B"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["2B"]}"));
+		$lineup["2B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["3B"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["3B"]}"));
+		$lineup["3B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["SS"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["SS"]}"));
+		$lineup["SS"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["LF"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["LF"]}"));
+		$lineup["LF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["CF"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["CF"]}"));
+		$lineup["CF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["RF"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["RF"]}"));
+		$lineup["RF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["RC"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["RC"]}"));
+		$lineup["RC"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP1"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP1"]}"));
+		$lineup["EP1"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP1"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP1"]}"));
+		$lineup["EP1"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP2"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP2"]}"));
+		$lineup["EP2"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP3"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP3"]}"));
+		$lineup["EP3"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP4"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP4"]}"));
+		$lineup["EP4"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
+	if ($lineupPlayerIDs["EP5"])
+	{
+		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP5"]}"));
+		$lineup["EP5"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+	}
 
 	closeDB($db_con);
 
 	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>
 
-TODO make the date prettier; use long month name (and above too, in the list of the next few games)
+TODO I need to space the names better (but really I need an original field image) so they can't overlap (make sure the names won't wrap either)
 		<div id="softballField">
 			<div id="gameInfo">
 				<p><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></p>
@@ -144,6 +221,7 @@ TODO make the date prettier; use long month name (and above too, in the list of 
 	if ($lineup["EP1"] || $lineup["EP2"] || $lineup["EP3"] || $lineup["EP4"] || $lineup["EP5"])
 	{
 ?>
+
 		<div id="extra-player-list">
 			<p>Extra players:</p>
 			<ul>
