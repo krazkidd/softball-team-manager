@@ -7,6 +7,7 @@
 	{
 		header("Location: index.php");
 //TODO is exit() okay here? Anyway, an error message should be shown to the user.
+//TODO user must have permissions to view their lineup
 		exit();
 	}
 
