@@ -271,3 +271,38 @@
 #final-score p {
 	text-align: center;
 }
+
+#lineup-whole-form {
+	border-style: dashed;
+	border-width: 1px;
+	display: inline-block;
+}
+
+#lineup-whole-form p {
+	margin: 10px;
+}
+
+#lineup-whole-form table {
+	margin: 5px;	
+	padding: 0px;
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+}
+
+/*#lineup-whole-form tr th + tr td {
+	font-weight: bold;
+}*/
+
+#lineup-whole-form table th, #lineup-whole-form table td {
+	border-style: solid;
+	border-width: 1px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+/*TODO fix the selector below; it should not apply to names*/
+#lineup-whole-form table tr > td {
+	/*text-align: center;*/
+}
+
