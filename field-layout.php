@@ -71,7 +71,9 @@
 	}
 
 //TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too
-	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
+	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, EP1, EP2, EP3, EP4, EP5 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
+//TODO this returns double results...or implode() double-prints...
+	$lineupBatPos = mysqli_fetch_array(mysqli_query($db_con, "SELECT batPos1, batPos2, batPos3, batPos4, batPos5, batPos6, batPos7, batPos8, batPos9, batPos10, batPosEP1, batPosEP2 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
 	$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
 //DEBUG
 // show an error if the query failed
@@ -79,159 +81,129 @@ if ($lineupPlayerIDs == NULL)
   echo "<p class=\"db-error\">The lineup result was NULL :(</p>";
 //END DEBUG
 
-	$playerIDList = implode(",", $lineupPlayerIDs);
 //TODO this seems to be getting double results. i wonder why.
-	$db_player_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber FROM players WHERE playerID IN ($playerIDList)");
+	$db_player_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber, gender FROM players WHERE playerID IN (" . implode(", ", array_filter($lineupPlayerIDs)) . ")");
+	// put the players returned from the query in an Array, indexed by their player ID
+	$players = Array();
+	while ($row = mysqli_fetch_array($db_player_query_result))
+	{
+		$players[$row["playerID"]] = $row;
+	}
 
-//TODO there has got to be an easier way to do this.....I really can't think of it right now
-//TODO I probably want to show gender as well, so I'm really going to need a way to loop either through the IDs or the positions and record everything in a big array
-	$lineup = Array();
-	if ($lineupPlayerIDs["P"])
+//TODO need to check that a player's batting order number isn't NULL if they have a position, as well as several other things i have written on paper
+//ERROR keep track of starters/non-starters instead of doing all this weird condition checking. batPos will be NULL for non-starters (and obviously, for EP{3,4,5}, batPos doesnt exist). 
+//how am i storing ep1/ep2 in the db? numbers 11 & 12? these two need to be treated specially everywhere. if the team is co-ed and these two are male-female, put them in the batting order. otherwise they go down below
+//ERROR check for NULL!! EPs and 1 of the fielders can be null. if more than 1, forfeit/error!
+
+	$starters = Array();
+	$nonstarters = Array();
+
+	for ($i = 1; $i < 10; $i++)
 	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["P"]}"));
-		$lineup["P"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+		if ($lineupPlayerIDs["pos$i"])
+		{
+			$starters[$lineupBatPos["batPos$i"]] = $players[$lineupPlayerIDs["pos$i"]];
+			// tack on the alphabetic position initials
+//TODO okay, problem: the positions change depending on number of players. CF is synonomous with LC and Rover with RC, but I need to do this in a way that's not confusing for the user
+//* maybe show "LC (CF)" while the number of players is not known, and either "LC" or "CF" when it is
+			//$starters[$lineupBatPos["batPos$i"]]["position"] = convertNumberedFieldPositionToAlpha($i);
+		}
 	}
-	if ($lineupPlayerIDs["C"])
+
+	// check the extra players. if there is an extra male and female, they belong in the starting lineup
+//TODO do some more checking, like for gender. set a note to check that extra players are put into the database correctly
+	if ($lineupPlayerIDs["EP1"] && $lineupBatPos["batPosEP1"])
 	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["C"]}"));
-		$lineup["C"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+		$starters[$lineupBatPos["batPosEP1"]] = $players[$lineupPlayerIDs["EP1"]];
+		$starters[$lineupBatPos["batPosEP1"]]["position"] = "EP1";
 	}
-	if ($lineupPlayerIDs["1B"])
+	else if ($lineupPlayerIDs["EP1"])
+		$nonstarters["EP1"] = $players[$lineupPlayerIDs["EP1"]];
+
+	if ($lineupPlayerIDs["EP2"] && $lineupBatPos["batPosEP2"])
 	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["1B"]}"));
-		$lineup["1B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
+		$starters[$lineupBatPos["batPosEP2"]] = $players[$lineupPlayerIDs["EP2"]];
+		$starters[$lineupBatPos["batPosEP2"]]["position"] = "EP2";
 	}
-	if ($lineupPlayerIDs["2B"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["2B"]}"));
-		$lineup["2B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["3B"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["3B"]}"));
-		$lineup["3B"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["SS"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["SS"]}"));
-		$lineup["SS"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["LF"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["LF"]}"));
-		$lineup["LF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["CF"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["CF"]}"));
-		$lineup["CF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["RF"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["RF"]}"));
-		$lineup["RF"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["RC"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["RC"]}"));
-		$lineup["RC"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["EP1"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP1"]}"));
-		$lineup["EP1"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["EP1"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP1"]}"));
-		$lineup["EP1"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
-	if ($lineupPlayerIDs["EP2"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP2"]}"));
-		$lineup["EP2"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
+	else if ($lineupPlayerIDs["EP2"])
+		$nonstarters["EP2"] = $players[$lineupPlayerIDs["EP2"]];
+
 	if ($lineupPlayerIDs["EP3"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP3"]}"));
-		$lineup["EP3"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
+		$nonstarters["EP3"] = $players[$lineupPlayerIDs["EP3"]];
 	if ($lineupPlayerIDs["EP4"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP4"]}"));
-		$lineup["EP4"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
+		$nonstarters["EP4"] = $players[$lineupPlayerIDs["EP4"]];
 	if ($lineupPlayerIDs["EP5"])
-	{
-		$player = mysqli_fetch_array(mysqli_query($db_con, "SELECT firstName, lastName, shirtNumber FROM players WHERE playerID = {$lineupPlayerIDs["EP5"]}"));
-		$lineup["EP5"] = $player["firstName"] . " " . $player["lastName"] . " #" . $player["shirtNumber"];
-	}
+		$nonstarters["EP5"] = $players[$lineupPlayerIDs["EP5"]];
 
 	closeDB($db_con);
 
 	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>
 
+		<h3><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></h3>
+
 TODO I need to space the names better (but really I need an original field image) so they can't overlap (make sure the names won't wrap either)
 		<div id="softballField">
-			<div id="gameInfo">
-				<p><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></p>
-			</div>
-
-			<div id="pitcher" class="playerPos">
-				<p><?= $lineup["P"] ?></p>
-			</div>
-
-			<div id="catcher" class="playerPos">
-				<p><?= $lineup["C"] ?></p>
-			</div>
-
-			<div id="firstBaseman" class="playerPos">
-				<p><?= $lineup["1B"] ?></p>
-			</div>
-
-			<div id="secondBaseman" class="playerPos">
-				<p><?= $lineup["2B"] ?></p>
-			</div>
-
-			<div id="thirdBaseman" class="playerPos">
-				<p><?= $lineup["3B"] ?></p>
-			</div>
-
-			<div id="shortstop" class="playerPos">
-				<p><?= $lineup["SS"] ?></p>
-			</div>
-
-			<div id="leftFielder" class="playerPos">
-				<p><?= $lineup["LF"] ?></p>
-			</div>
-
-			<div id="centerFielder" class="playerPos">
-				<p><?= $lineup["CF"] ?></p>
-			</div>
-
-			<div id="rightFielder" class="playerPos">
-				<p><?= $lineup["RF"] ?></p>
-			</div>
-
-			<div id="rover" class="playerPos">
-				<p><?= $lineup["RC"] ?></p>
-			</div>
-		</div>
 <?php
-	if ($lineup["EP1"] || $lineup["EP2"] || $lineup["EP3"] || $lineup["EP4"] || $lineup["EP5"])
+	for ($i = 1; $i <= count($starters); $i++)
 	{
 ?>
 
+			<div id="field-pos-<?= $i ?>" class="playerPos">
+				<p>#<?= $starters[$i]["shirtNumber"] ?> <?= $starters[$i]["firstName"] ?> <?= $starters[$i]["lastName"] ?></p>
+			</div>
+<?php
+	}
+?>
+
+		</div>
+
+<?php
+		if (count($nonstarters) > 0)
+		{
+?>
 		<div id="extra-player-list">
 			<p>Extra players:</p>
 			<ul>
-				<?= $lineup["EP1"] ? "<li>{$lineup["EP1"]}</li>\n" : "" ?>
-				<?= $lineup["EP2"] ? "<li>{$lineup["EP2"]}</li>\n" : "" ?>
-				<?= $lineup["EP3"] ? "<li>{$lineup["EP3"]}</li>\n" : "" ?>
-				<?= $lineup["EP4"] ? "<li>{$lineup["EP4"]}</li>\n" : "" ?>
-				<?= $lineup["EP5"] ? "<li>{$lineup["EP5"]}</li>\n" : "" ?>
+<?php
+			if ($lineupBatPos["batPosEP1"] && $lineupBatPos["batPosEP2"])
+			{
+?>
+				<li class="ep-is-starter">#<?= $starters["EP1"]["shirtNumber"] ?> <?= $starters["EP1"]["firstName"] . " " . $starters["EP1"]["lastName"] ?> is in the batting order!</li>
+				<li class="ep-is-starter">#<?= $starters["EP2"]["shirtNumber"] ?> <?= $starters["EP2"]["firstName"] . " " . $starters["EP1"]["lastName"] ?> is in the batting order!</li>
+<?php
+			}
+			else
+			{
+				if ($nonstarters["EP1"])
+				{
+?>
+				<li>#<?= $nonstarters["EP1"]["shirtNumber"] ?> <?= $nonstarters["EP1"]["firstName"] . " " . $nonstarters["EP1"]["lastName"] ?></li>
+<?php
+				}
+				if ($nonstarters["EP2"])
+				{
+?>
+				<li>#<?= $nonstarters["EP2"]["shirtNumber"] ?> <?= $nonstarters["EP2"]["firstName"] . " " . $nonstarters["EP2"]["lastName"] ?></li>
+<?php
+				}
+			}
+
+//TODO add EP6
+			for ($i = 3; $i <= 5; $i++)
+			{
+				if ($nonstarters["EP$i"])
+				{
+?>
+				<li>#<?= $starters["EP$i"]["shirtNumber"] ?> <?= $nonstarters["EP$i"]["firstName"] . " " . $nonstarters["EP1"]["lastName"] ?></li>
+<?php
+			}
+?>
 			</ul>
+<?php
+		}
+?>
+
 		</div>
 <?php
 	}

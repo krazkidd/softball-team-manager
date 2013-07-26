@@ -3,6 +3,37 @@
 	require_once("common-definitions.php");
 	require_once("calendar-common-functions.php");
 
+//TODO move this to another file
+function convertNumberedFieldPositionToAlpha($pos)
+{
+	switch ($pos)
+	{
+		case 1:
+			return "P";
+		case 2:
+			return "C";
+		case 3:
+			return "1B";
+		case 4:
+			return "2B";
+		case 5:
+			return "3B";
+		case 6:
+			return "SS";
+		case 7:
+			return "LF";
+		case 8:
+			return "CF";
+		case 9:
+			return "RF";
+		case 10:
+			return "RC";
+//TODO do i want to use cases 11 and 12 for EP1 and EP2?
+		default:
+			return "Invalid Position";
+	}
+}
+
 	if (!isLoggedIn())
 	{
 		header("Location: index.php");
@@ -94,35 +125,6 @@ if ($lineupPlayerIDs == NULL)
 //ERROR keep track of starters/non-starters instead of doing all this weird condition checking. batPos will be NULL for non-starters (and obviously, for EP{3,4,5}, batPos doesnt exist). 
 //how am i storing ep1/ep2 in the db? numbers 11 & 12? these two need to be treated specially everywhere. if the team is co-ed and these two are male-female, put them in the batting order. otherwise they go down below
 //ERROR check for NULL!! EPs and 1 of the fielders can be null. if more than 1, forfeit/error!
-function convertNumberedFieldPositionToAlpha($pos)
-{
-	switch ($pos)
-	{
-		case 1:
-			return "P";
-		case 2:
-			return "C";
-		case 3:
-			return "1B";
-		case 4:
-			return "2B";
-		case 5:
-			return "3B";
-		case 6:
-			return "SS";
-		case 7:
-			return "LF";
-		case 8:
-			return "CF";
-		case 9:
-			return "RF";
-		case 10:
-			return "RC";
-//TODO do i want to use cases 11 and 12 for EP1 and EP2?
-		default:
-			return "Invalid Position";
-	}
-}
 
 	$starters = Array();
 	$nonstarters = Array();
@@ -237,7 +239,7 @@ function convertNumberedFieldPositionToAlpha($pos)
 <?php
 	}
 	
-//TODO add EP6 to DB and to query above
+//TODO add EP6 to DB and to query above (and to same places in field-layout.php)
 	for ($i = count($nonstarters) + 1; $i <= 6; $i++)
 	{
 ?>
