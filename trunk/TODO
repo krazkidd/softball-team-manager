@@ -4,6 +4,8 @@ BIG TODO more meaningful query error messages
 
 =================================================================
 
+TODO interactive score keeping??? is there already something made to do this?
+TODO orient the Field Layout graphic differently depending on if the team is Home/Away or user is Guest
 TODO do i want to call center field positions CF/Rover or LC/RC? 
 TODO check lineup for correct # of guys and girls and display warning if not (so far, i've only thought of getting the gender-alternating batting order right)
 TODO for editing pages, where database writes are made, use one-time-use session variables so that a refresh can send the action again. That is, the user needs to get authentication by putting in a password, a session variable is set, and when the action goes through, it gets unset.

@@ -188,54 +188,62 @@
 	margin: 0px;
 }
 
-#pitcher {
+/* pitcher */
+#field-pos-1 {
 	left: 128px;
 	top: 214px;
 }
 
-#catcher {
+/* catcher */
+#field-pos-2 {
 	left: 14px;
 	top: 284px;
 }
 
-#firstBaseman {
+/* first base */
+#field-pos-3 {
 	left: 236px;
 	top: 274px;
 }
 
-#secondBaseman {
+/* second base */
+#field-pos-4 {
 	left: 241px;
 	top: 184px;
 }
 
-#thirdBaseman {
+/* third base */
+#field-pos-5 {
 	left: 76px;
 	top: 150px;
 }
 
-#shortstop {
+/* short stop */
+#field-pos-6 {
 	left: 148px;
 	top: 121px;
 }
 
-#leftFielder {
+/* left field */
+#field-pos-7 {
 	left: 73px;
 	top: 33px;
 }
 
-/* a.k.a. left center */
-#centerFielder {
+/* center field a.k.a. left center */
+#field-pos-8 {
 	left: 219px;
 	top: 55px;
 }
 
-#rightFielder {
+/* right field */
+#field-pos-9 {
 	left: 361px;
 	top: 216px;
 }
 
-/* a.k.a. right center */
-#rover {
+/* rover a.k.a. right center */
+#field-pos-10 {
 	left: 348px;
 	top: 91px;
 }
