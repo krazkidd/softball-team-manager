@@ -112,27 +112,27 @@ if ($lineupPlayerIDs == NULL)
 
 	// check the extra players. if there is an extra male and female, they belong in the starting lineup
 //TODO do some more checking, like for gender. set a note to check that extra players are put into the database correctly
-	if ($lineupPlayerIDs["EP1"] && $lineupBatPos["batPosEP1"])
+	if (isset($lineupPlayerIDs["EP1"]) && isset($lineupBatPos["batPosEP1"]))
 	{
 		$starters[$lineupBatPos["batPosEP1"]] = $players[$lineupPlayerIDs["EP1"]];
 		$starters[$lineupBatPos["batPosEP1"]]["position"] = "EP1";
 	}
-	else if ($lineupPlayerIDs["EP1"])
+	else if (isset($lineupPlayerIDs["EP1"]))
 		$nonstarters["EP1"] = $players[$lineupPlayerIDs["EP1"]];
 
-	if ($lineupPlayerIDs["EP2"] && $lineupBatPos["batPosEP2"])
+	if (isset($lineupPlayerIDs["EP2"]) && isset($lineupBatPos["batPosEP2"]))
 	{
 		$starters[$lineupBatPos["batPosEP2"]] = $players[$lineupPlayerIDs["EP2"]];
 		$starters[$lineupBatPos["batPosEP2"]]["position"] = "EP2";
 	}
-	else if ($lineupPlayerIDs["EP2"])
+	else if (isset($lineupPlayerIDs["EP2"]))
 		$nonstarters["EP2"] = $players[$lineupPlayerIDs["EP2"]];
 
-	if ($lineupPlayerIDs["EP3"])
+	if (isset($lineupPlayerIDs["EP3"]))
 		$nonstarters["EP3"] = $players[$lineupPlayerIDs["EP3"]];
-	if ($lineupPlayerIDs["EP4"])
+	if (isset($lineupPlayerIDs["EP4"]))
 		$nonstarters["EP4"] = $players[$lineupPlayerIDs["EP4"]];
-	if ($lineupPlayerIDs["EP5"])
+	if (isset($lineupPlayerIDs["EP5"]))
 		$nonstarters["EP5"] = $players[$lineupPlayerIDs["EP5"]];
 
 	closeDB($db_con);
@@ -142,15 +142,15 @@ if ($lineupPlayerIDs == NULL)
 
 		<h3><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></h3>
 
-TODO I need to space the names better (but really I need an original field image) so they can't overlap (make sure the names won't wrap either)
 		<div id="softballField">
 <?php
 	for ($i = 1; $i <= count($starters); $i++)
 	{
+//TODO write a function to return gender CSS class! because there is -male, -female, and -missing and i don't want to use nested ?: things
 ?>
 
-			<div id="field-pos-<?= $i ?>" class="playerPos">
-				<p>#<?= $starters[$i]["shirtNumber"] ?> <?= $starters[$i]["firstName"] ?> <?= $starters[$i]["lastName"] ?></p>
+			<div id="field-pos-<?= $i ?>" class="playerPos gender-<?= $starters[$i]["gender"][0] == "M" ? "male" : "female" ?>">
+				<p>#<?= $starters[$i]["shirtNumber"] ?> <?= $starters[$i]["firstName"] ?> <?= $starters[$i]["lastName"][0] ?>.</p>
 			</div>
 <?php
 	}

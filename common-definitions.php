@@ -58,6 +58,7 @@ function getUserName()
 //TODO right now this is just returning a placeholder value. I may not need it at all because what I need is a way to associate all teams under a certain user/manager, and that could be accomplished by adding a manager column to the teams table
 function getUserTeamName()
 {
+//TODO this should get the team name for the team *ID* associated with the user. and that ID should be changeable by the user, like if they manage multiple teams
 	return "Oddballs";
 }
 

@@ -8,11 +8,12 @@
 }
 
 #index-header {
-  width: 800px;
-  height: 200px;
-  overflow: hidden;
-  background-image: url('images/index-header-800x200.png');
-  background-color: #8a17db;
+	width: 800px;
+	height: 200px;
+	overflow: hidden;
+	background-image: url('images/index-header-2-800x200.png');
+	/*background-color: #8a17db;*/
+	text-indent: -9000px;
 }
 
 #index-header p {
@@ -175,10 +176,9 @@
 
 .playerPos {
 	position: absolute;
-	background-color: white;
-	padding: 0px;
+	padding: 2px;
 	margin: 0px;
-	text-align: center;
+	min-width: 150px;
 }
 
 .playerPos p {
@@ -186,18 +186,19 @@
 	font-weight: bold;
 	padding: 0px;
 	margin: 0px;
+	text-align: center;
 }
 
 /* pitcher */
 #field-pos-1 {
-	left: 128px;
+	left: 70px;
 	top: 214px;
 }
 
 /* catcher */
 #field-pos-2 {
-	left: 14px;
-	top: 284px;
+	left: 11px;
+	top: 297px;
 }
 
 /* first base */
@@ -214,7 +215,7 @@
 
 /* third base */
 #field-pos-5 {
-	left: 76px;
+	left: 24px;
 	top: 150px;
 }
 
@@ -238,7 +239,7 @@
 
 /* right field */
 #field-pos-9 {
-	left: 361px;
+	left: 401px;
 	top: 216px;
 }
 
@@ -246,6 +247,10 @@
 #field-pos-10 {
 	left: 348px;
 	top: 91px;
+}
+
+.ep-is-starter {
+	font-weight: bold;
 }
 
 /************* END field layout rules *************/
