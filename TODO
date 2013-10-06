@@ -5,6 +5,9 @@ BIG TODO SIMPLE, interactive score keeping??? runs per inning, substitutions...
 
 =================================================================
 
+TODO write tests for my library functions
+TODO custom gender colors and other user preferences
+TODO make these functions I'm writing return something sane and CLEAN. all the checking and stuff should be done in them
 TODO I need to space the names better (but really I need an original field image) so they can't overlap (make sure the names won't wrap either)
 TODO rounded corners on Field Layout player names, unless it looks bad with player thumbnails
 TODO QR codes for website!! like phone numbers!! (that won't work if you're viewing the site from your phone)
