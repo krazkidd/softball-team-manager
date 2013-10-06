@@ -2,37 +2,7 @@
 	session_start();
 	require_once("common-definitions.php");
 	require_once("calendar-common-functions.php");
-
-//TODO move this to another file
-function convertNumberedFieldPositionToAlpha($pos)
-{
-	switch ($pos)
-	{
-		case 1:
-			return "P";
-		case 2:
-			return "C";
-		case 3:
-			return "1B";
-		case 4:
-			return "2B";
-		case 5:
-			return "3B";
-		case 6:
-			return "SS";
-		case 7:
-			return "LF";
-		case 8:
-			return "CF";
-		case 9:
-			return "RF";
-		case 10:
-			return "RC";
-//TODO do i want to use cases 11 and 12 for EP1 and EP2?
-		default:
-			return "Invalid Position";
-	}
-}
+	require_once("lineup-common-functions.php");
 
 	if (!isLoggedIn())
 	{
@@ -41,16 +11,12 @@ function convertNumberedFieldPositionToAlpha($pos)
 //TODO user must have permissions to view their lineup
 		exit();
 	}
-
-	$db_con = connectToDB();
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-<!-- TODO show game info in title -->
 		<title>Lineup</title>
 		<meta http-equiv="content-type" 
 			content="text/html;charset=utf-8" />
@@ -63,9 +29,10 @@ function convertNumberedFieldPositionToAlpha($pos)
 			<h1>Lineup</h1>
 		</div>
 <?php
-	if (!isset($_GET["gameid"]))
+	if ( !isset($_GET["gameid"]))
 	{
-		$db_next_games_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= CURDATE() ORDER BY games.date LIMIT 6");
+//TODO have getNextGames return a regular array instead of a mysql result
+		$db_next_games_query_result = getNextGames(6, date("Y-m-d"));
 
 		if ($db_next_games_query_result == NULL)
 		{
@@ -97,76 +64,31 @@ function convertNumberedFieldPositionToAlpha($pos)
 	</body>
 </html>
 <?php
-		closeDB();
 		exit();
 	}
 
-//TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too
-	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, EP1, EP2, EP3, EP4, EP5 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
-//TODO this returns double results...or implode() double-prints...
-	$lineupBatPos = mysqli_fetch_array(mysqli_query($db_con, "SELECT batPos1, batPos2, batPos3, batPos4, batPos5, batPos6, batPos7, batPos8, batPos9, batPos10, batPosEP1, batPosEP2 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
-	$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
+	$gameInfo = getGameInfo($_GET["gameid"]);
+//TODO change this from NULL
+	$lineup = getLineup($_GET["gameid"], NULL);
 //DEBUG
-// show an error if the query failed
-if ($lineupPlayerIDs == NULL)
-  echo "<p class=\"db-error\">The lineup result was NULL :(</p>";
+if ($lineup == NULL)
+{
+?>
+		<p>Bit of a problem. getLineup() returned NULL.</p>
+<?php
+}
 //END DEBUG
 
-//TODO this seems to be getting double results. i wonder why.
-	$db_player_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber, gender FROM players WHERE playerID IN (" . implode(", ", array_filter($lineupPlayerIDs)) . ")");
-	// put the players returned from the query in an Array, indexed by their player ID
-	$players = Array();
-	while ($row = mysqli_fetch_array($db_player_query_result))
-	{
-		$players[$row["playerID"]] = $row;
-	}
+
+
+//ERROR need to pull starters/non-starters from lineup?
+$starters = $lineup;
 
 //TODO need to check that a player's batting order number isn't NULL if they have a position, as well as several other things i have written on paper
-//ERROR keep track of starters/non-starters instead of doing all this weird condition checking. batPos will be NULL for non-starters (and obviously, for EP{3,4,5}, batPos doesnt exist). 
-//how am i storing ep1/ep2 in the db? numbers 11 & 12? these two need to be treated specially everywhere. if the team is co-ed and these two are male-female, put them in the batting order. otherwise they go down below
-//ERROR check for NULL!! EPs and 1 of the fielders can be null. if more than 1, forfeit/error!
-
-	$starters = Array();
-	$nonstarters = Array();
-
-	for ($i = 1; $i < 10; $i++)
-	{
-		if ($lineupPlayerIDs["pos$i"])
-		{
-			$starters[$lineupBatPos["batPos$i"]] = $players[$lineupPlayerIDs["pos$i"]];
-			// tack on the alphabetic position initials
-//TODO okay, problem: the positions change depending on number of players. CF is synonomous with LC and Rover with RC, but I need to do this in a way that's not confusing for the user
-//* maybe show "LC (CF)" while the number of players is not known, and either "LC" or "CF" when it is
-			$starters[$lineupBatPos["batPos$i"]]["position"] = convertNumberedFieldPositionToAlpha($i);
-		}
-	}
+//TODO check if there aren't enough players and show warning
 
 	// check the extra players. if there is an extra male and female, they belong in the starting lineup
 //TODO do some more checking, like for gender. set a note to check that extra players are put into the database correctly
-	if ($lineupPlayerIDs["EP1"] && $lineupBatPos["batPosEP1"])
-	{
-		$starters[$lineupBatPos["batPosEP1"]] = $players[$lineupPlayerIDs["EP1"]];
-		$starters[$lineupBatPos["batPosEP1"]]["position"] = "EP1";
-	}
-	else if ($lineupPlayerIDs["EP1"])
-		$nonstarters["EP1"] = $players[$lineupPlayerIDs["EP1"]];
-
-	if ($lineupPlayerIDs["EP2"] && $lineupBatPos["batPosEP2"])
-	{
-		$starters[$lineupBatPos["batPosEP2"]] = $players[$lineupPlayerIDs["EP2"]];
-		$starters[$lineupBatPos["batPosEP2"]]["position"] = "EP2";
-	}
-	else if ($lineupPlayerIDs["EP2"])
-		$nonstarters["EP2"] = $players[$lineupPlayerIDs["EP2"]];
-
-	if ($lineupPlayerIDs["EP3"])
-		$nonstarters["EP3"] = $players[$lineupPlayerIDs["EP3"]];
-	if ($lineupPlayerIDs["EP4"])
-		$nonstarters["EP4"] = $players[$lineupPlayerIDs["EP4"]];
-	if ($lineupPlayerIDs["EP5"])
-		$nonstarters["EP5"] = $players[$lineupPlayerIDs["EP5"]];
-
-	closeDB($db_con);
 
 	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>

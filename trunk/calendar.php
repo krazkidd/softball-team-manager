@@ -31,7 +31,7 @@
 	if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 	{
 		// show leagues that play on selected day
-		switch (strtolower(substr($_GET['day']), 0, 3))
+		switch (strtolower(substr($_GET['day'], 0, 3)))
 		{
 			case 'sun':
 			case 'mon':
@@ -40,20 +40,20 @@
 			case 'thu':
 			case 'fri':
 			case 'sat':
-				$day = ucwords(strtolower(substr($_GET['day']), 0, 3));
+				$day = ucwords(strtolower(substr($_GET['day'], 0, 3)));
 				break;
 			default:
 ?>
 			<p>There was an error in your request. Click <a href="calendar.php">here</a> to go to the default Calendar page.</p>
-			</div>
+		</div>
 
-		</body>
+	</body>
 </html>
 <?php
 				exit();
 		}
 
-		$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day'");
+		$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
 //DEBUG
 // show an error if the query failed
 if ($db_query_result == NULL)
@@ -70,7 +70,9 @@ if ($db_query_result == NULL)
 
 			<table>
 				<tr>
-					<th>table header here</th>
+					<th>Division</th>
+					<th>Class</th>
+					<th>Description</th>
 				</tr>
 <?php
 		// iterate through each row of the result
@@ -82,6 +84,7 @@ if ($db_query_result == NULL)
 				<tr>
 					<td><?= $row['division'] ?></td>
 					<td><?= $row['class'] ?></td>
+					<td><?= $row['description'] ?></td>
 				</tr>
 <?php
 		}
@@ -158,6 +161,7 @@ if ($db_game_info_query_result == NULL)
 	else
 	{
 //TODO check input for validity...month var must have leading zero, for example
+//     use sprintf('%02d', $input) for this
 		if (isset($_GET['month']))
 		{
 			$month = $_GET['month'];

@@ -2,6 +2,7 @@
 	session_start();
 	require_once("common-definitions.php");
 	require_once("calendar-common-functions.php");
+	require_once("lineup-common-functions.php");
 
 	if (!isLoggedIn())
 	{
@@ -19,7 +20,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-<!-- TODO show game info in title -->
 		<title>Field Layout</title>
 		<meta http-equiv="content-type" 
 			content="text/html;charset=utf-8" />
@@ -32,9 +32,9 @@
 			<h1>Field Layout</h1>
 		</div>
 <?php
-	if (!isset($_GET["gameid"]))
+	if ( !isset($_GET["gameid"]))
 	{
-		$db_next_games_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= CURDATE() ORDER BY games.date LIMIT 6");
+		$db_next_games_query_result = getNextGames(6, date("Y-m-d"));
 
 		if ($db_next_games_query_result == NULL)
 		{
@@ -70,11 +70,17 @@
 		exit();
 	}
 
-//TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too
-	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, EP1, EP2, EP3, EP4, EP5 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
+	$lineup = getLineup($_GET["gameid"], NULL);
+	$starters = $lineup;
+
+	$gameInfo = getGameInfo($_GET["gameid"]);
+/*
+//TODO don't use NULL here...
+	$lineupPlayerIDs = getLineupPlayerIDs($_GET["gameid"], NULL);
 //TODO this returns double results...or implode() double-prints...
 	$lineupBatPos = mysqli_fetch_array(mysqli_query($db_con, "SELECT batPos1, batPos2, batPos3, batPos4, batPos5, batPos6, batPos7, batPos8, batPos9, batPos10, batPosEP1, batPosEP2 FROM lineups WHERE associatedGame = {$_GET["gameid"]}"));
 	$gameInfo = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = {$_GET["gameid"]}"));
+
 //DEBUG
 // show an error if the query failed
 if ($lineupPlayerIDs == NULL)
@@ -135,7 +141,7 @@ if ($lineupPlayerIDs == NULL)
 	if (isset($lineupPlayerIDs["EP5"]))
 		$nonstarters["EP5"] = $players[$lineupPlayerIDs["EP5"]];
 
-	closeDB($db_con);
+	closeDB($db_con);*/
 
 	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>
