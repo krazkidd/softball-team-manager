@@ -5,6 +5,10 @@ BIG TODO SIMPLE, interactive score keeping??? runs per inning, substitutions...
 
 =================================================================
 
+TODO keep track of forfeits
+TODO add league/season/whatever info pages
+TODO Stats page! using R or Python...
+TODO have a user poll like K did and ask communication preferences
 TODO write tests for my library functions
 TODO custom gender colors and other user preferences
 TODO make these functions I'm writing return something sane and CLEAN. all the checking and stuff should be done in them
