@@ -1,17 +1,18 @@
 <?php
-//TODO use a persistent/global db connection
 
 $_DEFAULTSEASON = 1;
 
 /* database access vars */
 $_DBHOST = "localhost";
-$_DBUSER = "OddAdmin";
-$_DBPASS = "OddPass";
+$_DBUSER = "team_mgrAdmin";
+$_DBPASS = "chumbawumba";
 $_DBPREFIX = "";
-$_DBTABLE = $_DBPREFIX . "oddballs";
+$_DBTABLE = $_DBPREFIX . "team_mgr";
 
 /*
  * connectToDB() -- Tries to connect to the database
+ *
+ * Returns: A mysqli object that represents a connection to a MySQL DB
  */
 function connectToDB()
 {
@@ -21,15 +22,12 @@ function connectToDB()
 	global $_DBTABLE;
 
 	// create db connection
-//TODO this info should be outside the web root and be user-configurable, like WordPress/Joomla!
 	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBTABLE);
-	// check for success
-	if (mysqli_connect_errno())
-	{
-		echo "<p class=\"db-error\">Database connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
-//TODO this should not exit() but rather be handled by the caller
-		exit();
-	}
+//DEBUG
+// check for success
+if (mysqli_connect_errno())
+	echo "<p class=\"db-error\">Database connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
+//END DEBUG
 
 	return $db_con;
 }
@@ -42,20 +40,21 @@ function closeDB($db_con)
 function isLoggedIn()
 {
 //TODO find a better way to check the user has logged in (if i am going to allow guests to have sessions, this might actually return true for them, if I decide to use this particular session var to store a guest "name")
-	return isset($_SESSION["username"]);
+//     I could just check that loginname is not "guest" or whatever special value the guest login name would be. how would i allow multiple guest logins? it might be okay, since they have different PHP sessions and can't edit the DB
+	return isset($_SESSION["loginname"]);
 }
 
-//TODO change this to getLoginName? I want to associate login names to player names and "user" is somewhat ambiguous
-function getUserName()
+function getLoginName()
 {
 	if (isLoggedIn())
-		return $_SESSION["username"];
+		return $_SESSION["loginname"];
 	else
 //TODO don't allow a username like "Guest", or use NULL here
 		return "Guest";
 }
 
 //TODO right now this is just returning a placeholder value. I may not need it at all because what I need is a way to associate all teams under a certain user/manager, and that could be accomplished by adding a manager column to the teams table
+//TODO change "User" in function name to "Login" like other functions?
 function getUserTeamName()
 {
 //TODO this should get the team name for the team *ID* associated with the user. and that ID should be changeable by the user, like if they manage multiple teams
