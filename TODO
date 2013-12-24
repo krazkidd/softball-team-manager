@@ -18,6 +18,17 @@ I don't have a consistent naming convention for the outfield. The database uses 
 QR codes for website!!
 like phone numbers!! (that won't work if you're viewing the site from your phone)
 
+random stuff:
+are my relations in BCNF??
+check for other keys and put UNIQUE
+check if anything should have added NULL or NOT NULL constraint
+randomly generate salt values to put in DB, to be used for profilehashes? (don't want to allow browsing of profiles)
+need CASCADEs
+what happens when a team name changes? do we cascade the change? do we not allow name changes??
+i need to add CHARACTER SET to some fields
+i should be able to create a game with a partial foreign key to League. two leagues can't share a field at the same time, so i don't need to track the entire key of League in Game
+come up with lineup id column and put foreign key in games table--way easier than doing the reverse
+
 =================================================================
 Ideas from Kight:
 
