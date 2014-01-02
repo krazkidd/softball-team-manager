@@ -7,7 +7,7 @@ $_DBHOST = "localhost";
 $_DBUSER = "team_mgrAdmin";
 $_DBPASS = "chumbawumba";
 $_DBPREFIX = "";
-$_DBTABLE = $_DBPREFIX . "team_mgr";
+$_DBNAME = $_DBPREFIX . "team_mgr";
 
 /*
  * connectToDB() -- Tries to connect to the database
@@ -19,10 +19,10 @@ function connectToDB()
 	global $_DBHOST;
 	global $_DBUSER;
 	global $_DBPASS;
-	global $_DBTABLE;
+	global $_DBNAME;
 
 	// create db connection
-	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBTABLE);
+	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBNAME);
 //DEBUG
 // check for success
 if (mysqli_connect_errno())

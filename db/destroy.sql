@@ -1,10 +1,8 @@
 DROP TABLE
-    PlayerPositionRating,
-    PlateAppearance,
-    Stats,
-    FieldAppearance,
     Lineup,
     Game,
+    Roster,
+    ParticipatesIn,
     Team,
     League,
     FieldPosition,
