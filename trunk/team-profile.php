@@ -22,18 +22,19 @@
 <?php
 	$db_con = connectToDB();
 
-	if (isset($_GET['name'])) // get the team name
+	if (isset($_GET['name']))
 	{
-
-		$team_query_result = mysqli_query($db_con, "SELECT * FROM Team WHERE TeamName = {$_GET['name']}");
-		$mgr_query_result = mysqli_query($db_con, "SELECT ID, FirstName, LastName FROM Player NATURAL JOIN Team WHERE TeamName = {$_GET['name']}");
+		$escapedTeamName = mysqli_real_escape_string($db_con, $_GET['name']);
+		$team_query_result = mysqli_query($db_con, "SELECT * FROM Team WHERE TeamName = '$escapedTeamName'");
+		$mgr_query_result = mysqli_query($db_con, "SELECT ID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE TeamName = '$escapedTeamName'");
 
 //DEBUG
 // show an error if the query failed
-if ($db_query_result == NULL)
+if ($team_query_result == NULL) {
 ?>
 			<p class="db-error">No info was found for this team in the database.</p>
 <?php
+}
 //END DEBUG
 
 		$teamInfo = mysqli_fetch_array($team_query_result);
@@ -123,12 +124,9 @@ if ($db_my_teams_query_result == NULL)
 			<form action="team-profile.php" method="get">
 				<select name="name">
 <?php
-			$teamsInfo = mysqli_fetch_array($teams_query_result);
-
-			foreach ($t as $teamsInfo) {
-				$teamName = $t['TeamName']
+			while ($row = mysqli_fetch_array($teams_query_result)) {
 ?>
-					<option value="<?= $teamName ?>"><?= $teamName ?></option>
+					<option value="<?= $row["TeamName"] ?>"><?= $row["TeamName"] ?></option>
 <?php
 			}
 ?>
