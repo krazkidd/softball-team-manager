@@ -49,7 +49,6 @@ CREATE TABLE League (
     DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
     Class             VARCHAR(32),
 
-    Year              DATE,
     SeasonDescription VARCHAR(32),
 
     FOREIGN KEY (SeasonDescription) REFERENCES Season(Description),
@@ -60,8 +59,8 @@ CREATE TABLE League (
 /* team entity */
 CREATE TABLE Team (
     TeamName         VARCHAR(64),
-    PriColor         BINARY(3), /* to hold 6 char html color hex string */
-    SecColor         BINARY(3),
+    PriColor         CHAR(6), /* to hold 6 char html color hex string */
+    SecColor         CHAR(6),
     Motto            VARCHAR(512),
     MissionStatement VARCHAR(1024),
     Notes            VARCHAR(4096),
@@ -122,8 +121,6 @@ CREATE TABLE Game (
     ParkName          VARCHAR(128),
     FieldNum          SMALLINT UNSIGNED,
     DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
-    Class             VARCHAR(32),
-    Year              DATE,
     SeasonDescription VARCHAR(32),
 
     FOREIGN KEY (HomeTeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
