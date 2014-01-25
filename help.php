@@ -1,13 +1,10 @@
-<?php
-	session_start();
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-	<title>Team Manager</title>
+	<title>Help - Team Manager</title>
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
@@ -16,10 +13,10 @@
 ?>
 	</head>
 
-	<body id="index-body">
+	<body id="help-body">
 		<div id="container">
 
-			<div id="index-header">
+			<div id="help-header">
 			      <h1>Team Manager</h1>
 			</div>
 
@@ -27,14 +24,11 @@
 	include("includes/navbar.php");
 ?>
       
-			<div id="index-content">
-
-				<p>Welcome to a team management website.</p>
+			<div id="help-content">
 
 			</div>
-<?php
-	include("includes/login-module.php");
 
+<?php
 	include("includes/footer.php");
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require_once("common-definitions.php");
-	require_once("calendar-common-functions.php");
+	require_once('common-definitions.php');
+	require_once('calendar-common-functions.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -12,7 +12,7 @@
 	<title>Calendar</title>
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="style.css" /> 
+	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
 	</head>
 
 	<body id="calendar-body">
@@ -26,7 +26,7 @@
 
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
 //make an array of the leagues for the current user
-
+/*
 	// show all leagues that play on a certain day of the week when the user clicks on the day header
 	if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 	{
@@ -159,25 +159,23 @@ if ($db_game_info_query_result == NULL)
 <?php
 	}
 	else
-	{
-//TODO check input for validity...month var must have leading zero, for example
-//     use sprintf('%02d', $input) for this
-		if (isset($_GET['month']))
+	{*/
+		if (isset($_GET['mo']))
 		{
-			$month = $_GET['month'];
-			if (isset($_GET['year']))
-				$year = $_GET['year'];
+			$month = $_GET['mo'];
+			if (isset($_GET['yr']))
+				$year = $_GET['yr'];
 			else
-				$year = date("Y");
+				$year = date('Y');
 		}
 		else
 		{
-			$month = date("m");
-			$year = date("Y");
+			$month = date('m');
+			$year = date('Y');
 		}
 
-		displayCalendar($month, $year);
-	}
+		displayCalendar((int)$month, (int)$year);
+	//}
 
 	closeDB($db_con);
 ?>
