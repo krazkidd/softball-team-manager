@@ -9,18 +9,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 <!-- TODO show some more info in title -->
-	<title>Calendar</title>
+	<title>Calendar - Team Manager</title>
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
 	</head>
 
 	<body id="calendar-body">
-		<div id="calendar-header">
-			<h1>Calendar</h1>
-		</div>
+		<div id="container">
 
-		<div id="calendar">
+			<div id="calendar-header">
+				<h1>Calendar</h1>
+			</div>
+
+<?php
+	include("includes/navbar.php");
+?>
+
+			<div id="calendar">
 <?php
 	$db_con = connectToDB();
 
@@ -179,7 +185,10 @@ if ($db_game_info_query_result == NULL)
 
 	closeDB($db_con);
 ?>
-		</div> <!-- calendar -->
-
+			</div> <!-- calendar -->
+<?php
+	include("includes/footer.php");
+?>
+		</div> <!-- end container -->
 	</body>
 </html>

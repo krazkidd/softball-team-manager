@@ -1,43 +1,38 @@
-<?php
-	session_start();
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-	<title>Home - Team Manager</title>
+	<title>About - Team Manager</title>
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
+	<link rel="stylesheet" type="text/css" href="/styles/style.css" /> 
 <?php
 	require_once("common-definitions.php");
 ?>
 	</head>
 
-	<body id="index-body">
+	<body id="about-body">
 		<div id="container">
 
-			<div id="index-header">
-			      <h1>Home</h1>
+			<div id="about-header">
+			      <h1>Team Manager</h1>
 			</div>
 
 <?php
 	include("includes/navbar.php");
 ?>
       
-			<div id="index-content">
+			<div id="about-content">
 
-				<p>Welcome to a team management website.</p>
-
+				<p>Do you need some help, little baby? Do you want me to call the Waaaaaaaahhhmbulance?</p>
 			</div>
 
 <?php
-	include("includes/login-module.php");
-
 	include("includes/footer.php");
 ?>
+
 		</div> <!-- end container -->
 	</body>
 </html>

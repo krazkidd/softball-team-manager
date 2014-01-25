@@ -40,11 +40,6 @@ body {
 	/*line-height: 2em;*/
 }
 
-.navNotLoggedIn
-{
-	color: #999999;
-}
-
 #navLoginName
 {
 	margin: 0;
@@ -52,13 +47,16 @@ body {
 	border: 0;
 	float: right;
 	color: #999999;
+	font-size: 0.8em;
 }
 
 #index-body div {
   /*margin: 5px;*/
 }
 
-#index-header {
+#index-header,
+#calendar-header
+{
 	width: 800px;
 	height: 200px;
 	margin: 0;
