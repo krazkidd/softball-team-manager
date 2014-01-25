@@ -39,8 +39,6 @@ function closeDB($db_con)
 
 function isLoggedIn()
 {
-//TODO find a better way to check the user has logged in (if i am going to allow guests to have sessions, this might actually return true for them, if I decide to use this particular session var to store a guest "name")
-//     I could just check that loginname is not "guest" or whatever special value the guest login name would be. how would i allow multiple guest logins? it might be okay, since they have different PHP sessions and can't edit the DB
 	return isset($_SESSION["loginname"]);
 }
 

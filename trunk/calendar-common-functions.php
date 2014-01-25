@@ -1,6 +1,6 @@
 <?php
 
-require_once("common-definitions.php");
+require_once('common-definitions.php');
 
 function getHourFromMySQLTime($timeString)
 {
@@ -30,14 +30,28 @@ function mktimeFromMySQLTime($timeString)
 	return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString));
 }
 
+/*
+ * displayCalendar() --
+ *
+ * Returns: True if display was successful; False otherwise.
+ */
 function displayCalendar($month, $year)
 {
-//TODO make sure month and year are valid (even go so far as to check db?)
+echo "Printing cal for month $month and year $year";
+
+	// make sure month and year are valid
+	if ( !is_int($month) || !is_int($year) || !checkdate($month, 1, $year)) {
+echo !is_int($month);
+		return False;
+	}
+
+	$month = sprintf('%02d', $month);
+
 	$db_con = connectToDB();
 	
-//TODO select ALL games for a team, or just for one league, depending on user preference
-//TODO will MySQL understand if month doesn't have leading zeros? NOPE.
-	$gameList = mysqli_query($db_con, "SELECT date FROM games JOIN leagues ON associatedLeague = leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE games.date LIKE '$year-$month-%' GROUP BY date ORDER BY date");
+//TODO need to check that this is not null!
+//TODO this is grabbing all games for all teams...
+	$gameList = mysqli_query($db_con, "SELECT DateTime FROM Game AS G NATURAL JOIN League AS L JOIN Season AS S ON S.Description = L.SeasonDescription WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime");
 
 	// get the time for the 1st of the month
 	$timeOfFirstDay = mktime(0, 0, 0, $month, 1, $year);
@@ -109,7 +123,6 @@ function displayCalendar($month, $year)
 
 	// print the days of the month
 	$monthlyDayCount = 1;
-//TODO need to check that this is not null!
 	$gameRow = mysqli_fetch_array($gameList);
 	while ($monthlyDayCount <= $numDaysInMonth)
 	{
@@ -119,16 +132,16 @@ function displayCalendar($month, $year)
 		// if there is/was a game on this date, link to it and set the next game date to check for
 		if ($monthlyDayCount == getDayFromMySQLDate($gameRow['date']))
 		{
-			$elementClass = "gameday";
+			$elementClass = 'gameday';
 			$gameDate = $gameRow['date'];
 			$gameRow = mysqli_fetch_array($gameList);
 		}
 //TODO check for roster freeze date (use a border style and *append* the class so i doesn't conflict with another, except it should override the style for today's date)
 		// but if the date has already passed, don't put a cute image
 		if (mktime(0, 0, 0, $month, $monthlyDayCount + 1, $year) < time())
-			$elementClass = "calDatePassed";
-		else if ($monthlyDayCount == date("d"))
-			$elementClass = "todays-date"
+			$elementClass = 'calDatePassed';
+		else if ($monthlyDayCount == date('d'))
+			$elementClass = 'todays-date'
 
 //TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
 ?>
@@ -159,7 +172,9 @@ function displayCalendar($month, $year)
 				</tr>
 			</table>
 <?php
-}
+	// calendar printed successfully
+	return True;
+} /* end DisplayCalendar() */
 
 ?>
 

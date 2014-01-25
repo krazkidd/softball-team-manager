@@ -1,6 +1,57 @@
-#index-body {
-/*TODO this fixes the width, which is bad*/
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#container 
+{
 	width: 800px;
+	margin: 0 auto;
+}
+
+#navbar
+{
+	padding: 0;
+/*TODO #navbar has 0x0 dimensions because of floated elements. I don't think this margin is the best way to push down the content body */
+	margin-bottom: 50px;
+}
+
+#navbar ul
+{
+	margin: 0;
+	padding: 0
+}
+
+#navbar li
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	float: left;
+	list-style: none;
+	/*margin: 0;*/
+	padding: 0 5px;
+	/*height: 2em;*/
+}
+
+#navbar a
+{
+	/*line-height: 2em;*/
+}
+
+.navNotLoggedIn
+{
+	color: #999999;
+}
+
+#navLoginName
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	float: right;
+	color: #999999;
 }
 
 #index-body div {
@@ -10,51 +61,56 @@
 #index-header {
 	width: 800px;
 	height: 200px;
-	overflow: hidden;
-	background-image: url('images/index-header-2-800x200.png');
-	/*background-color: #8a17db;*/
+	margin: 0;
+	padding: 0;
+	background-image: url('/images/index-header-2-800x200.png');
+	background-position: center center;
 	text-indent: -9000px;
 }
 
-#index-header p {
-/*TODO this isn't hiding the text properly!*/
-  position: relative;
-  left: 9000;
+#index-header p,
+#index-header h1
+{
+	position: relative;
+	left: 9000;
 }
 
 #index-content {
   background-color: #eeeeee;
-  padding: 0;
+  padding: 5px;
   margin: 0;
   float: left;
-  width: 75%;
-  min-width: 595px;
+  width: 590px;
+  /*min-width: 595px;*/
   min-height: 400px;
+  clear: both;
 }
 
-#index-login {
-/*TODO delete this bg color*/
+#login-module {
   background-color: lime;
-  padding: 0;
+  padding: 5px;
   margin: 0;
   float: left;
-  width: 25%;
-/*TODO min-width causes the div to clear if window is too small. I don't want that.*/
-  /*min-width: 200px;*/
+  width: 190px;
 }
 
-#index-footer {
-  background-color: red;
+#footer {
+  font-size: 0.8em;
+  margin: 0;
+  padding: 10px 0;
   clear: both;
-  width: 800px;
+  width: 100%;
+  text-align: center;
 }
 
-#index-footer a {
+#footer a {
   color: #000000;
 }
 
 /* database or general error */
-.db-error, .error {
+.db-error,
+.error
+{
   color: #ff0000;
   font-weight: bold;
 }
