@@ -10,11 +10,10 @@
 		header('Location: index.php');
 		exit(0);
 	}
-	if (isset($_POST['btnLogIn']))
+	if (isset($_POST['btnRegister']))
 	{
 		$_SESSION['loginname'] = 'LoggedInUser';
-		header('Location: index.php');
-		exit(0);
+//TODO what to do after successful login? Redirect or show message?
 	}
 
 	require_once('common-definitions.php');
@@ -24,35 +23,37 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Login - Team Manager</title>
+		<title>Register - Team Manager</title>
 		<meta http-equiv="content-type" 
 			content="text/html;charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
 	</head>
 
-	<body id="login-body">
+	<body id="register-body">
 		<div id="container">
-			<div id="login-header">
-				<h1>Login</h1>
-			</div> <!-- login-header -->
+			<div id="register-header">
+				<h1>Register</h1>
+			</div> <!-- register-header -->
 
 <?php
 	include('includes/navbar.php');
 ?>
 
-			<div id="login-content">
+			<div id="register-content">
 				<p>Make sure cookies are enabled in your browser.</p>
 
-				<form action="login.php" method="post">
+				<form action="register.php" method="post">
 					<div id="frmLogin">
 						<label for="loginName">Login name:</label>
 						<input type="text" nambe="loginName" id="loginName" /><br />
 
-						<label for="password">Password:</label>
-						<input type="password" nambe="password" id="password" /><br />
+						<label for="password1">Password:</label>
+						<input type="password" nambe="password1" id="password1" /><br />
 
-						<input type="submit" value="Log In" name="btnLogIn" />
-						<p> or <a href="register.php" title="Register">Register</a></p>
+						<label for="password2">Re-enter password:</label>
+						<input type="password" nambe="password2" id="password2" /><br />
+
+						<input type="submit" value="Register" name="btnRegister" />
 					</div>
 				</form>
 			</div> <!-- login-content -->
