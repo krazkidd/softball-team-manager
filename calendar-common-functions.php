@@ -94,7 +94,7 @@ echo !is_int($month);
 
 	// print the calendar table
 ?>
-			<table>
+			<table id="calendar-table">
 				<tr>
 					<th colspan="7"><?= $monthName ?> <?= $year ?></th>
 				</tr>

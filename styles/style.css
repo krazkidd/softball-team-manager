@@ -174,12 +174,21 @@ body {
 
 }
 
+/*TODO this style is specific to calendar.php, but what if we want to display the calendar somewhere else? allow for a minimized version */
 #calendar table {
 	text-align: center;
+	margin: 0 auto;
+	width: 80%;
 }
 
 #calendar table th {
 	background-color: #ffffcc;
+}
+
+#calendar table th,
+#calendar table td
+{
+	height: 2em;
 }
 
 #calendar .gameday {
