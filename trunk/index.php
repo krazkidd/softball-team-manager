@@ -32,7 +32,9 @@
 			</div>
 
 <?php
-	include("includes/login-module.php");
+//TODO need to make content wider in case where the user is logged in
+	if ( !isLoggedIn())
+		include("includes/login-module.php");
 
 	include("includes/footer.php");
 ?>

@@ -16,6 +16,8 @@
 		header('Location: index.php');
 		exit(0);
 	}
+
+	require_once("common-definitions.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -26,9 +28,6 @@
 	<meta http-equiv="content-type" 
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
-<?php
-	require_once("common-definitions.php");
-?>
 	</head>
 
 	<body id="login-body">
@@ -40,7 +39,7 @@
 <?php
 	include("includes/navbar.php");
 ?>
-      
+
 			<div id="login-content">
 				<p>Make sure cookies are enabled in your browser.</p>
 				<form action="login.php" method="post">
