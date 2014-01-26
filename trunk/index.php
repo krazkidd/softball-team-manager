@@ -28,9 +28,7 @@
 ?>
       
 			<div id="index-content">
-
-				<p>Welcome to a team management website.</p>
-
+				<p>Welcome to a team management website. Are you impressed?</p>
 			</div>
 
 <?php

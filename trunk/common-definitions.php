@@ -39,15 +39,15 @@ function closeDB($db_con)
 
 function isLoggedIn()
 {
-	return isset($_SESSION["loginname"]);
+	return isset($_SESSION['loginname']);
 }
 
 function getLoginName()
 {
 	if (isLoggedIn())
-		return $_SESSION["loginname"];
+		return $_SESSION['loginname'];
 	else
-//TODO don't allow a username like "Guest", or use NULL here
+//TODO don't allow a loginname like "Guest", or use NULL here
 		return "Guest";
 }
 

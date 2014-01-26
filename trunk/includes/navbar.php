@@ -1,10 +1,11 @@
 <?php
-	include_once("/common-definitions.php");
+//TODO how come adding "/" or "../" to this causes breakage? */
+	require_once('common-definitions.php');
 ?>
 <div id="navbar">
 	<ul>
 		<li><a href="/index.php" title="Home">Home</a></li>
-		<li <?= !isLoggedIn() ? "class=\"navNotLoggedIn\"" : "" ?>><a href="/roster.php">Roster</a></li>
+		<li<?= !isLoggedIn() ? " class=\"navNotLoggedIn\"" : "" ?>><a href="/roster.php">Roster</a></li>
 		<li><a href="/calendar.php">Calendar</a></li>
 		<li><a href="/about.php" title="About this site">About</a></li>
 		<li><a href="/help.php" title="How to use this site">Help</a></li>
