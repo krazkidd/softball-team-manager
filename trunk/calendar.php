@@ -23,7 +23,7 @@
 			</div>
 
 <?php
-	include("includes/navbar.php");
+	include('includes/navbar.php');
 ?>
 
 			<div id="calendar">
@@ -187,7 +187,7 @@ if ($db_game_info_query_result == NULL)
 ?>
 			</div> <!-- calendar -->
 <?php
-	include("includes/footer.php");
+	include('includes/footer.php');
 ?>
 		</div> <!-- end container -->
 	</body>

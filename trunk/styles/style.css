@@ -80,7 +80,8 @@ body {
 #register-header,
 #about-header,
 #help-header,
-#roster-header
+#roster-header,
+#team-profile-header
 {
 	width: 800px;
 	height: 200px;

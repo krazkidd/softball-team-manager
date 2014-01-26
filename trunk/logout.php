@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	require_once("common-definitions.php");
+	require_once('common-definitions.php');
 
 	if (isLoggedIn())
 	{
@@ -14,8 +14,6 @@
 		header('Location: index.php');
 		exit(0);
 	}
-
-	require_once("common-definitions.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -35,7 +33,7 @@
 			</div>
 
 <?php
-	include("includes/navbar.php");
+	include('includes/navbar.php');
 ?>
 
 			<div id="logout-content">
@@ -58,7 +56,7 @@
 			</div> <!-- logout-content -->
 
 <?php
-	include("includes/footer.php");
+	include('includes/footer.php');
 ?>
 		</div> <!-- end container -->
 	</body>

@@ -12,7 +12,7 @@
 		content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="styles/style.css" /> 
 <?php
-	require_once("common-definitions.php");
+	require_once('common-definitions.php');
 ?>
 	</head>
 
@@ -24,19 +24,19 @@
 			</div>
 
 <?php
-	include("includes/navbar.php");
+	include('includes/navbar.php');
 ?>
       
 			<div id="index-content">
-				<p>Welcome to a team management website. Are you impressed?</p>
+				<p>Welcome to the Team Manager BETA website!</p>
 			</div>
 
 <?php
 //TODO need to make content wider in case where the user is logged in
 	if ( !isLoggedIn())
-		include("includes/login-module.php");
+		include('includes/login-module.php');
 
-	include("includes/footer.php");
+	include('includes/footer.php');
 ?>
 		</div> <!-- end container -->
 	</body>
