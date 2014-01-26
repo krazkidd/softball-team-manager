@@ -91,13 +91,6 @@ body {
 	text-indent: -9000px;
 }
 
-#index-header p,
-#index-header h1
-{
-	position: relative;
-	left: 9000;
-}
-
 #index-content {
   padding: 5px;
   margin: 0;
@@ -147,7 +140,8 @@ body {
 
 /* database or general error */
 .db-error,
-.error
+.error,
+.warning
 {
   color: #ff0000;
   font-weight: bold;
@@ -406,5 +400,4 @@ body {
 #frmLogin input,
 #frmRegister input
 {
-	display: block;	
 }

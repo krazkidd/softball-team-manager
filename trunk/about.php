@@ -24,7 +24,8 @@
 ?>
       
 			<div id="about-content">
-				<p>You can manage your team here.</p>
+				<p>You can manage your team with this website.</p>
+				<p>Eventually, there will be an Android app, too!</p>
 			</div>
 
 <?php
