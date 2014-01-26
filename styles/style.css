@@ -77,6 +77,7 @@ body {
 #calendar-header,
 #login-header,
 #logout-header,
+#register-header,
 #about-header,
 #help-header,
 #roster-header
@@ -402,3 +403,8 @@ body {
 	/*text-align: center;*/
 }
 
+#frmLogin input,
+#frmRegister input
+{
+	display: block;	
+}
