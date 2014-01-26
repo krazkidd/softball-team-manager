@@ -8,6 +8,7 @@ body {
 {
 	width: 800px;
 	margin: 0 auto;
+	padding: 0;
 }
 
 #navbar
@@ -31,31 +32,53 @@ body {
 	float: left;
 	list-style: none;
 	/*margin: 0;*/
-	padding: 0 5px;
 	/*height: 2em;*/
+	/*background-color: #3ac6c1;*/
 }
 
 #navbar a
 {
-	/*line-height: 2em;*/
+	font-weight: bold;
+	color: #3ac6c1;
+}
+
+#navbar li a
+{
+	display: block;
+	line-height: 2em;
+	padding: 5px;
+}
+
+#navbar li:hover 
+{
+	background-color: #ffc973;
 }
 
 #navLoginName
 {
 	margin: 0;
-	padding: 0;
+	padding: 5px;
 	border: 0;
 	float: right;
 	color: #999999;
 	font-size: 0.8em;
+	line-height: 2em;
 }
 
-#index-body div {
-  /*margin: 5px;*/
+/*TODO mark this rule as important to override #navbar style? */
+.navNotLoggedIn,
+.navNotLoggedIn a
+{
+	text-decoration: none;
+	color: #999999;
 }
 
 #index-header,
-#calendar-header
+#calendar-header,
+#login-header,
+#about-header,
+#help-header,
+#roster-header
 {
 	width: 800px;
 	height: 200px;
@@ -74,18 +97,15 @@ body {
 }
 
 #index-content {
-  background-color: #eeeeee;
   padding: 5px;
   margin: 0;
   float: left;
   width: 590px;
-  /*min-width: 595px;*/
   min-height: 400px;
   clear: both;
 }
 
 #login-module {
-  background-color: lime;
   padding: 5px;
   margin: 0;
   float: left;
@@ -111,11 +131,6 @@ body {
 {
   color: #ff0000;
   font-weight: bold;
-}
-
-/* the roster page body */
-#roster-body {
-	background-color: #ffffff;
 }
 
 /* the div that holds the roster table */
@@ -196,11 +211,6 @@ body {
 
 /************* field layout rules *************/
 
-#field-layout-body {
-        /*width: 600px;
-        height: 330px;*/
-}
-      
 #softballField { 
         background-image: url('images/baseball-field-w-t-ball-positions-hi.png');
         background-repeat: no-repeat;
