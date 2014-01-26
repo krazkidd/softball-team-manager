@@ -3,11 +3,11 @@
 $_DEFAULTSEASON = 1;
 
 /* database access vars */
-$_DBHOST = "localhost";
-$_DBUSER = "team_mgrAdmin";
-$_DBPASS = "chumbawumba";
-$_DBPREFIX = "";
-$_DBNAME = $_DBPREFIX . "team_mgr";
+$_DBHOST = 'localhost';
+$_DBUSER = 'team_mgrAdmin';
+$_DBPASS = 'chumbawumba';
+$_DBPREFIX = '';
+$_DBNAME = $_DBPREFIX . 'team_mgr';
 
 /*
  * connectToDB() -- Tries to connect to the database
@@ -48,7 +48,7 @@ function getLoginName()
 		return $_SESSION['loginname'];
 	else
 //TODO don't allow a loginname like "Guest", or use NULL here
-		return "Guest";
+		return 'Guest';
 }
 
 //TODO right now this is just returning a placeholder value. I may not need it at all because what I need is a way to associate all teams under a certain user/manager, and that could be accomplished by adding a manager column to the teams table
@@ -56,7 +56,7 @@ function getLoginName()
 function getUserTeamName()
 {
 //TODO this should get the team name for the team *ID* associated with the user. and that ID should be changeable by the user, like if they manage multiple teams
-	return "Oddballs";
+	return 'Oddballs';
 }
 
 /*
@@ -77,8 +77,8 @@ function getUserSeasonID()
 	global $_DEFAULTSEASON;
 
 //TODO need to standardize session preference names?
-	if (isset($_SESSION["sessionPref:season"]))
-		return $_SESSION["sessionPref:season"];
+	if (isset($_SESSION['sessionPref:season']))
+		return $_SESSION['sessionPref:season'];
 	/*else if (isLoggedIn())
 //TODO need to check the user table for this preference
 		; */
