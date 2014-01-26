@@ -76,6 +76,7 @@ body {
 #index-header,
 #calendar-header,
 #login-header,
+#logout-header,
 #about-header,
 #help-header,
 #roster-header
@@ -110,6 +111,24 @@ body {
   margin: 0;
   float: left;
   width: 190px;
+}
+
+#login-module p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align:center;
+}
+
+#login-module p a {
+  display: block;
+  padding: 5px;
+  border: 1px solid #000000;
+  background-color: #ffa573;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #000000;
 }
 
 #footer {
