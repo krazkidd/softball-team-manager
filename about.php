@@ -20,7 +20,7 @@
 			</div>
 
 <?php
-	include("includes/navbar.php");
+	include('includes/navbar.php');
 ?>
       
 			<div id="about-content">
@@ -29,7 +29,7 @@
 			</div>
 
 <?php
-	include("includes/footer.php");
+	include('includes/footer.php');
 ?>
 		</div> <!-- end container -->
 	</body>

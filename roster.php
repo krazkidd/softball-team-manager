@@ -4,7 +4,7 @@
 
 	if (!isLoggedIn())
 	{
-		header("Location: index.php");
+		header('Location: index.php');
 		quit(0);
 	}
 ?>
@@ -65,7 +65,7 @@ if ($db_team_query_result == NULL)
 			<p><a href="edit-roster.php">Edit Roster &gt; &gt;</a></p>
 
 <?php
-	include("includes/footer.php");
+	include('includes/footer.php');
 ?>
 		</div> <!-- end container -->
 	</body>
