@@ -164,7 +164,8 @@ body {
 
 }
 
-#team-profile-content img
+#team-profile-content img,
+#player-profile-content img
 {
 	display: block;
 	float: right;
