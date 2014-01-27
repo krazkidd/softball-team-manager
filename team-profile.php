@@ -2,6 +2,8 @@
 	session_start();
 	require_once('common-definitions.php');
 
+//TODO why redirect? should allow viewing team profile (but not roster)
+//     show like a demo page for non-logged in users? (no, what if they want to view a team profile?)
 	if (!isLoggedIn())
 	{
 		header("Location: index.php");
@@ -151,6 +153,8 @@ if ($db_my_teams_query_result == NULL)
 	}
 
 	closeDB($db_con);
+
+	include('includes/footer.php');
 ?>
 			</div> <!-- team-profile-content -->
 		</div> <!-- container -->
