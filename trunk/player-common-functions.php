@@ -2,6 +2,20 @@
 
 require_once("common-definitions.php");
 
+function formatPhoneNumber($phoneStr)
+{
+	if ($phoneStr != NULL)
+	{
+		if (strlen($phoneStr) == 10)
+			return '(' . substr($phoneStr, 0, 3) . ') ' . substr($phoneStr, 3, 3) . '-' . substr($phoneStr, 6, 4);
+		else if (strlen($phoneStr) == 7)
+			return substr($phoneStr, 0, 3) . '-' . substr($phoneStr, 3, 4);
+	}
+
+	return $phoneStr;
+}
+
+//TODO this function is not being used--I might just turn into a module
 function displayPlayerInfo($playerID)
 {
 	$db_con = connectToDB();
