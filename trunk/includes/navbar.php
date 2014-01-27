@@ -6,7 +6,7 @@
 	<ul>
 		<li><a href="/index.php" title="Home">Home</a></li>
 		<!-- <li<?= !isLoggedIn() ? ' class="navNotLoggedIn"' : "" ?>><a href="/roster.php">Roster</a></li> -->
-		<?= isLoggedIn() ? '<li><a href="/team-profile.php">My Teams</a></li>' : "" ?>
+		<?= isLoggedIn() ? '<li><a href="/my-teams.php">My Teams</a></li>' : "" ?>
 		<li><a href="/calendar.php">Calendar</a></li>
 		<li><a href="/about.php" title="About this site">About</a></li>
 		<li><a href="/help.php" title="How to use this site">Help</a></li>

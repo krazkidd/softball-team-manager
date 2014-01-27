@@ -81,7 +81,8 @@ body {
 #about-header,
 #help-header,
 #roster-header,
-#team-profile-header
+#team-profile-header,
+#my-teams-header
 {
 	width: 800px;
 	height: 200px;
@@ -160,6 +161,12 @@ body {
 /* the div that holds the table that shows the teams the player is currently on */
 #player_s-teams {
 
+}
+
+#team-profile-content img
+{
+	display: block;
+	float: right;
 }
 
 

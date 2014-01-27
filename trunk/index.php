@@ -18,7 +18,6 @@
 
 	<body id="index-body">
 		<div id="container">
-
 			<div id="index-header">
 			      <h1>Home</h1>
 			</div>
