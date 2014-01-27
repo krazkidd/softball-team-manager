@@ -82,7 +82,8 @@ body {
 #help-header,
 #roster-header,
 #team-profile-header,
-#my-teams-header
+#my-teams-header,
+#player-profile-header
 {
 	width: 800px;
 	height: 200px;
