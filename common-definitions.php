@@ -24,9 +24,8 @@ function connectToDB()
 	// create db connection
 	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBNAME);
 //DEBUG
-// check for success
-if (mysqli_connect_errno())
-	echo "<p class=\"db-error\">Database connection error (" . mysqli_connect_errno() . "): " . mysqli_connect_error();
+if ( !$db_con)
+	error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
 //END DEBUG
 
 	return $db_con;

@@ -29,10 +29,7 @@
 			}
 //DEBUG
 else
-{
-	echo "Error INSERTing into DB.";
-}
-
+	error_log('Could not register user \'' . $_POST['loginName'] . '\'. (Could not INSERT into User table.)');
 //END DEBUG
 			closeDB($db_con);
 		}
