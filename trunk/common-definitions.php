@@ -51,6 +51,28 @@ function getLoginName()
 		return 'Guest';
 }
 
+/*
+ * getUserPlayerID -- get the logged-in user's player ID
+ */
+function getUserPlayerID()
+{
+	$db_con = connectToDB();
+
+	$query_result = mysqli_query($db_con, 'SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
+
+	if ($query_result)
+	{
+		$row = mysqli_fetch_array($query_result);
+
+//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
+		closeDB($db_con);
+		return $row['PlayerID'];
+	}
+
+	closeDB($db_con);
+	return NULL;
+}
+
 //TODO right now this is just returning a placeholder value. I may not need it at all because what I need is a way to associate all teams under a certain user/manager, and that could be accomplished by adding a manager column to the teams table
 //TODO change "User" in function name to "Login" like other functions?
 function getUserTeamName()

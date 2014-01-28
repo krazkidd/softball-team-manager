@@ -54,7 +54,7 @@ if ($team_query_result == NULL) {
 		$mgrInfo = mysqli_fetch_array($mgr_query_result);
 ?>
 				<img title="<?= $teamInfo['TeamName'] ?>" src="images/team-no-image.png" />
-				<h2 id="team-name-header"><?= $teamInfo['TeamName'] ?></h2>
+				<h2 id="team-name-header"><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
 				<h4>Motto</h4>
 				<p><?= $teamInfo['Motto'] ?></p>
 				<h4>Mission Statement</h4>
