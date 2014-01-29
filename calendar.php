@@ -29,6 +29,7 @@
 			<div id="calendar">
 <?php
 	$db_con = connectToDB();
+//TODO when no team is given, don't show all games in cal. ask user to select region/season/league
 
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
 //make an array of the leagues for the current user
