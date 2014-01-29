@@ -83,7 +83,8 @@ body {
 #roster-header,
 #team-profile-header,
 #my-teams-header,
-#player-profile-header
+#player-profile-header,
+#manage-header
 {
 	width: 800px;
 	height: 200px;
@@ -165,7 +166,8 @@ body {
 }
 
 #team-profile-content img,
-#player-profile-content img
+#player-profile-content img,
+#manage-content img
 {
 	display: block;
 	float: right;

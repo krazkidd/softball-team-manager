@@ -1,14 +1,6 @@
 <?php
 	session_start();
 	require_once('common-definitions.php');
-
-//TODO why redirect? should allow viewing team profile (but not roster)
-//     show like a demo page for non-logged in users? (no, what if they want to view a team profile?)
-	if (!isLoggedIn())
-	{
-		header("Location: index.php");
-		quit(0);
-	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -40,28 +32,30 @@
 		$escapedTeamName = mysqli_real_escape_string($db_con, $_GET['name']);
 		$team_query_result = mysqli_query($db_con, "SELECT * FROM Team WHERE TeamName = '$escapedTeamName'");
 		$mgr_query_result = mysqli_query($db_con, "SELECT ID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE TeamName = '$escapedTeamName'");
-
 //DEBUG
-// show an error if the query failed
-if ($team_query_result == NULL) {
-?>
-				<p class="db-error">No info was found for this team in the database.</p>
-<?php
-}
+if ( !$team_query_result)
+	error_log('No info was found for team \''. $escapedTeamName . '\' in the database.');
 //END DEBUG
 
 		$teamInfo = mysqli_fetch_array($team_query_result);
 		$mgrInfo = mysqli_fetch_array($mgr_query_result);
 ?>
 				<img title="<?= $teamInfo['TeamName'] ?>" src="images/team-no-image.png" />
-				<h2 id="team-name-header"><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
+				<h2><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
 				<h4>Motto</h4>
 				<p><?= $teamInfo['Motto'] ?></p>
 				<h4>Mission Statement</h4>
 				<p><?= $teamInfo['MissionStatement'] ?></p>
 				<h6>Notes</h6>
 				<p><?= $teamInfo['Notes'] ?></p>
+<?php
+		if (isLoggedIn())
+		{
+?>
 				<p>Manager: <a href="player-profile.php?id=<?= $mgrInfo['ID'] ?>"><?= $mgrInfo['FirstName'] . " " . $mgrInfo['LastName'] ?></a></p>
+<?php
+		}
+?>
 		
 <!--	TODO list current leagues (that is, leagues that have started that this team participates in
 		echo "<p>League Info:</p>";
@@ -125,8 +119,8 @@ if ($db_my_teams_query_result == NULL)
 	{
 		$teams_query_result = mysqli_query($db_con, "SELECT TeamName FROM Team ORDER BY TeamName");
 
-//TODO mysqli_query might return false, but not NULL. Fix this
-		if ($teams_query_result == NULL || mysqli_num_rows($teams_query_result) == 0) {
+		if ( !$teams_query_result || mysqli_num_rows($teams_query_result) == 0) {
+//TODO do better error handling here
 ?>
 				<p class="db-error">There are no teams in the database. Hm.</p>
 <?php
@@ -139,6 +133,7 @@ if ($db_my_teams_query_result == NULL)
 					<select name="name">
 <?php
 			while ($row = mysqli_fetch_array($teams_query_result)) {
+//TODO it appears here that forms automatically URL encode the values. is that right?
 ?>
 						<option value="<?= $row["TeamName"] ?>"><?= $row["TeamName"] ?></option>
 <?php

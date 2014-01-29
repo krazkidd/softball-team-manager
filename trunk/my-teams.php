@@ -4,7 +4,7 @@
 
 	if (!isLoggedIn())
 	{
-		header("Location: index.php");
+		header('Location: index.php');
 		exit(0);
 	}
 ?>
@@ -29,7 +29,7 @@
 	include('includes/navbar.php');
 ?>
 
-				<div id="my-teams-content">
+			<div id="my-teams-content">
 <?php
 	$db_con = connectToDB();
 
@@ -39,9 +39,9 @@
 	if ($manages_query_result != NULL)
 	{
 ?>
-					<h4>Teams I manage (click to go to team's management interface):</h4>
+				<h4>Teams I manage (click to go to team's management interface):</h4>
 
-					<ul>
+				<ul>
 <?php
 		while ($teamRow = mysqli_fetch_array($manages_query_result))
 		{
@@ -50,11 +50,11 @@
 //     right now, i am just linking to Team Profile
 //TODO show team colors and small icon; remove list bullets
 ?>
-						<li><a href="/team-profile.php?name=<?= $escapedTeamName ?>"><?= $teamRow['TeamName'] ?></a></li>
+					<li><a href="/manage.php?name=<?= $escapedTeamName ?>"><?= $teamRow['TeamName'] ?></a></li>
 <?php
 		}
 ?>
-					</ul>
+				</ul>
 <?php
 	}
 
@@ -63,18 +63,18 @@
 	if ($plays_on_query_result)
 	{
 ?>
-					<h4>Teams I play on (click to go to team's profile page):</h4>
-					<ul>
+				<h4>Teams I play on (click to go to team's profile page):</h4>
+				<ul>
 <?php
 		while ($teamRow = mysqli_fetch_array($plays_on_query_result))
 		{
 			$escapedTeamName = mysqli_real_escape_string($db_con, $teamRow['TeamName']);
 ?>
-						<li><a href="/team-profile.php?name=<?= $escapedTeamName ?>"><?= $teamRow['TeamName'] ?></a></li>
+					<li><a href="/team-profile.php?name=<?= $escapedTeamName ?>"><?= $teamRow['TeamName'] ?></a></li>
 <?php
 		}
 ?>
-					</ul>
+				</ul>
 <?php
 	}
 
@@ -82,7 +82,7 @@
 
 	include('includes/footer.php');
 ?>
-			</div> <!-- team-profile-content -->
+			</div> <!-- my-teams-content -->
 		</div> <!-- container -->
 	</body>
 </html>

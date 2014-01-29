@@ -50,6 +50,11 @@ function getLoginName()
 		return 'Guest';
 }
 
+function getUserName()
+{
+	return getLoginName();
+}
+
 /*
  * getUserPlayerID -- get the logged-in user's player ID
  */
@@ -72,12 +77,27 @@ function getUserPlayerID()
 	return NULL;
 }
 
-//TODO right now this is just returning a placeholder value. I may not need it at all because what I need is a way to associate all teams under a certain user/manager, and that could be accomplished by adding a manager column to the teams table
-//TODO change "User" in function name to "Login" like other functions?
-function getUserTeamName()
+function getUserManagedTeamNames()
 {
-//TODO this should get the team name for the team *ID* associated with the user. and that ID should be changeable by the user, like if they manage multiple teams
-	return 'Oddballs';
+	$db_con = connectToDB();
+
+	$query_result = mysqli_query($db_con, 'SELECT TeamName FROM Team AS T JOIN Player AS P ON T.ManagerID = P.ID JOIN User AS U ON P.ID = U.PlayerID WHERE Login = \'' . getLoginName() . '\'');
+
+	if ($query_result)
+	{
+		$result = array();
+		while($row = mysqli_fetch_array($query_result))
+		{
+			$result[] = $row['TeamName'];
+		}
+
+//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
+		closeDB($db_con);
+		return $result;
+	}
+
+	closeDB($db_con);
+	return array();
 }
 
 /*
