@@ -71,11 +71,40 @@ function getUserPlayerID()
 	return NULL;
 }
 
+//TODO order by season start date--most recent first. show old seasons differently. (must JOIN with seasons, first)
+//     do the same for getUserRosteredTeamNames()
 function getUserManagedTeamNames()
 {
 	$db_con = connectToDB();
 
 	$query_result = mysqli_query($db_con, 'SELECT TeamName FROM Team AS T JOIN Player AS P ON T.ManagerID = P.ID JOIN User AS U ON P.ID = U.PlayerID WHERE Login = \'' . getLoginName() . '\'');
+
+	if ($query_result)
+	{
+		$result = array();
+		while($row = mysqli_fetch_array($query_result))
+		{
+			$result[] = $row['TeamName'];
+		}
+
+//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
+		closeDB($db_con);
+		return $result;
+	}
+
+	closeDB($db_con);
+	return array();
+}
+
+/*
+ * getUserRosteredTeamNames() -- gives a list of team names
+ * for which the player plays on
+ */
+function getUserRosteredTeamNames()
+{
+	$db_con = connectToDB();
+
+	$plays_on_query_result = mysqli_query($db_con, 'SELECT R.TeamName FROM Roster AS R JOIN Team AS T ON R.TeamName = T.TeamName WHERE PlayerID = \'' . getUserPlayerID() .'\'');
 
 	if ($query_result)
 	{
@@ -127,10 +156,9 @@ function getTeamInfo($teamName)
 //TODO sanitize $teamName
 	$db_con = connectToDB();
 
-//TODO if no name provided and user manages more than one team, show a list
-	if (isset($_GET['name']))
+	if (isset($teamName))
 	{
-		$escapedTeamName = mysqli_real_escape_string($db_con, $_GET['name']);
+		$escapedTeamName = mysqli_real_escape_string($db_con, $teamName);
 		$team_query_result = mysqli_query($db_con, "SELECT TeamName, PriColor, SecColor, Motto FROM Team WHERE TeamName = '$escapedTeamName'");
 //DEBUG
 //TODO do better error handling here
