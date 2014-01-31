@@ -13,14 +13,14 @@
 		<p>Which team do you want to manage?</p>
 		<p>
 			<ul>
-				<?php foreach ($team as $managedTeamsList) { ?>
+				<?php foreach ($managedTeamsList as $team ) { ?>
 					<li><a href="manage.php?name=<?= urlencode($team) ?>"><?= $team ?></a></li>
 				<?php } ?>
 			</ul>
 		</p>
 	<?php } else { ?>
-			<p>You are not a manager of any teams.</p>
-		<?php } ?>
+		<p>You are not a manager of any teams.</p>
+	<?php } ?>
 <?php
 	}
 
