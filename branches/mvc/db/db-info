@@ -1,0 +1,20 @@
+Roster & Lineup Manager Database info:
+db name:team_mgr
+user:team_mgrAdmin
+pass:chumbawumba
+
+=============================
+
+CREATE DATABASE 'team_mgr';
+
+CREATE USER 'team_mgrAdmin'@'%'
+    IDENTIFIED BY 'chumbawumba';
+
+GRANT USAGE
+    ON *.*
+    TO 'team_mgrAdmin'@'%' ;
+
+GRANT ALL PRIVILEGES 
+    ON team_mgr.*
+    TO 'team_mgrAdmin'@'%';
+
