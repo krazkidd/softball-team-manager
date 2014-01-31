@@ -50,8 +50,8 @@ if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)
 				<img title="<?= $teamInfo['TeamName'] ?>" src="images/team-no-image.png" />
 				<h2><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
 				<p><?= $teamInfo['Motto'] ?></p>
-				<p><a href="roster.php?name=<?= urlencode($teamInfo['TeamName']) ?>">View Roster</a><br />
-				    <a href="#">View lineup for next game</a></p>
+				<p><a href="roster.php?name=<?= urlencode($teamInfo['TeamName']) ?>">View Rosters</a><br />
+				    <a href="#">View lineups for next games</a></p>
 <?php
 	}
 
