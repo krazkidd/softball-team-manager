@@ -4,8 +4,6 @@ session_start();
 
 require_once 'models/model.php';
 
-echo 'in Manage controller';
-
 // make sure user is logged in and is a manager of the specified team
 if ( !isLoggedIn() || !in_array($_GET['name'], getUserManagedTeamNames()))
 {
