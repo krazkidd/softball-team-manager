@@ -152,11 +152,11 @@ body {
 }
 
 /* the div that holds the roster table */
-#roster {
+#roster-content {
 
 }
 
-#roster table th {
+#roster-content table th {
 	background-color: #dddddd;
 }
 
