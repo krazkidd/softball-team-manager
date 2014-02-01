@@ -116,7 +116,6 @@ body {
   margin: 0;
   padding: 0;
   border: 0;
-  text-align:center;
 }
 
 #login-module p a {
@@ -128,6 +127,7 @@ body {
   text-decoration: none;
   font-size: 1.2em;
   color: #000000;
+  text-align:center;
 }
 
 #footer {
@@ -422,4 +422,24 @@ body {
 #frmLogin input,
 #frmRegister input
 {
+}
+
+.success-msg
+{
+/*TODO center text or shrink box (instead of stretching accross) */
+	margin: 10px 0;
+	padding: 8px;
+	font-weight: bold;
+	border: 1px solid #00ff00;
+	background-color: #99ffcc;
+}
+
+.fail-msg
+{
+/*TODO center text or shrink box (instead of stretching accross) */
+	margin: 10px 0;
+	padding: 8px;
+	font-weight: bold;
+	border: 1px solid #ff0000;
+	background-color: #ff99cc;
 }

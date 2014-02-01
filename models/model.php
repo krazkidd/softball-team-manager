@@ -172,3 +172,57 @@ if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)
 	closeDB($db_con);
 	return $teamInfo;
 }
+
+function attemptLogin($username, $password)
+{
+//TODO sanitize input
+	if ($_POST['loginName'] && $_POST['loginName'] != "" && $_POST['password'] && $_POST['password'] != "")
+
+	$db_con = connectToDB();
+
+	$ret = mysqli_query($db_con, 'SELECT * FROM `User` WHERE Login = \'' . $_POST['loginName'] . '\'');
+
+	$result = mysqli_fetch_array($ret);
+
+	if ($ret)
+	{
+		if (password_verify($_POST['password'], $result['PasswordHash']))
+		{
+			// save login name to session
+			$_SESSION['loginname'] = $_POST['loginName'];
+
+			closeDB($db_con);
+			return True;
+		}
+	}
+
+	closeDB($db_con);
+	return False;
+}
+
+function attemptRegistration($loginName, $password)
+{
+//TODO don't allow blank password. do some basic password enforcement
+//TODO sanitize input. also don't allow only differences in case or spacing for login names
+	if ($loginName && strlen($loginName) >= 3
+	    && $password && strlen($password) >= 3)
+	{
+		$db_con = connectToDB();
+
+		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (\'' . $loginName . '\', \'' . password_hash($password1, PASSWORD_DEFAULT) . '\', NULL)');
+
+		if ($ret)
+		{
+			// save login name to session
+			$_SESSION['loginname'] = $loginName;
+
+			closeDB($db_con);
+			return TRUE;
+		}
+		else
+			error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
+
+		closeDB($db_con);
+		return FALSE;
+	}
+}
