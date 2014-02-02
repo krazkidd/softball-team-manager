@@ -1,4 +1,5 @@
 <?php
+//TODO every function returns something different! some return NULL, others empty array
 
 //TODO because this file is included, this path is relative to wherever this is included from. Add a SITE_URL to config.php
 require 'config/config.php';
@@ -221,8 +222,26 @@ function attemptRegistration($loginName, $password)
 		}
 		else
 			error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
-
-		closeDB($db_con);
-		return FALSE;
 	}
+
+	closeDB($db_con);
+	return FALSE;
+}
+
+function getTeamManagerInfo($teamName)
+{
+	$db_con = connectToDB();
+
+	$escapedTeamName = mysqli_real_escape_string($db_con, $_GET['name']);
+	$mgr_query_result = mysqli_query($db_con, "SELECT ID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE TeamName = '$escapedTeamName'");
+
+	if ( !$mgr_query_result)
+	{
+		error_log('No manager was found for team \''. $escapedTeamName . '\' in the database. (This is a "feature", not really an error/bug.');
+		closeDB($db_con);
+		return NULL;
+	}
+
+	closeDB($db_con);
+	return mysqli_fetch_array($mgr_query_result);
 }
