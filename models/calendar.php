@@ -1,6 +1,6 @@
 <?php
 
-require_once('common-definitions.php');
+require_once 'models/model.php';
 
 function getHourFromMySQLTime($timeString)
 {
@@ -30,20 +30,64 @@ function mktimeFromMySQLTime($timeString)
 	return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString));
 }
 
-/*
- * displayCalendar() --
- *
- * Returns: True if display was successful; False otherwise.
- */
-function displayCalendar($month, $year)
+function getLeaguesThatPlayOnDayOfWeek($day)
 {
-echo "Printing cal for month $month and year $year";
-
-	// make sure month and year are valid
-	if ( !is_int($month) || !is_int($year) || !checkdate($month, 1, $year)) {
-echo !is_int($month);
-		return False;
+	switch (strtolower(substr($day)))
+	{
+		case 'sun':
+		case 'mon':
+		case 'tue':
+		case 'wed':
+		case 'thu':
+		case 'fri':
+		case 'sat':
+			$day = ucwords(strtolower(substr($_GET['day'], 0, 3)));
+			break;
+		default:
+			error_log('Bad value for day of week was provided: \'' . $day . '\'');
+			return NULL;
 	}
+
+	$db_con = connectToDB();
+
+//TODO fix query!
+	$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
+
+	$result = array();
+	while ($row = mysqli_fetch_array($db_query_result)
+	{
+		$result[] = $row;
+	}
+
+	return $result;
+}
+
+function getGamesByDate($dateStr)
+{
+//TODO make sure date argument is in proper format
+	$db_con = connectToDB();
+//TODO fix query
+	$db_game_info_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
+
+	if ($db_game_info_query_result == NULL)
+	{
+		error_log('The game info query result was NULL');
+	}
+
+	$result = array();
+	while ($row = mysqli_fetch_array($db_game_info_query_result))
+	{
+		$result[] = $row;
+	}
+
+	return $result;
+}
+
+function RENAME_THIS($month, $year)
+{
+	// make sure month and year are valid
+	if ( !is_int($month) || !is_int($year) || !checkdate($month, 1, $year))
+		return NULL;
 
 	$month = sprintf('%02d', $month);
 
@@ -92,31 +136,11 @@ echo !is_int($month);
 //TODO get days in previous month. PROBLEM: what if prev month is Dec? SOLUTION: just subtract 24 hours from $timeOfFirstDay
 	//$numDaysInPrevMonth = date('t', mktime(0, 0, 0, $month
 
-	// print the calendar table
-?>
-			<table id="calendar-table">
-				<tr>
-					<th colspan="7"><?= $monthName ?> <?= $year ?></th>
-				</tr>
-				<tr>
-					<td><a href="calendar.php?view=daily&amp;day=sun">Sun</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=mon">Mon</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=tue">Tue</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=wed">Wed</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=thu">Thu</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=fri">Fri</a></td>
-					<td><a href="calendar.php?view=daily&amp;day=sat">Sat</a></td>
-				</tr>
-				<tr>
-<?php
 	// keep track of the day of the week
 	$weeklyDayCount = 1;
 	// print blank days
 	while ($numBlankDays > 0)
 	{
-?>
-					<td>&nbsp;</td>
-<?php
 		$numBlankDays--;
 		$weeklyDayCount++;
 	}
@@ -142,39 +166,20 @@ echo !is_int($month);
 			$elementClass = 'calDatePassed';
 		else if ($monthlyDayCount == date('d'))
 			$elementClass = 'todays-date'
-
-//TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
-?>
-					<td<?= $elementClass != NULL ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != NULL ? "<a href=\"calendar.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
-<?php		
 		$monthlyDayCount++;
 		
 		$weeklyDayCount++;
 		if ($weeklyDayCount > 7)
 		{
-?>
-				</tr>
-				<tr>
-<?php
 			$weeklyDayCount = 1;
 		}
 	}
 
 	while ($weeklyDayCount <= 7)
 	{
-?>
-					<td>&nbsp;</td>
-<?php
 		$weeklyDayCount++;
 	}
 
-?>
-				</tr>
-			</table>
-<?php
-	// calendar printed successfully
-	return True;
-} /* end DisplayCalendar() */
-
-?>
-
+FIX
+	return NULL;
+}
