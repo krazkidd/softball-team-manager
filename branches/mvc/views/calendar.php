@@ -45,6 +45,7 @@
 							<?php if ($showResults) { ?>
 								<td><?= $finalHome ?> <?= $finalHome > $finalAway ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
 								<td><?= $finalAway ?> <?= $finalAway > $finalHome ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
+							<?php } ?>
 						</tr>
 					<?php } ?>
 				</table>

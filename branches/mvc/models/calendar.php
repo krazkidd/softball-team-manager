@@ -54,7 +54,7 @@ function getLeaguesThatPlayOnDayOfWeek($day)
 	$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
 
 	$result = array();
-	while ($row = mysqli_fetch_array($db_query_result)
+	while ($row = mysqli_fetch_array($db_query_result))
 	{
 		$result[] = $row;
 	}
@@ -165,7 +165,7 @@ function RENAME_THIS($month, $year)
 		if (mktime(0, 0, 0, $month, $monthlyDayCount + 1, $year) < time())
 			$elementClass = 'calDatePassed';
 		else if ($monthlyDayCount == date('d'))
-			$elementClass = 'todays-date'
+			$elementClass = 'todays-date';
 		$monthlyDayCount++;
 		
 		$weeklyDayCount++;
@@ -180,6 +180,6 @@ function RENAME_THIS($month, $year)
 		$weeklyDayCount++;
 	}
 
-FIX
+//FIX
 	return NULL;
 }

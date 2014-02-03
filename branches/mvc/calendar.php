@@ -12,11 +12,11 @@ require_once 'models/calendar.php';
 if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 {
 	// show leagues that play on selected day
-	$action = 'list-leagues-day-of-week'
+	$action = 'list-leagues-day-of-week';
 	$day = ucwords(strtolower($_GET['day']));
 	$leaguesList = getLeaguesThatPlayOnDayOfWeek($_GET['day']);
 }
-else if (isset([$_GET['date']))
+else if (isset($_GET['date']))
 {
 	$action = 'list-games-on-date';
 	$date = NULL;
