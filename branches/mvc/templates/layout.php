@@ -32,7 +32,9 @@
 				</p>
 			</div>
 
-			<?php echo $content ?>
+			<div id="content">
+				<?php echo $content ?>
+			</div>
 
 			<div id="footer">
 				<p><a href="/index.php">Home</a></p>

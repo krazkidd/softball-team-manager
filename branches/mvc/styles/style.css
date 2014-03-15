@@ -96,6 +96,10 @@ body {
 	text-indent: -9000px;
 }
 
+#content {
+	font-family: sans-serif;
+}
+
 #index-content {
   padding: 5px;
   margin: 0;
