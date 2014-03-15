@@ -2,7 +2,7 @@
 
 <?php ob_start() ?>
 
-	<p>Do you need some help, little baby? Do you want me to call the Waaaaaaaahhhmbulance?</p>
+	<p>I should probably mention how to actually use the site here.</p>
 
 <?php $content = ob_get_clean() ?>
 
