@@ -1,0 +1,424 @@
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#container 
+{
+	width: 800px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#navbar
+{
+	padding: 0;
+/*TODO #navbar has 0x0 dimensions because of floated elements. I don't think this margin is the best way to push down the content body */
+	margin-bottom: 50px;
+}
+
+#navbar ul
+{
+	margin: 0;
+	padding: 0
+}
+
+#navbar li
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	float: left;
+	list-style: none;
+	/*margin: 0;*/
+	/*height: 2em;*/
+	/*background-color: #3ac6c1;*/
+}
+
+#navbar a
+{
+	font-weight: bold;
+	color: #3ac6c1;
+}
+
+#navbar li a
+{
+	display: block;
+	line-height: 2em;
+	padding: 5px;
+}
+
+#navbar li:hover 
+{
+	background-color: #ffc973;
+}
+
+#navLoginName
+{
+	margin: 0;
+	padding: 5px;
+	border: 0;
+	float: right;
+	color: #999999;
+	font-size: 0.8em;
+	line-height: 2em;
+}
+
+/*TODO mark this rule as important to override #navbar style? */
+.navNotLoggedIn,
+.navNotLoggedIn a
+{
+	text-decoration: none;
+	color: #999999;
+}
+
+#index-header,
+#calendar-header,
+#login-header,
+#logout-header,
+#register-header,
+#about-header,
+#help-header,
+#roster-header,
+#team-profile-header,
+#my-teams-header,
+#player-profile-header,
+#manage-header
+{
+	width: 800px;
+	height: 200px;
+	margin: 0;
+	padding: 0;
+	background-image: url('/images/index-header-2-800x200.png');
+	background-position: center center;
+	text-indent: -9000px;
+}
+
+#index-content {
+  padding: 5px;
+  margin: 0;
+  float: left;
+  width: 590px;
+  min-height: 400px;
+  clear: both;
+}
+
+#login-module {
+  padding: 5px;
+  margin: 0;
+  float: left;
+  width: 190px;
+}
+
+#login-module p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align:center;
+}
+
+#login-module p a {
+  display: block;
+  padding: 5px;
+  border: 1px solid #000000;
+  background-color: #ffa573;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #000000;
+}
+
+#footer {
+  font-size: 0.8em;
+  margin: 0;
+  padding: 10px 0;
+  clear: both;
+  width: 100%;
+  text-align: center;
+}
+
+#footer a {
+  color: #000000;
+}
+
+/* database or general error */
+.db-error,
+.error,
+.warning
+{
+  color: #ff0000;
+  font-weight: bold;
+}
+
+/* the div that holds the roster table */
+#roster-content {
+
+}
+
+#roster-content table th {
+	background-color: #dddddd;
+}
+
+/* the div that holds the table that shows the teams the player is currently on */
+#player_s-teams {
+
+}
+
+#team-profile-content img,
+#player-profile-content img,
+#manage-content img
+{
+	display: block;
+	float: right;
+}
+
+
+#game-list table th {
+	font-weight: bold;
+}
+
+#game-list table td {
+	background-color: #cccccc;
+}
+
+#calendar {
+
+}
+
+/*TODO this style is specific to calendar.php, but what if we want to display the calendar somewhere else? allow for a minimized version */
+#calendar table {
+	text-align: center;
+	margin: 0 auto;
+	width: 80%;
+}
+
+#calendar table th {
+	background-color: #ffffcc;
+}
+
+#calendar table th,
+#calendar table td
+{
+	height: 2em;
+}
+
+#calendar .gameday {
+	background-image: url('images/ball.png');
+	font-weight: bold;
+}
+
+#calendar .calDatePassed {
+	background-image: none;
+	background-color: #dddddd;
+}
+
+#calendar .todays-date {
+	border-color: #22eecc;
+	border-width: 2px;
+}
+
+#player_s-teams table th {
+	background-color: #dddddd;
+}
+
+.spring13 {
+	background-color: #99ff66;
+}
+
+.gender-female {
+	background-color: #ffccff;
+        /*color: #FF00FF;*/ /* unimaginitive pink */
+}
+
+.gender-male {
+	background-color: #99ffff;
+        /*color: #3333FF;*/ /* electric booga-blue */
+}
+
+.gender-missing {
+	background-color: #cccccc;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+/************* field layout rules *************/
+
+#softballField { 
+        background-image: url('images/baseball-field-w-t-ball-positions-hi.png');
+        background-repeat: no-repeat;
+        width: 600px;
+        height: 330px;
+        position: relative;
+        padding: 0px;
+        margin: 0px;
+}
+      
+#gameInfo {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 2px;
+        background-color: #000000;
+        /*width: 100%;*/
+}
+
+#gameInfo p {
+	font-family: sans-serif;
+	font-weight: bold;
+	color: #dd3300;
+	padding: 0px;
+	text-align: center;
+	/*margin: auto 0 auto 0;*/
+}
+
+.playerPos {
+	position: absolute;
+	padding: 2px;
+	margin: 0px;
+	min-width: 150px;
+}
+
+.playerPos p {
+	font-family: sans-serif;
+	font-weight: bold;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+}
+
+/* pitcher */
+#field-pos-1 {
+	left: 70px;
+	top: 214px;
+}
+
+/* catcher */
+#field-pos-2 {
+	left: 11px;
+	top: 297px;
+}
+
+/* first base */
+#field-pos-3 {
+	left: 236px;
+	top: 274px;
+}
+
+/* second base */
+#field-pos-4 {
+	left: 241px;
+	top: 184px;
+}
+
+/* third base */
+#field-pos-5 {
+	left: 24px;
+	top: 150px;
+}
+
+/* short stop */
+#field-pos-6 {
+	left: 148px;
+	top: 121px;
+}
+
+/* left field */
+#field-pos-7 {
+	left: 73px;
+	top: 33px;
+}
+
+/* center field a.k.a. left center */
+#field-pos-8 {
+	left: 219px;
+	top: 55px;
+}
+
+/* right field */
+#field-pos-9 {
+	left: 401px;
+	top: 216px;
+}
+
+/* rover a.k.a. right center */
+#field-pos-10 {
+	left: 348px;
+	top: 91px;
+}
+
+.ep-is-starter {
+	font-weight: bold;
+}
+
+/************* END field layout rules *************/
+
+#home-team {
+	background-color: yellow;
+	float: left;
+	width: 40%;
+	padding:10px;
+	margin: 2px;
+}
+
+#away-team {
+	background-color: orange;
+	float: left;
+	width: 40%;
+	padding:10px;
+	margin: 2px;
+}
+
+#home-team h3, #away-team h3 {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#final-score {
+	background-color: #ffcccc;
+	clear: both;
+}
+
+#final-score p {
+	text-align: center;
+}
+
+#lineup-whole-form {
+	border-style: dashed;
+	border-width: 1px;
+	display: inline-block;
+}
+
+#lineup-whole-form p {
+	margin: 10px;
+}
+
+#lineup-whole-form table {
+	margin: 5px;	
+	padding: 0px;
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+}
+
+/*#lineup-whole-form tr th + tr td {
+	font-weight: bold;
+}*/
+
+#lineup-whole-form table th, #lineup-whole-form table td {
+	border-style: solid;
+	border-width: 1px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+/*TODO fix the selector below; it should not apply to names*/
+#lineup-whole-form table tr > td {
+	/*text-align: center;*/
+}
+
+#frmLogin input,
+#frmRegister input
+{
+}
