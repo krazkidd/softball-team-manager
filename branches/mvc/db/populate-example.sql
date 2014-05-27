@@ -23,7 +23,7 @@ INSERT INTO Player VALUES
     ;
 
 INSERT INTO User VALUES
-    /* the hashed pass is from get-pass-hash.php */
+    /* the hashed pass ('password') is from get-pass-hash.php */
     ('jimbean', '$2y$10$fiUObUgbHUtwN7CCx3ri0emrCtAgmunBXu/68P7Z8kt3iv0eAh90a', 1)
     ;
 
