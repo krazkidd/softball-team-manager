@@ -4,6 +4,15 @@
 //TODO because this file is included, this path is relative to wherever this is included from. Add a SITE_URL to config.php
 require 'config/config.php';
 
+//TODO my not-so-production server requires this compatibility library for the new PHP password stuff.
+//     I should put a version test here, though.
+//     SEE: 
+//     * http://php.net/manual/en/faq.passwords.php
+//     * https://github.com/ircmaxell/password_compat
+//TODO include* and require* seem to treat relative paths differently (if the running script itself was included or required)
+if (file_exists('models/password.php'))
+    require_once 'models/password.php';
+
 /*
  * connectToDB() -- Tries to connect to the database
  *
@@ -11,16 +20,18 @@ require 'config/config.php';
  */
 function connectToDB()
 {
-	global $_DBHOST;
-	global $_DBUSER;
-	global $_DBPASS;
-	global $_DBNAME;
+    //NOTE: this was removed when i started using define()
+	//global $_DBHOST;
+	//global $_DBUSER;
+	//global $_DBPASS;
+	//global $_DBNAME;
 
 	// create db connection
-	$db_con = mysqli_connect($_DBHOST, $_DBUSER, $_DBPASS, $_DBNAME);
+	$db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
 //DEBUG
 if ( !$db_con)
-	error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
+    error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
 //END DEBUG
 
 	return $db_con;
@@ -210,7 +221,7 @@ function attemptRegistration($loginName, $password)
 	{
 		$db_con = connectToDB();
 
-		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (\'' . $loginName . '\', \'' . password_hash($password1, PASSWORD_DEFAULT) . '\', NULL)');
+		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (\'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
 
 		if ($ret)
 		{
