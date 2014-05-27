@@ -15,6 +15,26 @@
     to scale back the features targeted for whatever hypothetical future release might happen, starting with
     just a simple lineup editor.</p>
 
+    <hr />
+
+    <p id="license">Copyright &copy; 2013 Mark Ross<br />
+    <br />
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.<br />
+    <br />
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.<br />
+    <br />
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.</p>
+
+    <p>You can acquire the source for this website at its Subversion 
+    <a href="https://code.google.com/p/softball-team-manager/">repository</a>.</p>
+
 <?php $content = ob_get_clean() ?>
 
 <?php require 'templates/layout.php' ?>
