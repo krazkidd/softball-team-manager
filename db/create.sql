@@ -19,6 +19,8 @@
   
 ************************************************************************* */
 
+/*TODO create/destroy the whole database using config settings (write a bash script to handle all that */
+
 /* season entity */
 CREATE TABLE Season (
     Description       VARCHAR(32),
@@ -31,7 +33,8 @@ CREATE TABLE Season (
 
 /* player entity */
 CREATE TABLE Player (
-    ID          VARCHAR(16),
+    ID          INTEGER,
+    OtherID     VARCHAR(16), /*TODO rename */
     FirstName   VARCHAR(64),
     LastName    VARCHAR(128),
     NickName    VARCHAR(64),
@@ -44,11 +47,11 @@ CREATE TABLE Player (
     CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* website user logins/passwords and links to player IDs */
-CREATE TABLE User (
-    Login        VARCHAR(16),
+CREATE TABLE `User` (
+    Login        VARCHAR(32),
     PasswordHash VARCHAR(255),
 
-    PlayerID     VARCHAR(16) NULL,
+    PlayerID     INTEGER,
 
     FOREIGN KEY (PlayerID) REFERENCES Player(ID),
     PRIMARY KEY (Login)
@@ -86,7 +89,7 @@ CREATE TABLE Team (
     MissionStatement VARCHAR(1024),
     Notes            VARCHAR(4096),
 
-    ManagerID        VARCHAR(16) NULL,
+    ManagerID        INTEGER NULL,
 
     FOREIGN KEY (ManagerID) REFERENCES Player(ID),
     PRIMARY KEY (TeamName)
@@ -114,7 +117,7 @@ CREATE TABLE Roster (
     Notes             VARCHAR(4096),
     Disabled          BOOLEAN,
 
-    PlayerID          VARCHAR(16),
+    PlayerID          INTEGER,
 
     TeamName          VARCHAR(64),
     ParkName          VARCHAR(128),
@@ -160,31 +163,31 @@ CREATE TABLE Lineup (
     DayOfWeek         CHAR(1),
     SeasonDescription VARCHAR(32),
 
-    FieldPos1PID      VARCHAR(16) NULL,
-    FieldPos2PID      VARCHAR(16) NULL,
-    FieldPos3PID      VARCHAR(16) NULL,
-    FieldPos4PID      VARCHAR(16) NULL,
-    FieldPos5PID      VARCHAR(16) NULL,
-    FieldPos6PID      VARCHAR(16) NULL,
-    FieldPos7PID      VARCHAR(16) NULL,
-    FieldPos8PID      VARCHAR(16) NULL,
-    FieldPos9PID      VARCHAR(16) NULL,
-    FieldPos10PID     VARCHAR(16) NULL,
-    BatPos1PID        VARCHAR(16) NULL,
-    BatPos2PID        VARCHAR(16) NULL,
-    BatPos3PID        VARCHAR(16) NULL,
-    BatPos4PID        VARCHAR(16) NULL,
-    BatPos5PID        VARCHAR(16) NULL,
-    BatPos6PID        VARCHAR(16) NULL,
-    BatPos7PID        VARCHAR(16) NULL,
-    BatPos8PID        VARCHAR(16) NULL,
-    BatPos9PID        VARCHAR(16) NULL,
-    BatPos10PID       VARCHAR(16) NULL,
-    BatPos11PID       VARCHAR(16) NULL,
-    BatPos12PID       VARCHAR(16) NULL,
-    ExtraPlayer1PID   VARCHAR(16) NULL,
-    ExtraPlayer2PID   VARCHAR(16) NULL,
-    ExtraPlayer3PID   VARCHAR(16) NULL,
+    FieldPos1PID      INTEGER NULL,
+    FieldPos2PID      INTEGER NULL,
+    FieldPos3PID      INTEGER NULL,
+    FieldPos4PID      INTEGER NULL,
+    FieldPos5PID      INTEGER NULL,
+    FieldPos6PID      INTEGER NULL,
+    FieldPos7PID      INTEGER NULL,
+    FieldPos8PID      INTEGER NULL,
+    FieldPos9PID      INTEGER NULL,
+    FieldPos10PID     INTEGER NULL,
+    BatPos1PID        INTEGER NULL,
+    BatPos2PID        INTEGER NULL,
+    BatPos3PID        INTEGER NULL,
+    BatPos4PID        INTEGER NULL,
+    BatPos5PID        INTEGER NULL,
+    BatPos6PID        INTEGER NULL,
+    BatPos7PID        INTEGER NULL,
+    BatPos8PID        INTEGER NULL,
+    BatPos9PID        INTEGER NULL,
+    BatPos10PID       INTEGER NULL,
+    BatPos11PID       INTEGER NULL,
+    BatPos12PID       INTEGER NULL,
+    ExtraPlayer1PID   INTEGER NULL,
+    ExtraPlayer2PID   INTEGER NULL,
+    ExtraPlayer3PID   INTEGER NULL,
 
     FOREIGN KEY (TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
     FOREIGN KEY (DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Game(DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription),

@@ -26,21 +26,21 @@ INSERT INTO Season VALUES
 
 
 INSERT INTO Player VALUES
-    ('1', 'Jim', 'Bean', NULL, 'jb@email', '5553434', 'M'),
-    ('2', 'Marla', 'Pearl', NULL, 'mp@email', '5554534', 'F'),
-    ('3', 'Janice', 'Trill', 'Jan', 'jt@email', '5554522', 'F'),
-    ('4', 'Mike', 'Woo', NULL, NULL, '5556969', 'M'),
-    ('5', 'Terry', 'Terrison', NULL, NULL, NULL, 'M'),
-    ('6', 'Simón', 'Juarez', NULL, 'sj@email', '5559901', 'M'),
-    ('7', 'Tera', 'O\'Dally', NULL, 'to@email', '5551212', 'F'),
-    ('8', 'Parker', 'Pug', NULL, 'pp@email', '5555867', 'F'),
-    ('9', 'Summer', 'Summerson', NULL, 'ss@email', '5559382', 'F'),
-    ('10', 'Tyra', 'Blanks', NULL, 'tb@email', '5558888', 'M'),
-    ('11', 'Scott', 'Diamante', NULL, 'sd@email', '5558483', 'M'),
-    ('12', 'Chet', 'Debon', 'Cherry Chet', 'cd@email', '5558181', 'M'),
-    ('13', 'Harry', 'Topper', 'Hip Harry', 'ht@email', '5553333', 'M'),
-    ('14', 'Gretta', 'Niehls', NULL, 'gn@email', '5553933', 'F'),
-    ('15', 'Maybe', 'Bluth', NULL, NULL, NULL, 'F')
+    ('0', NULL, 'Mark', 'Ross', NULL, 'mr@email', '5553434', 'M'),
+    ('1', NULL, 'Marla', 'Pearl', NULL, 'mp@email', '5554534', 'F'),
+    ('2', NULL, 'Janice', 'Trill', 'Jan', 'jt@email', '5554522', 'F'),
+    ('3', NULL, 'Mike', 'Woo', NULL, NULL, '5556969', 'M'),
+    ('4', NULL, 'Terry', 'Terrison', NULL, NULL, NULL, 'M'),
+    ('5', NULL, 'Simón', 'Juarez', NULL, 'sj@email', '5559901', 'M'),
+    ('6', NULL, 'Tera', 'O\'Dally', NULL, 'to@email', '5551212', 'F'),
+    ('7', NULL, 'Parker', 'Pug', NULL, 'pp@email', '5555867', 'F'),
+    ('8', NULL, 'Summer', 'Summerson', NULL, 'ss@email', '5559382', 'F'),
+    ('9', NULL, 'Tyra', 'Blanks', NULL, 'tb@email', '5558888', 'M'),
+    ('10', NULL, 'Scott', 'Diamante', NULL, 'sd@email', '5558483', 'M'),
+    ('11', NULL, 'Chet', 'Debon', 'Cherry Chet', 'cd@email', '5558181', 'M'),
+    ('12', NULL, 'Harry', 'Topper', 'Hip Harry', 'ht@email', '5553333', 'M'),
+    ('13', NULL, 'Gretta', 'Niehls', NULL, 'gn@email', '5553933', 'F'),
+    ('14', NULL, 'Maybe', 'Bluth', NULL, NULL, NULL, 'F')
     ;
 
 INSERT INTO User VALUES
@@ -84,21 +84,21 @@ INSERT INTO ParticipatesIn VALUES
     ; 
 
 INSERT INTO Roster VALUES
-    (23, NULL, 0, '1', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (34, NULL, 0, '10', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (13, NULL, 0, '11', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (43, NULL, 0, '12', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (42, NULL, 0, '13', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (NULL, 'Injured', 0, '6', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (16, 'Someone\'s friend', 0, '5', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (NULL, NULL, 0, '4', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (66, NULL, 0, '2', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (5, NULL, 0, '3', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (27, NULL, 0, '7', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (33, NULL, 0, '8', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (1, NULL, 0, '9', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (74, NULL, 0, '14', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
-    (NULL, NULL, 0, '15', 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013')
+    (23, NULL, 0, 0, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (34, NULL, 0, 9, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (13, NULL, 0, 10, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (43, NULL, 0, 11, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (42, NULL, 0, 12, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (NULL, 'Injured', 1, 5, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (16, 'Someone\'s friend', 0, 4, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (NULL, NULL, 0, 3, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (66, NULL, 0, 1, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (5, NULL, 0, 2, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (27, NULL, 0, 6, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (33, NULL, 0, 7, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (1, NULL, 0, 8, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (74, NULL, 0, 13, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013'),
+    (NULL, NULL, 0, 14, 'The One Team', 'Generic City Park', 2, 'M', 'Fall 2013')
     ;
 
 INSERT INTO Game VALUES
