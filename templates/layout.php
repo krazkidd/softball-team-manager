@@ -24,7 +24,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $title . ' - ' . $PROJECT_NAME ?></title>
+		<title><?php echo $title . ' - ' . PROJECT_NAME ?></title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="/styles/style.css" /> 
 	</head>
