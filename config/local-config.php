@@ -28,4 +28,4 @@ define(DB_HOST, 'localhost';
 define(DB_USER, 'localadmin';
 define(DB_PASS, 'localpass';
 define(DB_PREFIX, '';
-define(DB_NAME, DB_PREFIX . 'team_mgr';
+define(DB_NAME, DB_PREFIX . '_team_mgr';
