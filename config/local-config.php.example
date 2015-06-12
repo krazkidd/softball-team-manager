@@ -27,5 +27,5 @@ define('DEFAULT_SEASON', 1);
 define(DB_HOST, 'localhost';
 define(DB_USER, 'localadmin';
 define(DB_PASS, 'localpass';
-define(DB_PREFIX, '';
+define(DB_PREFIX, 'prefix';
 define(DB_NAME, DB_PREFIX . '_team_mgr';
