@@ -139,10 +139,10 @@ function getUserRosteredTeamNames()
 
 	$plays_on_query_result = mysqli_query($db_con, 'SELECT R.TeamName FROM Roster AS R JOIN Team AS T ON R.TeamName = T.TeamName WHERE PlayerID = \'' . getUserPlayerID() .'\'');
 
-	if ($query_result)
+	if ($plays_on_query_result)
 	{
 		$result = array();
-		while($row = mysqli_fetch_array($query_result))
+		while($row = mysqli_fetch_array($plays_on_query_result))
 		{
 			$result[] = $row['TeamName'];
 		}
@@ -192,7 +192,7 @@ function getTeamInfo($teamName)
 	if (isset($teamName))
 	{
 		$escapedTeamName = mysqli_real_escape_string($db_con, $teamName);
-		$team_query_result = mysqli_query($db_con, "SELECT TeamName, PriColor, SecColor, Motto FROM Team WHERE TeamName = '$escapedTeamName'");
+		$team_query_result = mysqli_query($db_con, "SELECT TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE TeamName = '$escapedTeamName'");
 //DEBUG
 //TODO do better error handling here
 if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)

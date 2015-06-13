@@ -26,7 +26,7 @@
 	<head>
 		<title><?php echo $title . ' - ' . PROJECT_NAME ?></title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="/styles/style.css" /> 
+		<link rel="stylesheet" type="text/css" href="/css/style.css" /> 
 	</head>
 
 	<body>

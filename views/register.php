@@ -1,4 +1,4 @@
-<!-- *************************************************************************
+<?php /*************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +17,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  *************************************************************************/
 
-<?php $title = 'Register' ?>
+$title = 'Register';
 
-<?php ob_start() ?>
+ob_start();
 	
-<?php if ($action == 'reg-success') { ?>
+?><?php if ($action == 'reg-success') { ?>
 	<p class='success-msg'>Your registration was successful! You are now logged in.</p>
 <?php }	else { // show registration form ?>
 	<p>This website uses cookies to keep track of your session.</p>
@@ -52,8 +52,8 @@
 	<?php if ($action == 'reg-fail') { ?>
 		<p class="fail-msg">Registration failed. Try again.</p>
 	<?php } ?>
-<?php } ?>
+<?php }
 
-<?php $content = ob_get_clean() ?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';

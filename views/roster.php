@@ -1,4 +1,4 @@
-<!-- *************************************************************************
+<?php /*************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +17,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  *************************************************************************/
 
-<?php $title = 'Roster' ?>
+$title = 'Roster';
 
-<?php ob_start() ?>
+ob_start();
 
-	<?php if ($action == 'show-roster') { ?>
+?><?php if ($action == 'show-roster') { ?>
 <!--TODO show team info -->
 		<table>
 			<tr>
@@ -41,8 +41,8 @@
 <!--TODO if a name is shown but other parameters are missing, show a list of seasons/leagues -->
 <!--TODO show a list of managed teams instead of error msg. -->
 		<p class="error">No team selected.</p>
-	<?php } ?>
+	<?php }
 
-<?php $content = ob_get_clean() ?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';

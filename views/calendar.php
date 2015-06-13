@@ -1,4 +1,4 @@
-<!-- *************************************************************************
+<?php /*************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +17,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  *************************************************************************/
 
-<?php $title = 'Calendar' ?>
+$title = 'Calendar';
 
-<?php ob_start() ?>
+ob_start();
 
-	<?php if ($action == 'list-leagues-day-of-week') { ?>
+?><?php if ($action == 'list-leagues-day-of-week') { ?>
 		<h2><?= $day ?> Leagues</h2>
 
 		<table>
@@ -93,8 +93,8 @@ ERROR print calendar from array
 					<td<?= $elementClass != NULL ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != NULL ? "<a href=\"calendar.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
 			</tr>
 		</table>
-	<?php } ?>
+	<?php }
 
-<?php $content = ob_get_clean() ?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';

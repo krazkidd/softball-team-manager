@@ -90,13 +90,13 @@ if ($db_team_info_query_result == NULL)
 
 		<div id="home-team">
 			<h2>Home - <a href="team-profile.php?id=<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $homeTeamInfo['name'] ?>" src="images/team-no-image.png" />
+			<img alt="<?= $homeTeamInfo['name'] ?>" src="img/team-no-image.png" />
 			<p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
 		</div> <!-- home-team -->
 		
 		<div id="away-team">
 			<h2>Away - <a href="team-profile.php?id=<?= $awayTeamInfo['teamID'] ?>"><?= $awayTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $awayTeamInfo['name'] ?>" src="images/team-no-image.png" />
+			<img alt="<?= $awayTeamInfo['name'] ?>" src="img/team-no-image.png" />
 		</div> <!-- away-team -->
 		<?php
 			if ($showResults)

@@ -1,8 +1,29 @@
-<?php $title = 'Login' ?>
+<?php /*************************************************************************
 
-<?php ob_start() ?>
+  This file is part of Team Manager.
+
+  Copyright © 2013 Mark Ross <krazkidd@gmail.com>
+
+  Team Manager is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Team Manager is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
+  
+  *************************************************************************/
+
+$title = 'Login';
+
+ob_start();
 	
-<?php if ($action == 'login-success') { ?>
+?><?php if ($action == 'login-success') { ?>
 	<p class='success-msg'>You were successfully logged in!</p>
 <?php }	else { // show login form ?>
 	<p>This website uses cookies to keep track of your session.</p>
@@ -24,8 +45,8 @@
 	<?php } ?>
 
 	<p>or <a href="register.php" title="Register">Register</a></p>
-<?php } ?>
+<?php }
 
-<?php $content = ob_get_clean() ?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';

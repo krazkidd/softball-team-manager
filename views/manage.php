@@ -1,4 +1,4 @@
-<!-- *************************************************************************
+<?php /*************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +17,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  *************************************************************************/
 
-<?php $title = 'Manage' ?>
+$title = 'Manage';
 
-<?php ob_start() ?>
+ob_start();
 
-<?php if ($action == 'show-team') { ?>
+?><?php if ($action == 'show-team') { ?>
 	<img title="<?= $teamInfo['TeamName'] ?>" src="images/team-no-image.png" />
 	<h2><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
 	<p><?= $teamInfo['Motto'] ?></p>
@@ -45,7 +45,6 @@
 <?php
 	}
 
-	$content = ob_get_clean();
-?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';

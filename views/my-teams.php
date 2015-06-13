@@ -1,4 +1,4 @@
-<!-- *************************************************************************
+<?php /*************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +17,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  *************************************************************************/
 
-<?php $title = 'My Teams' ?>
+$title = 'My Teams';
 
-<?php ob_start() ?>
+ob_start();
 
-<!--TODO show team colors and small icon; remove list bullets -->
+?><!--TODO show team colors and small icon; remove list bullets -->
 	<?php if ($managedTeamsList) { ?>
 		<p>Teams I manage (click to go to team's management interface):</p>
 		<p>
@@ -47,8 +47,8 @@
 
 	<?php if ( !$managedTeamsList && !$rosteredTeamsList) { ?>
 		<p>You are not managing or playing on any teams!</p>
-	<?php } ?>
+	<?php }
 
-<?php $content = ob_get_clean() ?>
+$content = ob_get_clean();
 
-<?php require 'templates/layout.php' ?>
+require 'templates/layout.php';
