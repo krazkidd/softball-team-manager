@@ -34,12 +34,12 @@ ob_start();
     </div> <!-- game-info -->
 
     <div id="away-team">
-        <h2>Away - <a href="team/<?= $awayTeamInfo['ID'] ?>"><?= $awayTeamInfo['TeamName'] ?></a></h2>
+        <h2>Away - <a href="/team/<?= $awayTeamInfo['ID'] ?>"><?= $awayTeamInfo['TeamName'] ?></a></h2>
         <img alt="<?= $awayTeamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
     </div> <!-- away-team -->
 
     <div id="home-team">
-        <h2>Home - <a href="team/<?= $homeTeamInfo['ID'] ?>"><?= $homeTeamInfo['TeamName'] ?></a></h2>
+        <h2>Home - <a href="/team/<?= $homeTeamInfo['ID'] ?>"><?= $homeTeamInfo['TeamName'] ?></a></h2>
         <img alt="<?= $homeTeamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
         <p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
     </div> <!-- home-team -->
