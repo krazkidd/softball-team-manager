@@ -23,13 +23,9 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-if (!isLoggedIn())
-{
-	header('Location: /');
-	exit(0);
-}
+doRequireLogin();
 
 // show all teams managed by this user
 //TODO change these functions to accept manager/player ID so that the functions can be a little more generic (the controller here would pass in the logged-in user's ID)

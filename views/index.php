@@ -25,11 +25,9 @@ $title = 'Home';
 
 ob_start();
 
-?><p>Welcome to the Team Manager BETA website!</p>
-
-	<?php if ( !isLoggedIn()) { ?>
-		<?php include '../inc/login-module.php' ?>
-	<?php } 
+?>
+    <p>Welcome to the Team Manager BETA website!</p>
+<?php
 
 $content = ob_get_clean();
 

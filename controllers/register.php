@@ -23,14 +23,9 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-if (isLoggedIn())
-{
-	// user is already logged in
-	header('Location: /');
-	exit(0);
-}
+doRequireNoLogin();
 
 if (isset($_POST['btnRegister']))
 {

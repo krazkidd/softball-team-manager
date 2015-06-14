@@ -23,13 +23,9 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-if ( !isLoggedIn())
-{
-	header('Location: /');
-	exit(0);
-}
+doRequireLogin();
 
 require_once '../models/roster.php';
 

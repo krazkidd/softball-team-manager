@@ -23,14 +23,9 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-if ( !isLoggedIn())
-{
-	// user not logged in, redirect to Home page
-	header('Location: /');
-	exit(0);
-}
+doRequireLogin();
 
 $_SESSION = array(); // or session_unset()
 session_destroy();

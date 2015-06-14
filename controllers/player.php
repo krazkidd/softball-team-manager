@@ -23,14 +23,9 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-//TODO redirect to the login page with a message that user can't view a player profile without being logged in
-if (!isLoggedIn())
-{
-	header('Location: /');
-	exit(0);
-}
+doRequireLogin();
 
 require_once '../models/player.php';
 

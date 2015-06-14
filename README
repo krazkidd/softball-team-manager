@@ -14,7 +14,7 @@ License: GNU AGPLv3 (see COPYING file)
 Requires:
 * PHP >= 5.5 (or PHP >= 5.3.7 if you install the password compatibility library
   from https://github.com/ircmaxell/password_compat)
-  - just drop the lib/password.php file from that project in the models/ directory
+  - just drop the lib/password.php file from that project in the lib/ directory
 * MariaDB/MySQL
 * a web server and whatever necessary PHP module
 * enable mysqli in php.ini

@@ -23,8 +23,6 @@
 
 session_start();
 
-require_once '../models/model.php';
-
 $teamInfo = getTeamInfo($_GET['id']);
 $teamName = $teamInfo['TeamName'];
 $priColor = $teamInfo['PriColor'];

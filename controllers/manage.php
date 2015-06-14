@@ -23,15 +23,11 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once '../models/auth.php';
 
-// make sure user is logged in and is a manager of the specified team
-//TODO if user is a manager of 
-//if ( !isLoggedIn() || !in_array($_GET['name'], getUserManagedTeamNames()))
-//{
-//	//header('Location: /');
-//	//exit(0);
-//}
+doRequireLogin();
+
+//TODO make sure user is manager of the specified team
 
 if (isset($_GET['id']))
 {

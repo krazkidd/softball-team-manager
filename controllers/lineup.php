@@ -23,33 +23,23 @@
 
 session_start();
 
+require_once '../models/auth.php';
+
+doRequireLogin();
+
 //require_once "../models/common-definitions.php";
 //require_once "../models/calendar.php";
 require_once "../models/lineup.php";
-
-if ( !isLoggedIn())
-{
-    header('Location: /');
-//TODO is exit() okay here? Anyway, an error message should be shown to the user.
-//TODO user must have permissions to view their lineup
-    exit();
-}
 
 if ( !isset($_GET["id"]))
 {
 //TODO have getNextGames return a regular array instead of a mysql result
     $db_next_games_query_result = getNextGames(6, date("Y-m-d"));
 
-    $thisFile = $_SERVER["PHP_SELF"];
-    $parts = Explode('/', $thisFile);
-    $thisFile = $parts[count($parts) - 1];
-
     while ($row = mysqli_fetch_array($db_next_games_query_result))
     {
         $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
     }
-
-    //exit();
 }
 
 $gameInfo = getGameInfo($_GET["gameid"]);

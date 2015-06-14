@@ -23,7 +23,6 @@
 
 session_start();
 
-require_once '../models/model.php';
 require_once '../models/calendar.php';
 
 //TODO when no team is given, don't show all games in cal. ask user to select region/season/league
