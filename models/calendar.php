@@ -25,11 +25,11 @@ require_once '../models/model.php';
 
 function getHourFromMySQLTime($timeString)
 {
-	return substr($timeString, 0, 2);
+	return substr($timeString, 11, 2);
 }
 function getMinuteFromMySQLTime($timeString)
 {
-	return substr($timeString, 3, 2);
+	return substr($timeString, 14, 2);
 }
 function getYearFromMySQLDate($dateString)
 {
@@ -45,10 +45,9 @@ function getDayFromMySQLDate($dateString)
 	return substr($dateString, 8, 2);
 }
 
-//TODO add second parameter for date?
-function mktimeFromMySQLTime($timeString)
+function mktimeFromMySQLDateTime($timeString)
 {
-	return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString));
+    return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString), 0, getMonthFromMySQLDate($timeString), getDayFromMySQLDate($timeString), getYearFromMySQLDate($timeString));
 }
 
 function getLeaguesThatPlayOnDayOfWeek($day)

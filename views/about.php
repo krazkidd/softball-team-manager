@@ -25,7 +25,8 @@ $title = 'About';
 
 ob_start();
 
-?><p>As manager of an adult co-ed softball team, Mark Ross developed over the course of several seasons a spreadsheet
+?>
+    <p>As manager of an adult co-ed softball team, Mark Ross developed over the course of several seasons a spreadsheet
     to help him keep track of rosters and game lineups. Spreadsheets are boring, though, so he decided to recreate
     all the functions of a spreadsheet (and more) while learning some Web technologies. What you see is a
     result of that effort.</p>
@@ -49,7 +50,8 @@ ob_start();
 
     <p>You can acquire the source for this website at its
     <a href="https://github.com/krazkidd/softball-team-manager/">Github repository</a>.</p>
+<?php
 
-<?php $content = ob_get_clean();
+$content = ob_get_clean();
 
 require '../templates/layout.php';

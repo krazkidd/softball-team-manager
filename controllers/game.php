@@ -23,37 +23,28 @@
 
 session_start();
 
-require_once "../models/common-definitions.php";
-require_once "../models/calendar-common-functions.php";
+require_once "../models/model.php";
+require_once "../models/calendar.php";
 
-// check if a whole night is requested or just a single game
-//TODO to be more robust, i should prioritize gameid over date, i.e. ignore date if gameid is present
 if (isset($_GET['id']))
 {
-    $db_game_info_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON leagues.leagueID = games.associatedLeague JOIN seasons ON seasons.seasonID = leagues.associatedSeason JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE gameID = {$_GET['gameid']}");
-    $db_team_info_query_result = mysqli_query($db_con, "SELECT * FROM teams JOIN games ON games.homeTeam = teams.teamID OR games.visitingTeam = teams.teamID WHERE gameID = {$_GET['gameid']}");
-
+    //$db_game_info_query_result = runQuery("SELECT * FROM Game AS G JOIN League AS L ON G.LeagueID = L.ID JOIN Season AS S ON L.SeasonID = S.ID JOIN Team AS T1 ON G.HomeID = T1.ID JOIN Team AS T2 ON Game.AwayID = T2.ID WHERE G.ID = {$_GET['id']}");
+    $db_game_info_query_result = runQuery("SELECT * FROM Game WHERE ID = {$_GET['id']}");
     $gameInfo = mysqli_fetch_array($db_game_info_query_result);
-    $homeTeamInfo = mysqli_fetch_array($db_team_info_query_result);
-    // make sure I really got the home team
-    if ($homeTeamInfo['teamID'] != $gameInfo['homeTeam'])
-    {
-        $awayTeamInfo = $homeTeamInfo;
-        $homeTeamInfo = mysqli_fetch_array($db_team_info_query_result);
-    }
-    else
-        $awayTeamInfo = mysqli_fetch_array($db_team_info_query_result);
+    //TODO allow for home/away to be null and show 'TBD' or somesuch
+    $homeID = $gameInfo['HomeID'];
+    $awayID = $gameInfo['AwayID'];
+    $db_home_team_info_query_result = runQuery("SELECT * FROM Game AS G JOIN Team AS T ON G.HomeID = T.ID WHERE G.ID = " . $_GET['id'] . " AND T.ID = " . $homeID);
+    $db_away_team_info_query_result = runQuery("SELECT * FROM Game AS G JOIN Team AS T ON G.AwayID = T.ID WHERE G.ID = " . $_GET['id'] . " AND T.ID = " . $awayID);
+
+    $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
+    $homeTeamInfo = mysqli_fetch_array($db_home_team_info_query_result);
+    $awayTeamInfo = mysqli_fetch_array($db_away_team_info_query_result);
 
     $showResults = false;
-    if (time() > mktime(getHourFromMySQLTime($gameInfo['time']) + 1, getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date'])))
+    if (time() > $gameTime)
         $showResults = true;
-        $gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 }
-    
-}
-else
-//TODO don't use die(), and close the db if needed
-    die("I need a gameid.");
 
 require '../views/game.php';
 
