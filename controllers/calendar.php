@@ -78,3 +78,5 @@ else
 }
 
 require '../views/calendar.php';
+
+require 'end_controller.php';

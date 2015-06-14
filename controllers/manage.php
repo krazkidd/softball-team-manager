@@ -47,3 +47,5 @@ else
 }
 
 require '../views/manage.php';
+
+require 'end_controller.php';

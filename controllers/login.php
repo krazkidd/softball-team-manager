@@ -38,6 +38,8 @@ if (isset($_POST['btnLogIn']))
 //TODO i need to add some kind of timestamp or token so that this login attempt expires and can't be re-sent
 	if (attemptLogin($_POST['loginName'], $_POST['password']))
 	{
+        //TODO add a "remember me" button and check for it here (p.s. it's a little hard to
+        //     do, security-wise, so do a good search on the topic)
 		$action = 'login-success';
 		header('Refresh: 10; URL=/my-teams');
 	}
@@ -57,3 +59,5 @@ else
 }
 
 require '../views/login.php';
+
+require 'end_controller.php';

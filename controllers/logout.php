@@ -38,3 +38,5 @@ session_destroy();
 $action = 'logout-success';
 
 require '../views/logout.php';
+
+require 'end_controller.php';

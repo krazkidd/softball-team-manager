@@ -59,3 +59,5 @@ require_once "../common-definitions.php";
 		die("I need a gameid.");
 
 require '../views/tourney.php';
+
+require 'end_controller.php';

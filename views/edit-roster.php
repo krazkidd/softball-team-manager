@@ -32,10 +32,8 @@ if (!empty($_POST['edit']))
 else if (!empty($_POST['addplayer']))
 {
 //TODO sanitize user input!!!
-    $db_con = connectToDB();
-
     // add the new player
-    $db_query_result = mysqli_query($db_con, "INSERT INTO team (name, number, gender) VALUES (\"" . $_POST['playerName'] . "\", NULL, NULL)");
+    $db_query_result = runQuery("INSERT INTO team (name, number, gender) VALUES (\"" . $_POST['playerName'] . "\", NULL, NULL)");
 //DEBUG
 /*if ($db_query_result == NULL)
 {
@@ -46,8 +44,6 @@ else
 echo "<p>Add player success?<br>\$db_query_result = " . $db_query_result . "</p>";
 }*/
 //END DEBUG
-
-    closeDB($db_con);
 }
 else if (!empty($_POST['removeplayer']))
 {

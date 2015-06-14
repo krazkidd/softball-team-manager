@@ -62,3 +62,5 @@ $starters = $lineup;
 $gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 
 require '../views/lineup.php';
+
+require 'end_controller.php';

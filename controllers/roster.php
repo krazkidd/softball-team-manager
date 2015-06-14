@@ -45,3 +45,5 @@ else
 }
 
 require '../views/roster.php';
+
+require 'end_controller.php';

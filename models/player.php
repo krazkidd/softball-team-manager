@@ -39,24 +39,18 @@ function formatPhoneNumber($phoneStr)
 function getPlayerInfo($playerID)
 {
 //TODO sanitize param
-	$db_con = connectToDB();
-	$db_query_result = mysqli_query($db_con, 'SELECT FirstName, LastName, NickName, Email, PhoneNumber, Gender FROM Player WHERE Player.ID = \'' . $playerID . '\'');
+	$db_query_result = runQuery('SELECT FirstName, LastName, NickName, Email, PhoneNumber, Gender FROM Player WHERE Player.ID = \'' . $playerID . '\'');
 
-	closeDB($db_con);
 	return mysqli_fetch_array($db_query_result);
 }
 
 function getPlayerTeams($playerID)
 {
 //TODO sanitize input!
-	$db_con = connectToDB();
-	$db_query_result = mysqli_query($db_con, 'SELECT R.TeamID, T.TeamName FROM Player AS P JOIN Roster AS R ON P.ID = R.PlayerID JOIN Team AS T ON T.ID = R.TeamID WHERE R.PlayerID = ' . $playerID);
+	$db_query_result = runQuery('SELECT R.TeamID, T.TeamName FROM Player AS P JOIN Roster AS R ON P.ID = R.PlayerID JOIN Team AS T ON T.ID = R.TeamID WHERE R.PlayerID = ' . $playerID);
 
 	if ($db_query_result == NULL)
-	{
-		closeDB($db_con);
 		return NULL;
-	}
 
 	$result = array();
 	while ($row = mysqli_fetch_array($db_query_result))
@@ -64,6 +58,5 @@ function getPlayerTeams($playerID)
 		$result[] = $row;
 	}
 
-	closeDB($db_con);
 	return $result;
 }

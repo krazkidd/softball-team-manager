@@ -21,42 +21,53 @@
   
   **************************************************************************/
 
-//TODO every function returns something different! some return NULL, others empty array
+require_once '../config/config.php';
 
-//TODO because this file is included, this path is relative to wherever this is included from. Add a SITE_URL to config.php
-require '../config/config.php';
-
-//TODO my not-so-production server requires this compatibility library for the new PHP password stuff.
-//     I should put a version test here, though.
-//     SEE: 
-//     * http://php.net/manual/en/faq.passwords.php
-//     * https://github.com/ircmaxell/password_compat
-//TODO include* and require* seem to treat relative paths differently (if the running script itself was included or required)
-if (file_exists('password.php'))
-    require_once 'password.php';
-
-/*
- * connectToDB() -- Tries to connect to the database
- *
- * Returns: A mysqli object that represents a connection to a MySQL DB
- */
-function connectToDB()
+//TODO this block needs to be tested
+if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)
 {
-    $fullDbName = (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . 'team_mgr';
+    if ( !file_exists('../models/password.php'))
+        exit("The password_compat library is required for this version of PHP but it cannot be found in the models/ directory.");
 
-	// create db connection
-	$db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-//DEBUG
-if ( !$db_con)
-    error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
-//END DEBUG
-
-	return $db_con;
+    require_once '../models/password.php';
 }
 
-function closeDB($db_con)
+$db_con = NULL;
+
+function runQuery($queryStr)
 {
+    global $db_con;
+
+    if ($db_con == NULL)
+    {
+        $db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+//DEBUG
+        //echo 'Making new connection...';
+//END DEBUG
+    }
+
+    $result = NULL;
+
+    if ($db_con)
+    {
+        //TODO can I/should I escape all query strings here and not worry about it elsewhere?
+	    $result = mysqli_query($db_con, $queryStr);
+    }
+//DEBUG
+    else
+        error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
+//END DEBUG
+
+    return $result;
+}
+
+function closeDB()
+{
+    global $db_con;
+
+    if ($db_con == NULL)
+        return false;
+
 	return mysqli_close($db_con);
 }
 
@@ -83,20 +94,15 @@ function getUserName()
  */
 function getUserPlayerID()
 {
-	$db_con = connectToDB();
-
-	$query_result = mysqli_query($db_con, 'SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
+	$query_result = runQuery('SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
 
 	if ($query_result)
 	{
 		$row = mysqli_fetch_array($query_result);
 
-//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
-		closeDB($db_con);
 		return $row['PlayerID'];
 	}
 
-	closeDB($db_con);
 	return NULL;
 }
 
@@ -104,9 +110,7 @@ function getUserPlayerID()
 //     do the same for getUserRosteredTeamNames()
 function getUserManagedTeamNames()
 {
-	$db_con = connectToDB();
-
-	$query_result = mysqli_query($db_con, 'SELECT ID, TeamName FROM Team WHERE ManagerID = ' . getUserPlayerID());
+	$query_result = runQuery('SELECT ID, TeamName FROM Team WHERE ManagerID = ' . getUserPlayerID());
 
 	if ($query_result)
 	{
@@ -118,12 +122,9 @@ function getUserManagedTeamNames()
             $i++;
 		}
 
-//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
-		closeDB($db_con);
 		return $result;
 	}
 
-	closeDB($db_con);
 	return array();
 }
 
@@ -133,9 +134,7 @@ function getUserManagedTeamNames()
  */
 function getUserRosteredTeamNames()
 {
-	$db_con = connectToDB();
-
-	$plays_on_query_result = mysqli_query($db_con, 'SELECT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID WHERE R.PlayerID = ' . getUserPlayerID());
+	$plays_on_query_result = runQuery('SELECT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID WHERE R.PlayerID = ' . getUserPlayerID());
 
 	if ($plays_on_query_result)
 	{
@@ -147,12 +146,9 @@ function getUserRosteredTeamNames()
             $i++;
 		}
 
-//TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
-		closeDB($db_con);
 		return $result;
 	}
 
-	closeDB($db_con);
 	return array();
 }
 
@@ -187,11 +183,9 @@ function getUserSeasonID()
 function getTeamInfo($teamID)
 {
 //TODO sanitize $teamName (make sure it's an int)
-	$db_con = connectToDB();
-
 	if (isset($teamID))
 	{
-		$team_query_result = mysqli_query($db_con, "SELECT ID, TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE ID = $teamID");
+		$team_query_result = runQuery("SELECT ID, TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE ID = $teamID");
 
 //DEBUG
 //TODO do better error handling here
@@ -201,39 +195,32 @@ function getTeamInfo($teamID)
 
 		$teamInfo = mysqli_fetch_array($team_query_result);
 
-        closeDB($db_con);
         return $teamInfo;
 	}
 
-	closeDB($db_con);
 	return NULL;
 }
 
 function attemptLogin($username, $password)
 {
 //TODO sanitize input
-    //FIXME why are we using POST here???
-	if ($_POST['loginName'] && $_POST['loginName'] != "" && $_POST['password'] && $_POST['password'] != "")
+	if ($username && !empty($username) && $password && !empty($password))
 
-	$db_con = connectToDB();
+	$ret = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
 
-	$ret = mysqli_query($db_con, 'SELECT * FROM `User` WHERE Login = \'' . $_POST['loginName'] . '\'');
-
-	$result = mysqli_fetch_array($ret);
+	$result = mysqli_fetch_array($ret)['PasswordHash'];
 
 	if ($ret)
 	{
-		if (password_verify($_POST['password'], $result['PasswordHash']))
+		if (password_verify($password, $result))
 		{
 			// save login name to session
-			$_SESSION['loginname'] = $_POST['loginName'];
+			$_SESSION['loginname'] = $username;
 
-			closeDB($db_con);
 			return True;
 		}
 	}
 
-	closeDB($db_con);
 	return False;
 }
 
@@ -244,39 +231,31 @@ function attemptRegistration($loginName, $password)
 	if ($loginName && strlen($loginName) >= 3
 	    && $password && strlen($password) >= 6)
 	{
-		$db_con = connectToDB();
-
-		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
+		$ret = runQuery('INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
 
 		if ($ret)
 		{
 			// save login name to session
 			$_SESSION['loginname'] = $loginName;
 
-			closeDB($db_con);
 			return TRUE;
 		}
 		else
 			error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
 	}
 
-	closeDB($db_con);
 	return FALSE;
 }
 
 function getTeamManagerInfo($teamID)
 {
-	$db_con = connectToDB();
-
-	$mgr_query_result = mysqli_query($db_con, "SELECT ManagerID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE T.ID = $teamID");
+	$mgr_query_result = runQuery("SELECT ManagerID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE T.ID = $teamID");
 
 	if ( !$mgr_query_result)
 	{
 		error_log('No manager was found for team \''. $teamID . '\' in the database. (This is a "feature", not really an error/bug.');
-		closeDB($db_con);
 		return NULL;
 	}
 
-	closeDB($db_con);
 	return mysqli_fetch_array($mgr_query_result);
 }

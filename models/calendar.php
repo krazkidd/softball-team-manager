@@ -69,10 +69,8 @@ function getLeaguesThatPlayOnDayOfWeek($day)
 			return NULL;
 	}
 
-	$db_con = connectToDB();
-
 //TODO fix query!
-	$db_query_result = mysqli_query($db_con, "SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
+	$db_query_result = runQuery("SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
 
 	$result = array();
 	while ($row = mysqli_fetch_array($db_query_result))
@@ -86,9 +84,8 @@ function getLeaguesThatPlayOnDayOfWeek($day)
 function getGamesByDate($dateStr)
 {
 //TODO make sure date argument is in proper format
-	$db_con = connectToDB();
 //TODO fix query
-	$db_game_info_query_result = mysqli_query($db_con, "SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
+	$db_game_info_query_result = runQuery("SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
 
 	if ($db_game_info_query_result == NULL)
 	{
@@ -112,11 +109,9 @@ function RENAME_THIS($month, $year)
 
 	$month = sprintf('%02d', $month);
 
-	$db_con = connectToDB();
-	
 //TODO need to check that this is not null!
 //TODO this is grabbing all games for all teams...
-	$gameList = mysqli_query($db_con, "SELECT DateTime FROM Game AS G NATURAL JOIN League AS L JOIN Season AS S ON S.Description = L.SeasonDescription WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime");
+	$gameList = runQuery("SELECT DateTime FROM Game AS G NATURAL JOIN League AS L JOIN Season AS S ON S.Description = L.SeasonDescription WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime");
 
 	// get the time for the 1st of the month
 	$timeOfFirstDay = mktime(0, 0, 0, $month, 1, $year);

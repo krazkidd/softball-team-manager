@@ -41,3 +41,5 @@ $mgrName = $mgrInfo['FirstName'] . ' ' . $mgrInfo['LastName'];
 $leagues = NULL;
 
 require '../views/team.php';
+
+require 'end_controller.php';

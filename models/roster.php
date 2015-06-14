@@ -27,10 +27,8 @@ function getRoster($teamID)
 {
 //TODO validate!
 //TODO need season/league parameters! (and fix query below)
-	$db_con = connectToDB();
-
-	//$roster_query_result = mysqli_query($db_con, 'SELECT DISTINCT TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription FROM Roster WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY SeasonDescription');
-	$roster_query_result = mysqli_query($db_con, 'SELECT PlayerID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY ShirtNum');
+	//$roster_query_result = runQuery('SELECT DISTINCT TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription FROM Roster WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY SeasonDescription');
+	$roster_query_result = runQuery('SELECT PlayerID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY ShirtNum');
 
 	if ( !$roster_query_result)
 	{
@@ -44,7 +42,6 @@ function getRoster($teamID)
 		$result[] = $row;
 	}
 
-	closeDB($db_con);
 	return $result;
 }
 
@@ -53,10 +50,8 @@ also, I'm not sure about this idea of printing (tables)
 from a function TODO DON'T PRINT, YA DINGUS*/
 function displayRosterTable($teamID)
 {
-	$db_con = connectToDB();
-
 	// show team info
-	$db_team_info_query_result = mysqli_query($db_con, "SELECT * FROM teams JOIN leagues ON teams.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE teams.teamID = $teamID");
+	$db_team_info_query_result = runQuery("SELECT * FROM teams JOIN leagues ON teams.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE teams.teamID = $teamID");
 	$gameInfo = mysqli_fetch_array($db_team_info_query_result);
 ?>
 	<h3><?= $gameInfo["name"] ?></h3>
@@ -101,6 +96,4 @@ error_log('The roster result was NULL');
 	echo "</table>";
 
 	echo "<p class=\"bold\">Total: " . $total . "</p>";
-
-	closeDB($db_con);
 }

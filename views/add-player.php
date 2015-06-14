@@ -25,11 +25,9 @@
 
 require_once "../models/common-definitions.php";
 
-$db_con = connectToDB();
-
 // get player names and numbers and show them in a table
 //TODO user input needs to be sanitized
-$db_query_result = mysqli_query($db_con, "INSERT ");
+//TODO lol what did i delete from this query? $db_query_result = runQuery($db_con, "INSERT ");
 echo "<table><tr><th>Player Name</th><th>Number</th><th>Gender</th></tr>";
 //DEBUG
 if ($db_query_result == NULL)
@@ -48,5 +46,3 @@ while ($row = mysqli_fetch_array($db_query_result))
     echo "<td>" . $row['name'] . "</td><td>" . $row['number'] . "</td><td>" . $row['gender'] . "</td></tr>";
 }
 echo "</table>";
-
-closeDB($db_con);

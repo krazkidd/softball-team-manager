@@ -54,3 +54,5 @@ if (isset($_POST['btnRegister']))
 }
 
 require '../views/register.php';
+
+require 'end_controller.php';

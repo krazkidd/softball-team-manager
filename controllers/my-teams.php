@@ -38,3 +38,5 @@ $managedTeamsList = getUserManagedTeamNames();
 $rosteredTeamsList = getUserRosteredTeamNames();
 
 require '../views/my-teams.php';
+
+require 'end_controller.php';

@@ -55,4 +55,6 @@ else
 //TODO don't use die(), and close the db if needed
     die("I need a gameid.");
 
-require '../views/game.php'
+require '../views/game.php';
+
+require 'end_controller.php';

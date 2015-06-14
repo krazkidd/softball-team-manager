@@ -48,3 +48,5 @@ $gender = $playerInfo['Gender'] ? $playerInfo['Gender'] : '[Not Specified]';
 $teams = getPlayerTeams($_GET['id']);
 
 require '../views/player.php';
+
+require 'end_controller.php';

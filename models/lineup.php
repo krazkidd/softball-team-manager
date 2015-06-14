@@ -70,9 +70,7 @@ function getNextGames($numGames, $MySQLDateString)
 	if ( !isValidMySQLDateString($MySQLDateString))
 		return NULL;
 
-	$db_con = connectToDB();
-	$toReturn = mysqli_query($db_con, "SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
-	closeDB($db_con);
+	$toReturn = runQuery("SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
 	return $toReturn;
 }
 
@@ -84,14 +82,12 @@ function getLineup($gameID, $teamID)
 //ERROR keep track of starters/non-starters instead of doing all this weird condition checking. batPos will be NULL for non-starters (and obviously, for EP{3,4,5}, batPos doesnt exist). 
 //how am i storing ep1/ep2 in the db? numbers 11 & 12? these two need to be treated specially everywhere. if the team is co-ed and these two are male-female, put them in the batting order. otherwise they go down below
 
-	$db_con = connectToDB();
-
 	// get the player IDs of everybody in the lineup for the game
 //TODO it's possible to have *2* lineups. so obviously you need to be querying the user's team id too. allow user to see other lineups only after the game is finished
 //TODO this seems to be getting duplicated results. i wonder why.
-	$lineupPlayerIDs = mysqli_fetch_array(mysqli_query($db_con, "SELECT pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, EP1, EP2, EP3, EP4, EP5 FROM lineups WHERE associatedGame = $gameID"));
+	$lineupPlayerIDs = mysqli_fetch_array(runQuery("SELECT pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, EP1, EP2, EP3, EP4, EP5 FROM lineups WHERE associatedGame = $gameID"));
 	// use the IDs to query player information
-	$db_player_query_result = mysqli_query($db_con, "SELECT playerID, firstName, lastName, shirtNumber, gender FROM players WHERE playerID IN (" . implode(", ", array_filter($lineupPlayerIDs)) . ")");
+	$db_player_query_result = runQuery("SELECT playerID, firstName, lastName, shirtNumber, gender FROM players WHERE playerID IN (" . implode(", ", array_filter($lineupPlayerIDs)) . ")");
 
 //TODO make function to get player info from list of player IDs
 	$playerInfo = Array();
@@ -108,7 +104,6 @@ function getLineup($gameID, $teamID)
 //DEBUG
 //echo "Batting order: " . implode(", ", $battingOrder);
 //END DEBUG
-	closeDB($db_con);
 
 	$starters = Array();
 	for ($i = 1; $i < 10; $i++)
@@ -172,7 +167,6 @@ function getLineup($gameID, $teamID)
 function getGameInfo($gameID)
 {
 //TODO sanity checks?
-	$db_con = connectToDB();
-	return mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = $gameID"));
-	closeDB($db_con);
+    //TODO add a function for when we expect single results (makes better self-documentation)
+	return mysqli_fetch_array(runQuery("SELECT * FROM games WHERE gameID = $gameID"));
 }

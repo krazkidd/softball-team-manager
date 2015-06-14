@@ -38,6 +38,8 @@ ob_start();
 			<label for="password">Password:</label>
 			<input type="password" name="password" id="password" /><br />
 
+            <!-- TODO <input type="checkbox" name="rememberme" value="rememberme" /><label for="rememberme">Remember me on this computer</label><br /> -->
+
 			<input type="submit" value="Log In" name="btnLogIn" />
 		</div>
 	</form>

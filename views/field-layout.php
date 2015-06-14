@@ -131,8 +131,7 @@ if ($lineupPlayerIDs == NULL)
 		$nonstarters["EP4"] = $players[$lineupPlayerIDs["EP4"]];
 	if (isset($lineupPlayerIDs["EP5"]))
 		$nonstarters["EP5"] = $players[$lineupPlayerIDs["EP5"]];
-
-	closeDB($db_con);*/
+	*/
 
 	$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
 ?>

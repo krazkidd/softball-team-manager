@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 session_start();
@@ -35,4 +35,6 @@ if (!isLoggedIn())
     exit();
 }
 
-require '../views/field-layout.php'
+require '../views/field-layout.php';
+
+require 'end_controller.php';
