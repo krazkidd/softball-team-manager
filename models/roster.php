@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,19 +19,18 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
-function getRoster($teamName)
+function getRoster($teamID)
 {
 //TODO validate!
 //TODO need season/league parameters! (and fix query below)
 	$db_con = connectToDB();
-	$escapedTeamName = mysqli_real_escape_string($db_con, $teamName);
 
 	//$roster_query_result = mysqli_query($db_con, 'SELECT DISTINCT TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription FROM Roster WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY SeasonDescription');
-	$roster_query_result = mysqli_query($db_con, 'SELECT ShirtNum, Notes, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY ShirtNum');
+	$roster_query_result = mysqli_query($db_con, 'SELECT PlayerID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY ShirtNum');
 
 	if ( !$roster_query_result)
 	{
@@ -51,7 +50,7 @@ function getRoster($teamName)
 
 /*ERROR this function cannot work with just a team ID.
 also, I'm not sure about this idea of printing (tables)
-from a function*/
+from a function TODO DON'T PRINT, YA DINGUS*/
 function displayRosterTable($teamID)
 {
 	$db_con = connectToDB();
@@ -93,9 +92,9 @@ error_log('The roster result was NULL');
 		else if ($gender == 'F')
 			echo "<tr class=\"gender-female\">";
 		else
-			echo "<tr class=\"gender-missing\">";
+			echo "<tr class=\"gender-undeclared\">";
 //TODO need to encode player name as GET or POST data below
-		echo "<td><a href=\"player-profile.php?id=" . $playerRow['playerID'] . "\">" . $playerRow['firstName'] . " " . $playerRow['lastName'] . "</a></td><td>" . $playerRow['shirtNumber'] . "</td><td>" . $playerRow['gender'] . "</td></tr>";
+		echo "<td><a href=\"/player/" . $playerRow['playerID'] . "\">" . $playerRow['firstName'] . " " . $playerRow['lastName'] . "</a></td><td>" . $playerRow['shirtNumber'] . "</td><td>" . $playerRow['gender'] . "</td></tr>";
 
 		$total++;
 	}

@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Home';
 
@@ -26,9 +28,9 @@ ob_start();
 ?><p>Welcome to the Team Manager BETA website!</p>
 
 	<?php if ( !isLoggedIn()) { ?>
-		<?php include 'inc/login-module.php' ?>
+		<?php include '../inc/login-module.php' ?>
 	<?php } 
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

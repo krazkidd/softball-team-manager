@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,41 +19,16 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
-	session_start();
-	require_once("common-definitions.php");
-	require_once("calendar-common-functions.php");
-	require_once("lineup-common-functions.php");
+  **************************************************************************/
 
-	if (!isLoggedIn())
-	{
-		header("Location: index.php");
-//TODO is exit() okay here? Anyway, an error message should be shown to the user.
-//TODO user must have permissions to view their lineup
-		exit();
-	}
+//TODO all this controller logic needs to go in controllers file
 
-	$db_con = connectToDB();
+$title = 'Field Layout';
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ob_start();
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Field Layout</title>
-		<meta http-equiv="content-type" 
-			content="text/html;charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="style.css" /> 
-	</head>
-
-	<body id="field-layout-body">
-
-		<div id="field-layout-header">
-			<h1>Field Layout</h1>
-		</div>
-<?php
-	if ( !isset($_GET["gameid"]))
+?><?php
+	if ( !isset($_GET["id"]))
 	{
 		$db_next_games_query_result = getNextGames(6, date("Y-m-d"));
 
@@ -83,12 +58,7 @@
 		}
 ?>
 		</ul>
-
-	</body>
-</html>
 <?php
-		closeDB();
-		exit();
 	}
 
 	$lineup = getLineup($_GET["gameid"], NULL);
@@ -230,14 +200,10 @@ if ($lineupPlayerIDs == NULL)
 <?php
 		}
 ?>
-
 		</div>
 <?php
 	}
-?>
 
-		<p>View the batting order in a table format on the <a href="lineup.php?gameid=<?= $_GET["gameid"] ?>">Lineup</a> page.</p>
+$content = ob_get_clean();
 
-	</body>
-</html>
-
+require '../templates/layout.php';

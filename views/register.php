@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,13 +19,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Register';
 
 ob_start();
 	
-?><?php if ($action == 'reg-success') { ?>
+?><?php if ( !empty($action) && $action == 'reg-success') { ?>
 	<p class='success-msg'>Your registration was successful! You are now logged in.</p>
 <?php }	else { // show registration form ?>
 	<p>This website uses cookies to keep track of your session.</p>
@@ -34,7 +36,7 @@ ob_start();
 	    saving it, it is still transmitted in plaintext across the Internet before doing so. (I need an SSL certificate
 	    to prevent that.)</p>
 
-	<form action="register.php" method="post">
+	<form action="/register" method="post">
 		<div id="frmLogin">
 			<label for="loginName">Login name:</label>
 			<input type="text" name="loginName" id="loginName" value="<?= isset($_POST['loginName']) ? $_POST['loginName'] : '' ?>" /><br />
@@ -49,11 +51,11 @@ ob_start();
 		</div>
 	</form>
 
-	<?php if ($action == 'reg-fail') { ?>
+	<?php if ( !empty($action) && $action == 'reg-fail') { ?>
 		<p class="fail-msg">Registration failed. Try again.</p>
 	<?php } ?>
 <?php }
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

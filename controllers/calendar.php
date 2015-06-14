@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,12 +19,12 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
-require_once 'models/calendar.php';
+require_once '../models/model.php';
+require_once '../models/calendar.php';
 
 //TODO when no team is given, don't show all games in cal. ask user to select region/season/league
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
@@ -51,9 +51,6 @@ else if (isset($_GET['date']))
 	else
 		$showResults = true;
 //TODO get team info (add function or use one I already have
-//TODO
-//TODO
-//TODO
 	// get team info
 	//$homeTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
 	//$awayTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"));
@@ -80,4 +77,4 @@ else
 	$action = 'show-month';
 }
 
-require 'views/calendar.php';
+require '../views/calendar.php';

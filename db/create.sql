@@ -23,18 +23,19 @@
 
 /* season entity */
 CREATE TABLE Season (
+    ID                INTEGER NOT NULL AUTO_INCREMENT,
     Description       VARCHAR(32),
     StartDate         DATE,
     RosterFreezeDate  DATE,
 
-    PRIMARY KEY (Description)
+    PRIMARY KEY (ID)
     )
     CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* player entity */
 CREATE TABLE Player (
-    ID          INTEGER,
-    OtherID     VARCHAR(16), /*TODO rename */
+    ID          INTEGER NOT NULL AUTO_INCREMENT,
+    DisplayID     VARCHAR(16),
     FirstName   VARCHAR(64),
     LastName    VARCHAR(128),
     NickName    VARCHAR(64),
@@ -48,40 +49,56 @@ CREATE TABLE Player (
 
 /* website user logins/passwords and links to player IDs */
 CREATE TABLE `User` (
+    ID           INTEGER NOT NULL AUTO_INCREMENT,
     Login        VARCHAR(32),
     PasswordHash VARCHAR(255),
 
     PlayerID     INTEGER,
 
     FOREIGN KEY (PlayerID) REFERENCES Player(ID),
-    PRIMARY KEY (Login)
+    PRIMARY KEY (ID)
     );
 
 /* a "dictionary" of field positions */
 CREATE TABLE FieldPosition (
-    PosNum       SMALLINT UNSIGNED,
+    PosNum       SMALLINT UNSIGNED NOT NULL,
     PosName      CHAR(16) UNIQUE NOT NULL,
     ShortPosName CHAR(2) UNIQUE NOT NULL,
 
     PRIMARY KEY (PosNum)
     );
 
+INSERT INTO FieldPosition VALUES
+    (1, 'Pitcher', 'P'),
+    (2, 'Catcher', 'C'),
+    (3, 'First Base', '1B'),
+    (4, 'Second Base', '2B'),
+    (5, 'Third Base', '3B'),
+    (6, 'Short Stop', 'SS'),
+    (7, 'Left Field', 'LF'),
+    (8, 'Center Field', 'CF'),
+    (9, 'Right Field', 'RF'),
+    (10, 'Rover', 'RO')
+    ;
+
 /* league entity */
 CREATE TABLE League (
+    ID                INTEGER NOT NULL AUTO_INCREMENT,
     ParkName          VARCHAR(128),
     FieldNum          SMALLINT UNSIGNED,
-    DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
     Class             VARCHAR(32),
 
-    SeasonDescription VARCHAR(32),
+    SeasonID          INTEGER,
 
-    FOREIGN KEY (SeasonDescription) REFERENCES Season(Description),
-    PRIMARY KEY (ParkName, FieldNum, DayOfWeek, SeasonDescription)
+    FOREIGN KEY (SeasonID) REFERENCES Season(ID),
+    /*PRIMARY KEY (ParkName, FieldNum, DayOfWeek, SeasonDescription)*/
+    PRIMARY KEY (ID)
     )
     CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* team entity */
 CREATE TABLE Team (
+    ID               INTEGER NOT NULL AUTO_INCREMENT,  
     TeamName         VARCHAR(64),
     PriColor         CHAR(6), /* to hold 6 char html color hex string */
     SecColor         CHAR(6),
@@ -92,76 +109,66 @@ CREATE TABLE Team (
     ManagerID        INTEGER NULL,
 
     FOREIGN KEY (ManagerID) REFERENCES Player(ID),
-    PRIMARY KEY (TeamName)
+    PRIMARY KEY (ID)
     )
     CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* relationship type describing teams participating in leagues */
 CREATE TABLE ParticipatesIn (
-    TeamName          VARCHAR(64),
+    TeamID   INTEGER,
+    LeagueID INTEGER,
 
-    ParkName          VARCHAR(128),
-    FieldNum          SMALLINT UNSIGNED,
-    DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
-    SeasonDescription VARCHAR(32),
-
-    FOREIGN KEY (TeamName) REFERENCES Team(TeamName),
-    FOREIGN KEY (ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES League(ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    PRIMARY KEY (TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription)
-    )
-    CHARACTER SET utf8 COLLATE utf8_general_ci;
+    FOREIGN KEY (TeamID) REFERENCES Team(ID),
+    FOREIGN KEY (LeagueID) REFERENCES League(ID),
+    PRIMARY KEY (TeamID, LeagueID)
+    );
 
 /* roster relationship between players and teams */
 CREATE TABLE Roster (
-    ShirtNum          INT UNSIGNED,
-    Notes             VARCHAR(4096),
-    Disabled          BOOLEAN,
+    ShirtNum SMALLINT UNSIGNED, /*TODO might change this to VARCHAR; sometimes weird numbers are allowed on shirts */
+    Notes    VARCHAR(4096),
+    Disabled BOOLEAN,
 
-    PlayerID          INTEGER,
+    PlayerID INTEGER,
 
-    TeamName          VARCHAR(64),
-    ParkName          VARCHAR(128),
-    FieldNum          SMALLINT UNSIGNED,
-    DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
-    SeasonDescription VARCHAR(32),
+    TeamID   INTEGER,
+    LeagueID INTEGER,
 
     FOREIGN KEY (PlayerID) REFERENCES Player(ID),
-    FOREIGN KEY (TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    PRIMARY KEY (PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription)
+    FOREIGN KEY (TeamID, LeagueID) REFERENCES ParticipatesIn(TeamID, LeagueID),
+    PRIMARY KEY (PlayerID, TeamID, LeagueID)
    )
    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* game entity */
 CREATE TABLE Game (
-    DateTime          DATETIME,
-    Type              CHAR(16),
-    HomeTeamScore     SMALLINT UNSIGNED,
-    HomeTeamForfeit   BOOLEAN,
-    AwayTeamScore     SMALLINT UNSIGNED,
-    AwayTeamForfeit   BOOLEAN,
+    ID            INTEGER NOT NULL AUTO_INCREMENT,
+    DateTime      DATETIME,
+    Type          CHAR(16),
+    HomeTeamScore SMALLINT UNSIGNED,
+    AwayTeamScore SMALLINT UNSIGNED,
+    ForfeitID     INTEGER NULL,
 
-    HomeTeamName      VARCHAR(64),
-    AwayTeamName      VARCHAR(64),
-    ParkName          VARCHAR(128),
-    FieldNum          SMALLINT UNSIGNED,
-    DayOfWeek         CHAR(1), /* M, T, W, R, F, S, U */
-    SeasonDescription VARCHAR(32),
+    HomeID        INTEGER NULL,
+    AwayID        INTEGER NULL,
+    LeagueID      INTEGER,
 
-    FOREIGN KEY (HomeTeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (AwayTeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    PRIMARY KEY (DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription)
+    FOREIGN KEY (ForfeitID) REFERENCES Team(ID),
+    FOREIGN KEY (HomeID) REFERENCES Team(ID),
+    FOREIGN KEY (AwayID) REFERENCES Team(ID),
+    FOREIGN KEY (HomeID, LeagueID) REFERENCES ParticipatesIn(TeamID, LeagueID),
+    FOREIGN KEY (AwayID, LeagueID) REFERENCES ParticipatesIn(TeamID, LeagueID),
+    PRIMARY KEY (ID)
     )
     CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* lineup entity */
 CREATE TABLE Lineup (
-    TeamName          VARCHAR(64),
+    ID                INTEGER NOT NULL AUTO_INCREMENT,
 
-    DateTime          DATETIME,
-    ParkName          VARCHAR(128),
-    FieldNum          SMALLINT UNSIGNED,
-    DayOfWeek         CHAR(1),
-    SeasonDescription VARCHAR(32),
+    GameID            INTEGER,
+    TeamID            INTEGER,
+    LeagueID          INTEGER,
 
     FieldPos1PID      INTEGER NULL,
     FieldPos2PID      INTEGER NULL,
@@ -189,33 +196,34 @@ CREATE TABLE Lineup (
     ExtraPlayer2PID   INTEGER NULL,
     ExtraPlayer3PID   INTEGER NULL,
 
-    FOREIGN KEY (TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES ParticipatesIn(TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Game(DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos1PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos2PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos3PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos4PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos5PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos6PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos7PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos8PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos9PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (FieldPos10PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos1PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos2PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos3PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos4PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos5PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos6PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos7PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos8PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos9PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos10PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos11PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (BatPos12PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (ExtraPlayer1PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (ExtraPlayer2PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    FOREIGN KEY (ExtraPlayer3PID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription) REFERENCES Roster(PlayerID, TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription),
-    PRIMARY KEY (TeamName, DateTime, ParkName, FieldNum, DayOfWeek, SeasonDescription)
-    )
-    CHARACTER SET utf8 COLLATE utf8_general_ci;
+    FOREIGN KEY (GameID) REFERENCES Game(ID),
+    FOREIGN KEY (TeamID) REFERENCES Team(ID),
+    FOREIGN KEY (LeagueID) REFERENCES League(ID),
+    FOREIGN KEY (TeamID, LeagueID) REFERENCES ParticipatesIn(TeamID, LeagueID), /*TODO is this necessary? the Roster references might do the same */
+    FOREIGN KEY (FieldPos1PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos2PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos3PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos4PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos5PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos6PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos7PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos8PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos9PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (FieldPos10PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos1PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos2PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos3PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos4PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos5PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos6PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos7PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos8PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos9PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos10PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos11PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (BatPos12PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (ExtraPlayer1PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (ExtraPlayer2PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    FOREIGN KEY (ExtraPlayer3PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
+    PRIMARY KEY (ID)
+    );

@@ -1,0 +1,36 @@
+# Team Manager
+
+server {
+	listen 80;
+	listen [::]:80;
+
+	root /path/to/web/root/;
+
+	index /controllers/index.php;
+
+	server_name team.domain;
+
+	#error_log /var/log/nginx/error.log notice;
+	#rewrite_log on;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		#try_files $uri $uri/ =404;
+
+		rewrite ^/([a-zA-Z0-9_\-]+)$ /controllers/$1.php;
+		rewrite ^/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]*)$ /controllers/$1.php?id=$2;
+	}
+
+	location ~ \.php$ {
+  		#try_files $uri =404;
+		include snippets/fastcgi-php.conf;
+	
+		# With php5-cgi alone:
+		#fastcgi_pass 127.0.0.1:9000;
+		# With php5-fpm:
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		#fastcgi_index index.php;
+		include fastcgi_params;
+	}
+}

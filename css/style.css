@@ -112,7 +112,7 @@ body {
 	height: 200px;
 	margin: 0;
 	padding: 0;
-	background-image: url('/images/index-header-2-800x200.png');
+	background-image: url('/img/index-header-2-800x200.png');
 	background-position: center center;
 	text-indent: -9000px;
 }
@@ -230,7 +230,7 @@ body {
 }
 
 #calendar .gameday {
-	background-image: url('images/ball.png');
+	background-image: url('img/ball.png');
 	font-weight: bold;
 }
 
@@ -248,10 +248,6 @@ body {
 	background-color: #dddddd;
 }
 
-.spring13 {
-	background-color: #99ff66;
-}
-
 .gender-female {
 	background-color: #ffccff;
         /*color: #FF00FF;*/ /* unimaginitive pink */
@@ -262,7 +258,7 @@ body {
         /*color: #3333FF;*/ /* electric booga-blue */
 }
 
-.gender-missing {
+.gender-undeclared {
 	background-color: #cccccc;
 }
 
@@ -273,7 +269,7 @@ body {
 /************* field layout rules *************/
 
 #softballField { 
-        background-image: url('images/baseball-field-w-t-ball-positions-hi.png');
+        background-image: url('img/baseball-field-w-t-ball-positions-hi.png');
         background-repeat: no-repeat;
         width: 600px;
         height: 330px;
@@ -467,4 +463,12 @@ body {
 	font-weight: bold;
 	border: 1px solid #ff0000;
 	background-color: #ff99cc;
+}
+
+#team-img {
+    float: right;
+}
+
+#player-img {
+    float: right;
 }

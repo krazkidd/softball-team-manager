@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,16 +19,16 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
 if (isLoggedIn())
 {
 	// user is already logged in
-	header('Location: index.php');
+	header('Location: /');
 	exit(0);
 }
 
@@ -47,8 +47,10 @@ if (isset($_POST['btnRegister']))
 		if (strcmp($_POST['password1'], $_POST['password2']) != 0)
 			$reason = 'passwords-dont-match';
 		else
+        {
 			$reason = 'other';
+        }
 	}
 }
 
-require 'views/register.php';
+require '../views/register.php';

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- *************************************************************************
+  <!-- **********************************************************************
 
   This file is part of Team Manager.
 
@@ -20,7 +20,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  ********************************************************************** --!>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -37,18 +37,18 @@
 
 			<div id="navbar">
 				<ul>
-					<li><a href="/index.php" title="Home">Home</a></li>
-					<?= isLoggedIn() ? '<li><a href="/my-teams.php">My Teams</a></li>' : "" ?>
-					<li><a href="/calendar.php">Calendar</a></li>
-					<li><a href="/about.php" title="About this site">About</a></li>
-					<li><a href="/help.php" title="How to use this site">Help</a></li>
+					<li><a href="/" title="Home">Home</a></li>
+					<?= isLoggedIn() ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
+					<li><a href="/calendar">Calendar</a></li>
+					<li><a href="/about" title="About this site">About</a></li>
+					<li><a href="/help" title="How to use this site">Help</a></li>
 				</ul>
 
 				<p id="navLoginName">
 					<?php if (isLoggedIn()) { ?>
-						You are logged in as <?php echo getLoginName() ?>. <a href="/logout.php" title="Log out">Log out</a>
+						You are logged in as <?php echo getLoginName() ?>. <a href="/logout" title="Log out">Log out</a>
 					<?php } else { ?>
-						You are not logged in. <a href="/login.php" title="Log in or Register">Log in or Register</a>
+						You are not logged in. <a href="/login" title="Log in or Register">Log in or Register</a>
 					<?php } ?>
 				</p>
 			</div>
@@ -58,7 +58,7 @@
 			</div>
 
 			<div id="footer">
-				<p><a href="/index.php">Home</a></p>
+				<p><a href="/">Home</a></p>
 				<p>Copyright &copy; 2013. Website design by Mark Ross.</p>
 			</div>
 		</div>

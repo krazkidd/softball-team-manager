@@ -1,31 +1,13 @@
 <?php
 
-/* *************************************************************************
-
-  This file is part of Team Manager.
-
-  Copyright © 2013 Mark Ross <krazkidd@gmail.com>
-
-  Team Manager is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  Team Manager is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Affero General Public License for more details.
-
-  You should have received a copy of the GNU Affero General Public License
-  along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
-************************************************************************* */
-
-define('DEFAULT_SEASON', 1);
+//TODO read https://php.net/manual/en/userlandnaming.tips.php about global names and namespaces
 
 /* database access vars */
 define('DB_HOST', 'localhost');
-define('DB_USER', 'localadmin');
-define('DB_PASS', 'localpass');
+define('DB_USER', 'user');
+define('DB_PASS', 'pass');
 define('DB_PREFIX', 'prefix');
-define('DB_NAME', DB_PREFIX . '_team_mgr');
+define('DB_SHORTNAME', 'team_mgr');
+
+/************ DON'T EDIT BELOW THIS LINE ************/
+define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME); 

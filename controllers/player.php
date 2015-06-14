@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,20 +19,20 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
 //TODO redirect to the login page with a message that user can't view a player profile without being logged in
 if (!isLoggedIn())
 {
-	header('Location: index.php');
+	header('Location: /');
 	exit(0);
 }
 
-require_once 'models/player.php';
+require_once '../models/player.php';
 
 $playerInfo = getPlayerInfo($_GET['id']);
 //TODO if $playerInfo is NULL, then use an $action to show a query failure message
@@ -47,4 +47,4 @@ $gender = $playerInfo['Gender'] ? $playerInfo['Gender'] : '[Not Specified]';
 //TODO query DB for teams for teams this player manages or plays on and list them
 $teams = getPlayerTeams($_GET['id']);
 
-require 'views/player-profile.php';
+require '../views/player.php';

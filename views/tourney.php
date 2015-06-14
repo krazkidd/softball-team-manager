@@ -1,7 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
 
-<!-- *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -20,31 +19,13 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  **************************************************************************/
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-<!-- TODO show more info in title -->
-	<title>Tourney</title>
-	<meta http-equiv="content-type" 
-		content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="style.css" /> 
-<?php
-	require_once("common-definitions.php");
-?>
-	</head>
+$title = 'Tourney';
 
-	<body id="tourney-body">
-		<div id="tourney-header">
-			<h1>Tourney</h1>
-		</div>
+ob_start();
 
-<?php
-//TODO check GET or POST for a league ID. if nothing, redirect to calendar? or just show a table? or pick next game?
-
-	$db_con = connectToDB();
-
-	if (isset($_GET['gameid']))
+	if (isset($_GET['id']))
 	{
 ERROR need to add gametype column to games table, so i can select tourney games
 
@@ -89,14 +70,14 @@ if ($db_team_info_query_result == NULL)
 		</div> <!-- game-info -->
 
 		<div id="home-team">
-			<h2>Home - <a href="team-profile.php?id=<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $homeTeamInfo['name'] ?>" src="img/team-no-image.png" />
+			<h2>Home - <a href="/team/<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
+			<img alt="<?= $homeTeamInfo['name'] ?>" src="/img/team-no-image.png" />
 			<p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
 		</div> <!-- home-team -->
 		
 		<div id="away-team">
-			<h2>Away - <a href="team-profile.php?id=<?= $awayTeamInfo['teamID'] ?>"><?= $awayTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $awayTeamInfo['name'] ?>" src="img/team-no-image.png" />
+			<h2>Away - <a href="/team/<?= $awayTeamInfo['teamID'] ?>"><?= $awayTeamInfo['name'] ?></a></h2>
+			<img alt="<?= $awayTeamInfo['name'] ?>" src="/img/team-no-image.png" />
 		</div> <!-- away-team -->
 		<?php
 			if ($showResults)
@@ -115,9 +96,4 @@ if ($db_team_info_query_result == NULL)
 //TODO don't use die(), and close the db if needed
 		die("I need a gameid.");
 
-	closeDB($db_con);
-
-?>
-
-	</body>
-</html>
+require '../templates/layout.php';

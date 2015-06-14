@@ -1,6 +1,6 @@
-<?php require_once 'models/model.php' ?>
+<?php 
 
-<!-- *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,14 +19,19 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  **************************************************************************/
 
-<div id="login-module">
-	<?php if ( !isLoggedIn()) { ?>
-		<p>Hello, <?php echo getLoginName() ?>!<br />
-		    <a href="login.php">Login</a></p>
-	<?php } else { ?>
-		<p>Hello, <?php echo getLoginName() ?>!<br />
-		    <a href="logout.php">Logout</a></p>
-	<?php } ?>
+require_once '../models/model.php';
+
+$name = getLoginName();
+
+?><div id="login-module">
+    <p>Hello, <?= empty($name) ? 'Guest' : $name ?>!
+    <br />
+        <?php if ( empty($name)) { ?>
+		    <a href="/login">Login</a>
+        <?php } else { ?>
+		    <a href="/logout">Logout</a>
+        <?php } ?>
+    </p>
 </div>

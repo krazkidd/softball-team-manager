@@ -1,7 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
 
-<!-- *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -20,31 +19,16 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* -->
+  **************************************************************************/
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-<!-- TODO show game info in title -->
-	<title>Game Info</title>
-	<meta http-equiv="content-type" 
-		content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="style.css" /> 
-<?php
-	require_once("common-definitions.php");
-	require_once("calendar-common-functions.php");
-?>
-	</head>
+$title = 'Calendar';
 
-	<body id="game-info-body">
-		<div id="game-info-header">
-			<h1>Game Info</h1>
-		</div>
+ob_start();
 
-<!--		<p><a href="field-layout.php">View Field Layout &gt; &gt;</a></p> -->
+?><p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
 <?php
 //TODO check GET or POST for a game ID. if nothing, redirect to calendar? or just show a table? or pick next game?
 
-	$db_con = connectToDB();
 
 	// check if a whole night is requested or just a single game
 //TODO to be more robust, i should prioritize gameid over date, i.e. ignore date if gameid is present
@@ -88,14 +72,14 @@ if ($db_team_info_query_result == NULL)
 		</div> <!-- game-info -->
 
 		<div id="home-team">
-			<h2>Home - <a href="team-profile.php?id=<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $homeTeamInfo['name'] ?>" src="img/team-no-image.png" />
+			<h2>Home - <a href="team/<?= $homeTeamInfo['teamID'] ?>"><?= $homeTeamInfo['name'] ?></a></h2>
+			<img alt="<?= $homeTeamInfo['name'] ?>" src="/img/team-no-image.png" />
 			<p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
 		</div> <!-- home-team -->
 		
 		<div id="away-team">
-			<h2>Away - <a href="team-profile.php?id=<?= $awayTeamInfo['teamID'] ?>"><?= $awayTeamInfo['name'] ?></a></h2>
-			<img alt="<?= $awayTeamInfo['name'] ?>" src="img/team-no-image.png" />
+			<h2>Away - <a href="team/<?= $awayTeamInfo['teamID'] ?>"><?= $awayTeamInfo['name'] ?></a></h2>
+			<img alt="<?= $awayTeamInfo['name'] ?>" src="/img/team-no-image.png" />
 		</div> <!-- away-team -->
 		<?php
 			if ($showResults)
@@ -114,9 +98,6 @@ if ($db_team_info_query_result == NULL)
 //TODO don't use die(), and close the db if needed
 		die("I need a gameid.");
 
-	closeDB($db_con);
+$content = ob_get_clean();
 
-?>
-
-	</body>
-</html>
+require '../templates/layout.php';

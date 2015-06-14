@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,22 +19,29 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
 if ( !isLoggedIn())
 {
-	// user not logged in, redirect to Home page
-	header('Location: index.php');
+	header('Location: /');
 	exit(0);
 }
 
-$_SESSION = array(); // or session_unset()
-session_destroy();
+require_once '../models/roster.php';
 
-$action = 'logout-success';
+if (isset($_GET['id']))
+{
+//TODO must get other parameters
+	$action = 'show-roster';
+	$roster = getRoster($_GET['id']);
+}
+else
+{
+	$action = 'show-team-list';
+}
 
-require 'views/logout.php';
+require '../views/roster.php';

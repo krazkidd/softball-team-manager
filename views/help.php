@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Help';
 
@@ -31,4 +33,4 @@ ob_start();
     <p>You can register as a new user but can't do much managing yet.</p><?php
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

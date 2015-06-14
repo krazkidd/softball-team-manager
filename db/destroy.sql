@@ -27,7 +27,7 @@ DROP TABLE
     Team,
     League,
     FieldPosition,
-    User,
+    `User`,
     Player,
     Season
     ;

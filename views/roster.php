@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,14 +19,14 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Roster';
 
 ob_start();
 
-?><?php if ($action == 'show-roster') { ?>
-<!--TODO show team info -->
+if ($action == 'show-roster') {
+?><!--TODO show team info -->
 		<table>
 			<tr>
 				<th>#</th>
@@ -33,7 +35,7 @@ ob_start();
 			<?php foreach ($roster as $player) { ?>
 				<tr>
 					<td><?php echo $player['ShirtNum'] ?></td>
-					<td><a href="player-profile.php?id=<?= $player['FirstName'] . ' ' . $player['LastName'] ?>"><?= $player['FirstName'] . ' ' . $player['LastName'] ?></a></td>
+                    <td><a href="/player/<?= $player['PlayerID'] ?>"><?= $player['FirstName'] . ' ' . $player['LastName'] ?></a></td>
 				</tr>
 			<?php } ?>
 		</table>
@@ -45,4 +47,4 @@ ob_start();
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,9 +19,9 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
-require_once("common-definitions.php");
+require_once "../models/common-definitions.php";
 
 function convertNumberedFieldPositionToAlpha($pos)
 {
@@ -176,5 +176,3 @@ function getGameInfo($gameID)
 	return mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM games WHERE gameID = $gameID"));
 	closeDB($db_con);
 }
-
-?>

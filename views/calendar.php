@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Calendar';
 
@@ -60,12 +62,13 @@ ob_start();
 					</tr>
 					<?php foreach ($gamesList as $game) { ?>
 						<tr>
-							<td><a href="game-info.php?gameid=<?= $row['gameID'] ?>"><?= date("g\:i a", mktimeFromMySQLTime($row['time'])) ?></a></td>
+							<td><a href="/game/<?= $row['gameID'] ?>"><?= date("g\:i a", mktimeFromMySQLTime($row['time'])) ?></a></td>
+                            <!-- TODO add link to /team/TEAM_ID -->
 							<td><?= $homeTeamRow["name"] ?></td>
 							<td><?= $awayTeamRow["name"] ?></td>
 							<?php if ($showResults) { ?>
-								<td><?= $finalHome ?> <?= $finalHome > $finalAway ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
-								<td><?= $finalAway ?> <?= $finalAway > $finalHome ? "<img alt=\"Winner\" src=\"icons/1373708645_trophy.png\" />" : "" ?></td>
+								<td><?= $finalHome ?> <?= $finalHome > $finalAway ? "<img alt=\"Winner\" src=\"img/1373708645_trophy.png\" />" : "" ?></td>
+								<td><?= $finalAway ?> <?= $finalAway > $finalHome ? "<img alt=\"Winner\" src=\"img/1373708645_trophy.png\" />" : "" ?></td>
 							<?php } ?>
 						</tr>
 					<?php } ?>
@@ -77,24 +80,25 @@ ob_start();
 				<th colspan="7"><?= $monthName ?> <?= $year ?></th>
 			</tr>
 			<tr>
-				<td><a href="calendar.php?view=daily&amp;day=sun">Sun</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=mon">Mon</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=tue">Tue</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=wed">Wed</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=thu">Thu</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=fri">Fri</a></td>
-				<td><a href="calendar.php?view=daily&amp;day=sat">Sat</a></td>
+                <!-- TODO these urls need to be rewritten. see nginx rules -->
+				<td><a href="/calendar/view=daily&amp;day=sun">Sun</a></td>
+				<td><a href="/calendar/view=daily&amp;day=mon">Mon</a></td>
+				<td><a href="/calendar/view=daily&amp;day=tue">Tue</a></td>
+				<td><a href="/calendar/view=daily&amp;day=wed">Wed</a></td>
+				<td><a href="/calendar/view=daily&amp;day=thu">Thu</a></td>
+				<td><a href="/calendar/view=daily&amp;day=fri">Fri</a></td>
+				<td><a href="/calendar/view=daily&amp;day=sat">Sat</a></td>
 			</tr>
 WHILE LOOP HERE
 			<tr>
 ERROR print calendar from array
 					<td>$calendarArray[FIX][FIX]</td>
 //TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
-					<td<?= $elementClass != NULL ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != NULL ? "<a href=\"calendar.php?date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
+					<td<?= $elementClass != NULL ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != NULL ? "<a href=\"/calendar/date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
 			</tr>
 		</table>
 	<?php }
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,29 +19,25 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
-if (!isLoggedIn())
-{
-	header('Location: index.php');
-	exit(0);
-}
+$teamInfo = getTeamInfo($_GET['id']);
+$teamName = $teamInfo['TeamName'];
+$priColor = $teamInfo['PriColor'];
+$secColor = $teamInfo['SecColor'];
+$motto = $teamInfo['Motto'];
+$missionStatement = $teamInfo['MissionStatement'];
+$notes = '';
 
-require_once 'models/roster.php';
+$mgrInfo = getTeamManagerInfo($_GET['id']);
+$mgrID = $mgrInfo['ManagerID'];
+$mgrName = $mgrInfo['FirstName'] . ' ' . $mgrInfo['LastName'];
 
-if (isset($_GET['name']))
-{
-//TODO must get other parameters
-	$action = 'show-roster';
-	$roster = getRoster($_GET['name']);
-}
-else
-{
-	$action = 'show-team-list';
-}
+//TODO get current/past leagues
+$leagues = NULL;
 
-require 'views/roster.php';
+require '../views/team.php';

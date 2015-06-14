@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,11 +19,12 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
+
 //TODO every function returns something different! some return NULL, others empty array
 
 //TODO because this file is included, this path is relative to wherever this is included from. Add a SITE_URL to config.php
-require 'config/config.php';
+require '../config/config.php';
 
 //TODO my not-so-production server requires this compatibility library for the new PHP password stuff.
 //     I should put a version test here, though.
@@ -31,8 +32,8 @@ require 'config/config.php';
 //     * http://php.net/manual/en/faq.passwords.php
 //     * https://github.com/ircmaxell/password_compat
 //TODO include* and require* seem to treat relative paths differently (if the running script itself was included or required)
-if (file_exists('models/password.php'))
-    require_once 'models/password.php';
+if (file_exists('password.php'))
+    require_once 'password.php';
 
 /*
  * connectToDB() -- Tries to connect to the database
@@ -41,11 +42,7 @@ if (file_exists('models/password.php'))
  */
 function connectToDB()
 {
-    //NOTE: this was removed when i started using define()
-	//global $_DBHOST;
-	//global $_DBUSER;
-	//global $_DBPASS;
-	//global $_DBNAME;
+    $fullDbName = (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . 'team_mgr';
 
 	// create db connection
 	$db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -73,8 +70,7 @@ function getLoginName()
 	if (isLoggedIn())
 		return $_SESSION['loginname'];
 	else
-//TODO don't allow a loginname like "Guest", or use NULL here
-		return 'Guest';
+		return '';
 }
 
 function getUserName()
@@ -110,14 +106,16 @@ function getUserManagedTeamNames()
 {
 	$db_con = connectToDB();
 
-	$query_result = mysqli_query($db_con, 'SELECT TeamName FROM Team AS T JOIN Player AS P ON T.ManagerID = P.ID JOIN User AS U ON P.ID = U.PlayerID WHERE Login = \'' . getLoginName() . '\'');
+	$query_result = mysqli_query($db_con, 'SELECT ID, TeamName FROM Team WHERE ManagerID = ' . getUserPlayerID());
 
 	if ($query_result)
 	{
 		$result = array();
+        $i = 0;
 		while($row = mysqli_fetch_array($query_result))
 		{
-			$result[] = $row['TeamName'];
+			$result[$i] = array('ID' => $row['ID'], 'TeamName' => $row['TeamName']);
+            $i++;
 		}
 
 //TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
@@ -137,14 +135,16 @@ function getUserRosteredTeamNames()
 {
 	$db_con = connectToDB();
 
-	$plays_on_query_result = mysqli_query($db_con, 'SELECT R.TeamName FROM Roster AS R JOIN Team AS T ON R.TeamName = T.TeamName WHERE PlayerID = \'' . getUserPlayerID() .'\'');
+	$plays_on_query_result = mysqli_query($db_con, 'SELECT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID WHERE R.PlayerID = ' . getUserPlayerID());
 
 	if ($plays_on_query_result)
 	{
 		$result = array();
+        $i = 0;
 		while($row = mysqli_fetch_array($plays_on_query_result))
 		{
-			$result[] = $row['TeamName'];
+			$result[$i] = array('ID' => $row['ID'], 'TeamName' => $row['TeamName']);
+            $i++;
 		}
 
 //TODO can I close the DB before myqsqli_fetch_array? surely not if results are buffered, but maybe here it's okay
@@ -184,31 +184,35 @@ function getUserSeasonID()
 }
 
 
-function getTeamInfo($teamName)
+function getTeamInfo($teamID)
 {
-//TODO sanitize $teamName
+//TODO sanitize $teamName (make sure it's an int)
 	$db_con = connectToDB();
 
-	if (isset($teamName))
+	if (isset($teamID))
 	{
-		$escapedTeamName = mysqli_real_escape_string($db_con, $teamName);
-		$team_query_result = mysqli_query($db_con, "SELECT TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE TeamName = '$escapedTeamName'");
+		$team_query_result = mysqli_query($db_con, "SELECT ID, TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE ID = $teamID");
+
 //DEBUG
 //TODO do better error handling here
-if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)
-	error_log('No info was found for team \''. $escapedTeamName . '\' in the database.');
+        if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)
+            error_log('No info was found for team \''. $escapedTeamName . '\' in the database.');
 //END DEBUG
 
 		$teamInfo = mysqli_fetch_array($team_query_result);
+
+        closeDB($db_con);
+        return $teamInfo;
 	}
 
 	closeDB($db_con);
-	return $teamInfo;
+	return NULL;
 }
 
 function attemptLogin($username, $password)
 {
 //TODO sanitize input
+    //FIXME why are we using POST here???
 	if ($_POST['loginName'] && $_POST['loginName'] != "" && $_POST['password'] && $_POST['password'] != "")
 
 	$db_con = connectToDB();
@@ -238,11 +242,11 @@ function attemptRegistration($loginName, $password)
 //TODO don't allow blank password. do some basic password enforcement
 //TODO sanitize input. also don't allow only differences in case or spacing for login names
 	if ($loginName && strlen($loginName) >= 3
-	    && $password && strlen($password) >= 3)
+	    && $password && strlen($password) >= 6)
 	{
 		$db_con = connectToDB();
 
-		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (\'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
+		$ret = mysqli_query($db_con, 'INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
 
 		if ($ret)
 		{
@@ -260,16 +264,15 @@ function attemptRegistration($loginName, $password)
 	return FALSE;
 }
 
-function getTeamManagerInfo($teamName)
+function getTeamManagerInfo($teamID)
 {
 	$db_con = connectToDB();
 
-	$escapedTeamName = mysqli_real_escape_string($db_con, $_GET['name']);
-	$mgr_query_result = mysqli_query($db_con, "SELECT ID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE TeamName = '$escapedTeamName'");
+	$mgr_query_result = mysqli_query($db_con, "SELECT ManagerID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE T.ID = $teamID");
 
 	if ( !$mgr_query_result)
 	{
-		error_log('No manager was found for team \''. $escapedTeamName . '\' in the database. (This is a "feature", not really an error/bug.');
+		error_log('No manager was found for team \''. $teamID . '\' in the database. (This is a "feature", not really an error/bug.');
 		closeDB($db_con);
 		return NULL;
 	}

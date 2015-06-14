@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'My Teams';
 
@@ -29,7 +31,7 @@ ob_start();
 		<p>
 			<ul>
 				<?php foreach ($managedTeamsList as $team ) { ?>
-					<li><a href="manage.php?name=<?= urlencode($team) ?>"><?= $team ?></a></li>
+					<li><a href="/manage/<?= urlencode($team['ID']) ?>"><?= $team['TeamName'] ?></a></li>
 				<?php } ?>
 			</ul>
 		</p>
@@ -39,7 +41,7 @@ ob_start();
 		<p>
 			<ul>
 				<?php foreach ($rosteredTeamsList as $team ) { ?>
-					<li><a href="team-profile.php?name=<?= urlencode($team) ?>"><?= $team ?></a></li>
+					<li><a href="/team/<?= urlencode($team['ID']) ?>"><?= $team['TeamName'] ?></a></li>
 				<?php } ?>
 			</ul>
 		</p>
@@ -51,4 +53,4 @@ ob_start();
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

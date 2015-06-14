@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Login';
 
@@ -28,10 +30,10 @@ ob_start();
 <?php }	else { // show login form ?>
 	<p>This website uses cookies to keep track of your session.</p>
 
-	<form action="login.php" method="post">
+	<form action="/login" method="post">
 		<div id="frmLogin">
 			<label for="loginName">Login name:</label>
-			<input type="text" name="loginName" id="loginName" value="<?php echo $failedLoginName ?>"/><br />
+			<input type="text" name="loginName" id="loginName" value="<?= !empty($failedLoginName) ? $failedLoginName : '' ?>"/><br />
 
 			<label for="password">Password:</label>
 			<input type="password" name="password" id="password" /><br />
@@ -44,9 +46,9 @@ ob_start();
 		<p class='fail-msg'>Login failed!</p>
 	<?php } ?>
 
-	<p>or <a href="register.php" title="Register">Register</a></p>
-<?php }
+	<p>or <a href="/register" title="Register">Register</a></p>
+    <?php }
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

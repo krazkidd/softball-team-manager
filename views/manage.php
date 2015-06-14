@@ -1,4 +1,6 @@
-<?php /*************************************************************************
+<?php
+
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -17,17 +19,17 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-  *************************************************************************/
+  **************************************************************************/
 
 $title = 'Manage';
 
 ob_start();
 
 ?><?php if ($action == 'show-team') { ?>
-	<img title="<?= $teamInfo['TeamName'] ?>" src="images/team-no-image.png" />
+	<img id="team-img" title="<?= $teamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
 	<h2><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
 	<p><?= $teamInfo['Motto'] ?></p>
-	<p><a href="roster.php?name=<?= urlencode($teamInfo['TeamName']) ?>">View Rosters</a><br />
+	<p><a href="/roster/<?= urlencode($teamInfo['ID']) ?>">View Rosters</a><br />
 	    <a href="#">View lineups for next games</a></p>
 <?php }	else { // $action == 'show-list' ?>
 	<?php if ($managedTeamsList) { ?>
@@ -35,7 +37,7 @@ ob_start();
 		<p>
 			<ul>
 				<?php foreach ($managedTeamsList as $team ) { ?>
-					<li><a href="manage.php?name=<?= urlencode($team) ?>"><?= $team ?></a></li>
+					<li><a href="/manage/<?= $team['TeamID'] ?>"><?= $team['TeamName'] ?></a></li>
 				<?php } ?>
 			</ul>
 		</p>
@@ -47,4 +49,4 @@ ob_start();
 
 $content = ob_get_clean();
 
-require 'templates/layout.php';
+require '../templates/layout.php';

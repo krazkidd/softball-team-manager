@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,9 +19,9 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
 function formatPhoneNumber($phoneStr)
 {
@@ -50,7 +50,7 @@ function getPlayerTeams($playerID)
 {
 //TODO sanitize input!
 	$db_con = connectToDB();
-	$db_query_result = mysqli_query($db_con, 'SELECT P.TeamName, ParkName, DayOfWeek, SeasonDescription FROM ParticipatesIn AS P NATURAL JOIN Roster AS R WHERE R.PlayerID = \'' . $playerID . '\'');
+	$db_query_result = mysqli_query($db_con, 'SELECT R.TeamID, T.TeamName FROM Player AS P JOIN Roster AS R ON P.ID = R.PlayerID JOIN Team AS T ON T.ID = R.TeamID WHERE R.PlayerID = ' . $playerID);
 
 	if ($db_query_result == NULL)
 	{

@@ -1,6 +1,6 @@
 <?php
 
-/* *************************************************************************
+  /**************************************************************************
 
   This file is part of Team Manager.
 
@@ -19,17 +19,17 @@
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
   
-************************************************************************* */
+  **************************************************************************/
 
 session_start();
 
-require_once 'models/model.php';
+require_once '../models/model.php';
 
 //TODO save any Guest session preferences
 if (isLoggedIn())
 {
 	// user is already logged in
-	header('Location: index.php');
+	header('Location: /');
 	exit(0);
 }
 
@@ -39,7 +39,7 @@ if (isset($_POST['btnLogIn']))
 	if (attemptLogin($_POST['loginName'], $_POST['password']))
 	{
 		$action = 'login-success';
-		header('Refresh: 10; URL=/my-teams.php');
+		header('Refresh: 10; URL=/my-teams');
 	}
 	else
 	{
@@ -51,5 +51,9 @@ if (isset($_POST['btnLogIn']))
 			$failedLoginName = '';
 	}
 }
+else
+{
+    $action = 'login-attempt';
+}
 
-require 'views/login.php';
+require '../views/login.php';
