@@ -22,7 +22,7 @@ Project hosted at:
 Requirements:
 
 * PHP >= 5.5 (or PHP >= 5.3.7 if you install the password compatibility library
-  from https://github.com/ircmaxell/password_compat)
+  from <https://github.com/ircmaxell/password_compat>)
   - just drop the lib/password.php file from that project in the lib/ directory
 * MariaDB/MySQL (MySQL is currently used in development)
 * a web server and whatever necessary PHP module
