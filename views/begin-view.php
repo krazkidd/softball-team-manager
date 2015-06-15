@@ -21,28 +21,13 @@
   
   **************************************************************************/
 
-session_start();
-
 require_once '../models/auth.php';
-require_once '../models/team.php';
 
 $isLoggedIn = isLoggedIn();
+if ($isLoggedIn)
+    $userName = getLoginName();
+else
+    $userName = 'Guest';
 
-$teamInfo = getTeamInfo($_GET['id']);
-$teamName = $teamInfo['TeamName'];
-$priColor = $teamInfo['PriColor'];
-$secColor = $teamInfo['SecColor'];
-$motto = $teamInfo['Motto'];
-$missionStatement = $teamInfo['MissionStatement'];
-$notes = '';
-
-$mgrInfo = getTeamManagerInfo($_GET['id']);
-$mgrID = $mgrInfo['ManagerID'];
-$mgrName = $mgrInfo['FirstName'] . ' ' . $mgrInfo['LastName'];
-
-//TODO get current/past leagues
-$leagues = NULL;
-
-require '../views/team.php';
-
-require 'end_controller.php';
+// get a CSS-friendly version of the title
+$titleCSS = str_replace(' ', '-', mb_strtolower($title, 'UTF-8'));

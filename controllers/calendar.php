@@ -49,10 +49,11 @@ else if (isset($_GET['date']))
 		$showResults = false;
 	else
 		$showResults = true;
-//TODO get team info (add function or use one I already have
+
 	// get team info
-	//$homeTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['homeTeam']}"));
-	//$awayTeamRow = mysqli_fetch_array(mysqli_query($db_con, "SELECT * FROM teams WHERE teamID = {$row['visitingTeam']}"));
+    //TODO where does $row come from?
+	//$homeTeamInfo = getTeamInfo($row['HomeID']);
+	//$awayTeamInfo = getTeamInfo($row['AwayID']);
 }
 else
 //TODO fix this block!
@@ -72,7 +73,7 @@ else
 		$year = date('Y');
 	}
 
-	$calendarArray = RENAME_THIS($month, $year);
+	$calendarArray = getCalendarArray($month, $year);
 	$action = 'show-month';
 }
 

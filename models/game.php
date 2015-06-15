@@ -21,28 +21,12 @@
   
   **************************************************************************/
 
-session_start();
-
-require_once '../models/auth.php';
-require_once '../models/team.php';
-
-$isLoggedIn = isLoggedIn();
-
-$teamInfo = getTeamInfo($_GET['id']);
-$teamName = $teamInfo['TeamName'];
-$priColor = $teamInfo['PriColor'];
-$secColor = $teamInfo['SecColor'];
-$motto = $teamInfo['Motto'];
-$missionStatement = $teamInfo['MissionStatement'];
-$notes = '';
-
-$mgrInfo = getTeamManagerInfo($_GET['id']);
-$mgrID = $mgrInfo['ManagerID'];
-$mgrName = $mgrInfo['FirstName'] . ' ' . $mgrInfo['LastName'];
-
-//TODO get current/past leagues
-$leagues = NULL;
-
-require '../views/team.php';
-
-require 'end_controller.php';
+/*
+ *	getGameInfo --
+ */
+function getGameInfo($gameID)
+{
+//TODO sanity checks?
+    //TODO add a function for when we expect single results (makes better self-documentation)
+	return mysqli_fetch_array(runQuery("SELECT * FROM games WHERE gameID = $gameID"));
+}

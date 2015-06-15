@@ -27,6 +27,8 @@ require_once '../models/auth.php';
 
 doRequireLogin();
 
+require_once '../models/team.php';
+
 //TODO make sure user is manager of the specified team
 
 if (isset($_GET['id']))

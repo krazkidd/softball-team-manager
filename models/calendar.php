@@ -50,6 +50,12 @@ function mktimeFromMySQLDateTime($timeString)
     return mktime(getHourFromMySQLTime($timeString), getMinuteFromMySQLTime($timeString), 0, getMonthFromMySQLDate($timeString), getDayFromMySQLDate($timeString), getYearFromMySQLDate($timeString));
 }
 
+function isValidMySQLDateString($dateString)
+{
+	// the string must look like 'YYYY-MM-DD'
+	return checkdate(substr($dateString, 5, 2), substr($dateString, 7, 2), substr($dateString, 0, 4));
+}
+
 function getLeaguesThatPlayOnDayOfWeek($day)
 {
 	switch (strtolower(substr($day)))
@@ -100,7 +106,7 @@ function getGamesByDate($dateStr)
 	return $result;
 }
 
-function RENAME_THIS($month, $year)
+function getCalendarArray($month, $year)
 {
 	// make sure month and year are valid
 	if ( !is_int($month) || !is_int($year) || !checkdate($month, 1, $year))
@@ -198,3 +204,28 @@ function RENAME_THIS($month, $year)
 //FIX
 	return NULL;
 }
+
+/*
+ * getNextGames -- returns the next $numGames games after the given date, formatted as a valid MySQL string, in the user's preferred season
+ */
+function getNextGames($numGames, $MySQLDateString)
+{
+    $toReturn = array();
+
+	if (isValidMySQLDateString($MySQLDateString))
+    {
+        //TODO need to add league ID or something?
+        //TODO use getGameInfo function for each row (either just return IDs here or use that function)
+        $queryResult = runQuery("SELECT ID FROM Game JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
+
+        $i = 0;
+        while($row = mysqli_fetch_array($queryResult))
+        {
+            $toReturn[i] = array();
+            $i++;
+        }
+    }
+
+	return $toReturn;
+}
+

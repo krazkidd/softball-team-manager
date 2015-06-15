@@ -28,7 +28,7 @@ ob_start();
 ?><?php if ($action == 'login-success') { ?>
 	<p class='success-msg'>You were successfully logged in!</p>
 <?php }	else { // show login form ?>
-	<p>This website uses cookies to keep track of your session.</p>
+	<p>This website uses cookies to track your session.</p>
 
 	<form action="/login" method="post">
 		<div id="frmLogin">

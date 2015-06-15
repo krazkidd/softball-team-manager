@@ -27,12 +27,19 @@ require_once '../models/auth.php';
 
 doRequireLogin();
 
-//require_once "../models/common-definitions.php";
-//require_once "../models/calendar.php";
-require_once "../models/lineup.php";
+//require_once '../models/common-definitions.php';
+require_once '../models/calendar.php';
 
 if ( !isset($_GET["id"]))
-    $db_next_games_query_result = getNextGames(6, date("Y-m-d"));
+{
+    //TODO have getNextGames return a regular array instead of a mysql result
+    $nextGames = getNextGames(6, date("Y-m-d"));
+
+    for($nextGames as $gameInfo)
+    {
+        //TODO why am i setting this in a loop? $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
+    }
+}
 
 	$lineup = getLineup($_GET["id"], NULL);
 	$starters = $lineup;

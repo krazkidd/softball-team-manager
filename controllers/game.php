@@ -23,22 +23,16 @@
 
 session_start();
 
-require_once "../models/calendar.php";
+require_once '../models/calendar.php';
+require_once '../models/game.php';
 
 if (isset($_GET['id']))
 {
-    //$db_game_info_query_result = runQuery("SELECT * FROM Game AS G JOIN League AS L ON G.LeagueID = L.ID JOIN Season AS S ON L.SeasonID = S.ID JOIN Team AS T1 ON G.HomeID = T1.ID JOIN Team AS T2 ON Game.AwayID = T2.ID WHERE G.ID = {$_GET['id']}");
-    $db_game_info_query_result = runQuery("SELECT * FROM Game WHERE ID = {$_GET['id']}");
-    $gameInfo = mysqli_fetch_array($db_game_info_query_result);
-    //TODO allow for home/away to be null and show 'TBD' or somesuch
-    $homeID = $gameInfo['HomeID'];
-    $awayID = $gameInfo['AwayID'];
-    $db_home_team_info_query_result = runQuery("SELECT * FROM Game AS G JOIN Team AS T ON G.HomeID = T.ID WHERE G.ID = " . $_GET['id'] . " AND T.ID = " . $homeID);
-    $db_away_team_info_query_result = runQuery("SELECT * FROM Game AS G JOIN Team AS T ON G.AwayID = T.ID WHERE G.ID = " . $_GET['id'] . " AND T.ID = " . $awayID);
-
+    $gameInfo = getGameInfo($_GET['id']);
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
-    $homeTeamInfo = mysqli_fetch_array($db_home_team_info_query_result);
-    $awayTeamInfo = mysqli_fetch_array($db_away_team_info_query_result);
+    //TODO allow for home/away to be null and show 'TBD' or somesuch
+    $homeTeamInfo = getTeamInfo($gameInfo['HomeID']);
+    $awayTeamInfo = getTeamInfo($gameInfo['AwayID']);
 
     $showResults = false;
     if (time() > $gameTime)

@@ -94,20 +94,7 @@ body {
 	color: #999999;
 }
 
-#header,
-#index-header,
-#calendar-header,
-#login-header,
-#logout-header,
-#register-header,
-#about-header,
-#help-header,
-#roster-header,
-#team-profile-header,
-#my-teams-header,
-#player-profile-header,
-#manage-header
-{
+.header {
 	width: 800px;
 	height: 200px;
 	margin: 0;
@@ -117,11 +104,11 @@ body {
 	text-indent: -9000px;
 }
 
-#content {
+.content {
 	font-family: sans-serif;
 }
 
-#index-content {
+#content-index {
   padding: 5px;
   margin: 0;
   float: left;
@@ -155,7 +142,7 @@ body {
   text-align:center;
 }
 
-#footer {
+.footer {
   font-size: 0.8em;
   margin: 0;
   padding: 10px 0;
@@ -164,7 +151,7 @@ body {
   text-align: center;
 }
 
-#footer a {
+.footer a {
   color: #000000;
 }
 
@@ -178,11 +165,11 @@ body {
 }
 
 /* the div that holds the roster table */
-#roster-content {
+#content-roster {
 
 }
 
-#roster-content table th {
+#content-roster table th {
 	background-color: #dddddd;
 }
 
@@ -191,9 +178,9 @@ body {
 
 }
 
-#team-profile-content img,
-#player-profile-content img,
-#manage-content img
+#content-team img,
+#content-player img,
+#content-manage img
 {
 	display: block;
 	float: right;

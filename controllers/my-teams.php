@@ -27,11 +27,10 @@ require_once '../models/auth.php';
 
 doRequireLogin();
 
-// show all teams managed by this user
-//TODO change these functions to accept manager/player ID so that the functions can be a little more generic (the controller here would pass in the logged-in user's ID)
-$managedTeamsList = getUserManagedTeamNames();
+require_once '../models/user.php';
 
-$rosteredTeamsList = getUserRosteredTeamNames();
+$managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
+$rosteredTeamsList = getRosteredTeamsForPlayer(getUserPlayerID());
 
 require '../views/my-teams.php';
 

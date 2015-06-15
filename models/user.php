@@ -54,9 +54,9 @@ function getUserSeasonID()
  * getUserRosteredTeamNames() -- gives a list of team names
  * for which the player plays on
  */
-function getUserRosteredTeamNames()
+function getRosteredTeamsForPlayer($pid)
 {
-	$plays_on_query_result = runQuery('SELECT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID WHERE R.PlayerID = ' . getUserPlayerID());
+	$plays_on_query_result = runQuery('SELECT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID WHERE R.PlayerID = ' . $pid);
 
 	if ($plays_on_query_result)
 	{
@@ -76,9 +76,9 @@ function getUserRosteredTeamNames()
 
 //TODO order by season start date--most recent first. show old seasons differently. (must JOIN with seasons, first)
 //     do the same for getUserRosteredTeamNames()
-function getUserManagedTeamNames()
+function getManagedTeamsForPlayer($pid)
 {
-	$query_result = runQuery('SELECT ID, TeamName FROM Team WHERE ManagerID = ' . getUserPlayerID());
+	$query_result = runQuery('SELECT ID, TeamName FROM Team WHERE ManagerID = ' . $pid);
 
 	if ($query_result)
 	{

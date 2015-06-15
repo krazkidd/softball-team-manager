@@ -21,57 +21,85 @@
   
   **************************************************************************/
 
-require_once "../models/common-definitions.php";
+require_once '..models/model.php'
+require_once '../models/common-definitions.php';
 
-function convertNumberedFieldPositionToAlpha($pos)
+$posArray = NULL;
+
+function doBuildPosArray()
 {
-	switch ($pos)
-	{
-		case 1:
-			return "P";
-		case 2:
-			return "C";
-		case 3:
-			return "1B";
-		case 4:
-			return "2B";
-		case 5:
-			return "3B";
-		case 6:
-			return "SS";
-		case 7:
-			return "LF";
-		case 8:
-			return "CF";
-		case 9:
-			return "RF";
-		case 10:
-			return "RC";
+    global $posArray;
+    $posArray = NULL;
+
+    $query_result = runQuery("SELECT * FROM FieldPosition");
+
+    while($row = mysqli_fetch_array($query_result))
+    {
+        $posArray[$row['PosNum'] = array($row['PosName'], $row['ShortPosName']);
+    }
+}
+
+function getShortPosName($pos)
+{
+//	switch ($pos)
+//	{
+//		case 1:
+//			return "P";
+//		case 2:
+//			return "C";
+//		case 3:
+//			return "1B";
+//		case 4:
+//			return "2B";
+//		case 5:
+//			return "3B";
+//		case 6:
+//			return "SS";
+//		case 7:
+//			return "LF";
+//		case 8:
+//			return "CF";
+//		case 9:
+//			return "RF";
+//		case 10:
+//			return "RC";
 //TODO do i want to use cases 11 and 12 for EP1 and EP2?
-		default:
-			return "Invalid Position";
-	}
+//		default:
+//			return "Invalid Position";
+//	}
+
+    if ( !$posArray)
+    {
+        doBuildPosArray();
+    }
+
+    if ( !$posArray)
+            return '';
+
+    $name = $posArray[$pos][1];
+
+    if ( !$name)
+        return '';
+
+    return $name;
 }
 
-function isValidMySQLDateString($dateString)
+function getPosName($pos)
 {
-//DEBUG
-echo "Invalid date string.\n";
-//END DEBUG
-	// the string must look like 'YYYY-MM-DD'
-	return checkdate(substr($dateString, 5, 2), substr($dateString, 7, 2), substr($dateString, 0, 4));
-}
+    if ( !$posArray)
+    {
+        doBuildPosArray();
+    }
 
-/*
- * getNextGames -- returns the next $numGames games after the given date, formatted as a valid MySQL string, in the user's preferred season
- */
-function getNextGames($numGames, $MySQLDateString)
-{
-	if ( !isValidMySQLDateString($MySQLDateString))
-		return NULL;
+    if ( !$posArray)
+            return '';
 
-	$toReturn = runQuery("SELECT * FROM games JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
-	return $toReturn;
+    $name = $posArray[$pos][0];
+
+    if ( !$name)
+        return '';
+
+    return $name;
 }
 
 /*
@@ -159,14 +187,4 @@ function getLineup($gameID, $teamID)
 		$nonstarters["EP5"] = $playerInfo[$lineupPlayerIDs["EP5"]];
 
 	return $starters;
-}
-
-/*
- *	getGameInfo --
- */
-function getGameInfo($gameID)
-{
-//TODO sanity checks?
-    //TODO add a function for when we expect single results (makes better self-documentation)
-	return mysqli_fetch_array(runQuery("SELECT * FROM games WHERE gameID = $gameID"));
 }

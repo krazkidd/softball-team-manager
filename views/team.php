@@ -33,7 +33,7 @@ ob_start();
 	<p><?= $missionStatement ?></p>
 	<!-- <h6>Notes</h6>
 	<p><?= $notes ?></p> -->
-	<?php if (isLoggedIn()) { ?>
+	<?php if ($isLoggedIn) { ?>
 		<p>Manager: <a href="/player/<?= $mgrID ?>"><?= $mgrName ?></a></p>
 	<?php } ?>
 

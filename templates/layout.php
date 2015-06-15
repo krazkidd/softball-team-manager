@@ -22,42 +22,44 @@
   
   ********************************************************************** --!>
 
+<?php require '../views/begin-view.php'; ?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $title . ' - ' . PROJECT_NAME ?></title>
+		<title><?= $title . ' - ' . PROJECT_NAME ?></title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="/css/style.css" /> 
 	</head>
 
 	<body>
 		<div id="container">
-			<div id="header">
-				<h1><?php echo $title ?></h1>
+			<div id="header-<?= $titleCSS ?>" class="header">
+				<h1><?= $title ?></h1>
 			</div>
 
 			<div id="navbar">
 				<ul>
 					<li><a href="/" title="Home">Home</a></li>
-					<?= isLoggedIn() ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
+					<?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
 					<li><a href="/calendar">Calendar</a></li>
 					<li><a href="/about" title="About this site">About</a></li>
 					<li><a href="/help" title="How to use this site">Help</a></li>
 				</ul>
 
 				<p id="navLoginName">
-					<?php if (isLoggedIn()) { ?>
-						You are logged in as <?php echo getLoginName() ?>. <a href="/logout" title="Log out">Log out</a>
+					<?php if ($isLoggedIn) { ?>
+						You are logged in as <?= $userName ?>. <a href="/logout" title="Log out">Log out</a>
 					<?php } else { ?>
 						You are not logged in. <a href="/login" title="Log in or Register">Log in or Register</a>
 					<?php } ?>
 				</p>
 			</div>
 
-			<div id="content">
-				<?php echo $content ?>
+            <div id="content-<?= $titleCSS ?>" class="content">
+				<?= $content ?>
 			</div>
 
-			<div id="footer">
+			<div id="footer-<?= $titleCSS ?>" class="footer">
 				<p><a href="/">Home</a></p>
 				<p>Copyright &copy; 2013. Website design by Mark Ross.</p>
 			</div>
