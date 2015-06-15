@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-require_once '../models/model.php';
+require_once 'model.php';
 
 /*
  * getUserSeasonID() -- this will return the softball season that should be

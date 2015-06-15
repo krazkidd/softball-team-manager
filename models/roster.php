@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-require_once '../models/model.php';
+require_once 'model.php';
 
 function getRoster($teamID)
 {

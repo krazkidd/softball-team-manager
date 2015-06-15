@@ -23,8 +23,6 @@
 
 //THIS IS NOT BEING USED.
 
-require_once "../models/common-definitions.php";
-
 // get player names and numbers and show them in a table
 //TODO user input needs to be sanitized
 //TODO lol what did i delete from this query? $db_query_result = runQuery($db_con, "INSERT ");

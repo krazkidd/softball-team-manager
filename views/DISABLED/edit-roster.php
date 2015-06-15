@@ -21,8 +21,7 @@
   
   **************************************************************************/
 
-require_once "../models/common-definitions.php";
-require_once "../models/roster.php";
+require_once '../models/roster.php';
 
 if (!empty($_POST['edit']))
 {

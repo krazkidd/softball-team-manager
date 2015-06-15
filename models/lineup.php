@@ -21,8 +21,8 @@
   
   **************************************************************************/
 
-require_once '..models/model.php'
-require_once '../models/common-definitions.php';
+require_once 'model.php'
+require_once 'common-definitions.php';
 
 $posArray = NULL;
 

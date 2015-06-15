@@ -1,4 +1,4 @@
 LOCAL
-config/local-config.php
+config/local-config*
 *.swp
 img/*

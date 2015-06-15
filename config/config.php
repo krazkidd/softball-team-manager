@@ -35,6 +35,6 @@ else if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)
     require_once '../lib/password.php';
 }
 
-require_once '../config/local-config.php';
+require_once 'local-config.php';
 
 define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME); 
