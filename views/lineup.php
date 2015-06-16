@@ -38,9 +38,18 @@ else
 
     <div id="lineup-whole-form">
         <!-- TODO put underlines and embolden the headers -->
-        <p>Team <?= $teamInfo['TeamName'] ?></p>
-        <p>League TODO</p>
-        <p>Coach/Manager TODO</p>
+        <div class="lineup-header-div">
+            <p class="lineup-header-left">Team</p>
+            <p class="lineup-header-right"><?= $teamInfo['TeamName'] ?></p>
+        </div>
+        <div class="lineup-header-div">
+            <p class="lineup-header-left">League</p>
+            <p class="lineup-header-right">TODO</p>
+        </div>
+        <div class="lineup-header-div">
+            <p class="lineup-header-left">Coach/Manager</p>
+            <p class="lineup-header-right">TODO</p>
+        </div>
 
         <div id="batting-order">
             <table>
@@ -48,10 +57,10 @@ else
                     <th colspan="4">Starting Lineup</th>
                 </tr>
                 <tr>
-                    <td>No.</td>
-                    <td>First &amp; Last Name</td>
-                    <td>Pos.</td>
-                    <td>Sub. #</td>
+                    <th>No.</th>
+                    <th>First &amp; Last Name</th>
+                    <th>Pos.</th>
+                    <th>Sub. #</th>
                 </tr>
 
 <?php
@@ -83,8 +92,8 @@ else
                     <th colspan="4">Non-Starters</th>
                 </tr>
                 <tr>
-                    <td>No.</td>
-                    <td colspan="3">First &amp; Last Name</td>
+                    <th>No.</th>
+                    <th colspan="3">First &amp; Last Name</th>
                 </tr>
 <?php
     $subs = getSubs($lineup);

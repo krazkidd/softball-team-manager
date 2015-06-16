@@ -398,14 +398,42 @@ body {
 	text-align: center;
 }
 
+#content-field-layout,
+#content-lineup {
+    text-align: center;
+}
+
 #lineup-whole-form {
 	border-style: dashed;
 	border-width: 1px;
 	display: inline-block;
 }
 
-#lineup-whole-form p {
-	margin: 10px;
+.lineup-header-div {
+	margin: 15px 3px;
+    padding: 0;
+    display: block;
+}
+
+.lineup-header-left {
+    text-align: left;
+    margin: 0;
+    margin-right: 8px;
+    padding: 0;
+    float: left;
+    display:block;
+    clear: left;
+    border-bottom: 1px solid white;
+}
+
+.lineup-header-right {
+    margin: 0;
+    padding: 0;
+    padding-left: 3px;
+    overflow: hidden;
+    text-align: left;
+	display: block;
+    border-bottom: 1px solid black;
 }
 
 #lineup-whole-form table {
@@ -414,22 +442,37 @@ body {
 	border-style: solid;
 	border-width: 1px;
 	border-collapse: collapse;
+    clear: both;
 }
 
 /*#lineup-whole-form tr th + tr td {
 	font-weight: bold;
 }*/
 
-#lineup-whole-form table th, #lineup-whole-form table td {
+#lineup-whole-form table th,
+#lineup-whole-form table td {
 	border-style: solid;
 	border-width: 1px;
 	padding: 3px;
+}
+
+#lineup-whole-form table th {
 	font-weight: bold;
 }
 
-/*TODO fix the selector below; it should not apply to names*/
+/* center shirt numbers */
 #lineup-whole-form table tr > td {
-	/*text-align: center;*/
+	text-align: center;
+}
+
+/* align names to left */
+#lineup-whole-form table tr > td + td {
+    text-align: left;
+}
+
+/* center positions */
+#lineup-whole-form table tr > td + td + td {
+    text-align: center;
 }
 
 #frmLogin input,
