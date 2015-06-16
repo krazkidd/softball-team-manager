@@ -64,3 +64,11 @@ function closeDB()
 
 	return mysqli_close($db_con);
 }
+
+function isID($id)
+{
+    return is_numeric($id) && is_int($id + 0) && $id > 0;
+}
+
+//TODO add a parser for url arg lists that ignores case and 
+//     maybe checks types

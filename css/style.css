@@ -235,18 +235,18 @@ body {
 	background-color: #dddddd;
 }
 
-.gender-female {
+.gender-f {
 	background-color: #ffccff;
         /*color: #FF00FF;*/ /* unimaginitive pink */
 }
 
-.gender-male {
+.gender-m {
 	background-color: #99ffff;
         /*color: #3333FF;*/ /* electric booga-blue */
 }
 
-.gender-undeclared {
-	background-color: #cccccc;
+.gender-u {
+	background-color: #ddccff; /*TODO OMG these colors are offensive */
 }
 
 .bold {
@@ -255,19 +255,23 @@ body {
 
 /************* field layout rules *************/
 
+#content-field-layout h3 {
+    text-align: center;
+}
+
 #softballField { 
-        background-image: url('img/baseball-field-w-t-ball-positions-hi.png');
+        background-image: url('/img/baseball-field-w-t-ball-positions-hi.png');
         background-repeat: no-repeat;
         width: 600px;
         height: 330px;
         position: relative;
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0 auto;
 }
       
 #gameInfo {
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
         margin-top: 2px;
         background-color: #000000;
         /*width: 100%;*/
@@ -277,7 +281,7 @@ body {
 	font-family: sans-serif;
 	font-weight: bold;
 	color: #dd3300;
-	padding: 0px;
+	padding: 0;
 	text-align: center;
 	/*margin: auto 0 auto 0;*/
 }
@@ -285,15 +289,15 @@ body {
 .playerPos {
 	position: absolute;
 	padding: 2px;
-	margin: 0px;
+	margin: 0;
 	min-width: 150px;
 }
 
 .playerPos p {
 	font-family: sans-serif;
 	font-weight: bold;
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	text-align: center;
 }
 
@@ -405,7 +409,7 @@ body {
 
 #lineup-whole-form table {
 	margin: 5px;	
-	padding: 0px;
+	padding: 0;
 	border-style: solid;
 	border-width: 1px;
 	border-collapse: collapse;

@@ -21,8 +21,8 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require '../views/about.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

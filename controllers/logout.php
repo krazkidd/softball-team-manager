@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 
@@ -34,4 +34,4 @@ $action = 'logout-success';
 
 require '../views/logout.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

@@ -125,7 +125,7 @@ CREATE TABLE ParticipatesIn (
 
 /* roster relationship between players and teams */
 CREATE TABLE Roster (
-    ShirtNum SMALLINT UNSIGNED, /*TODO might change this to VARCHAR; sometimes weird numbers are allowed on shirts */
+    ShirtNum VARCHAR(6),
     Notes    VARCHAR(4096),
     Disabled BOOLEAN,
 
@@ -164,11 +164,9 @@ CREATE TABLE Game (
 
 /* lineup entity */
 CREATE TABLE Lineup (
-    ID                INTEGER NOT NULL AUTO_INCREMENT,
-
     GameID            INTEGER,
     TeamID            INTEGER,
-    LeagueID          INTEGER,
+    LeagueID          INTEGER, /*TODO allow null for non-league games? (or make a "Non-League", i.e. LeagueID = 0) */
 
     FieldPos1PID      INTEGER NULL,
     FieldPos2PID      INTEGER NULL,
@@ -225,5 +223,5 @@ CREATE TABLE Lineup (
     FOREIGN KEY (ExtraPlayer1PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
     FOREIGN KEY (ExtraPlayer2PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
     FOREIGN KEY (ExtraPlayer3PID, TeamID, LeagueID) REFERENCES Roster(PlayerID, TeamID, LeagueID),
-    PRIMARY KEY (ID)
+    PRIMARY KEY (GameID, TeamID, LeagueID)
     );

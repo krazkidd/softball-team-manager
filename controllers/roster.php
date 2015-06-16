@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 
@@ -42,4 +42,4 @@ else
 
 require '../views/roster.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

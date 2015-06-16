@@ -21,6 +21,9 @@
   
   **************************************************************************/
 
+//TODO does this file not need a session_start() to use $_SESSION['loginname']? 
+//     begin-controller.php now makes that function call.
+
 require_once 'model.php';
 
 function doRequireLogin()

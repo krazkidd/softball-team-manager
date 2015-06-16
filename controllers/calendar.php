@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/calendar.php';
 
@@ -79,4 +79,4 @@ else
 
 require '../views/calendar.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

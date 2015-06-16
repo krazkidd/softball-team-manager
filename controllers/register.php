@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 
@@ -50,4 +50,4 @@ if (isset($_POST['btnRegister']))
 
 require '../views/register.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

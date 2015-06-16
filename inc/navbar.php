@@ -21,8 +21,8 @@
   
   **************************************************************************/
 
-require_once '../common-definitions.php';
-
+//TODO this won't work without a require, but i want to avoid doing that.
+//     can i make a standard include with basic stuff in it like this?
 $isLoggedIn = isLoggedIn()
 
 ?><div id="navbar">

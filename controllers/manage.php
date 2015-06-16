@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 
@@ -31,7 +31,12 @@ require_once '../models/team.php';
 
 //TODO make sure user is manager of the specified team
 
-if (isset($_GET['id']))
+if (isset($id))
+    $teamID = $id;
+else
+    $teamID = 0;
+
+if ($teamID > 0)
 {
 //TODO this doesn't check the user is a manager
 	$action = 'show-team';
@@ -46,4 +51,4 @@ else
 
 require '../views/manage.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

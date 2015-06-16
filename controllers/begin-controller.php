@@ -18,28 +18,12 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
-require 'begin-controller.php';
+session_start();
 
-require_once '../models/calendar.php';
-require_once '../models/game.php';
-require_once '../models/team.php';
+require_once '../models/model.php';
 
-if (isset($id))
-    $gameID = $id;
-
-$gameInfo = getGameInfo($_GET['id']);
-$gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
-//TODO allow for home/away to be null and show 'TBD' or somesuch
-$homeTeamInfo = getTeamInfo($gameInfo['HomeID']);
-$awayTeamInfo = getTeamInfo($gameInfo['AwayID']);
-
-$showResults = false;
-if (time() > $gameTime)
-    $showResults = true;
-
-require '../views/game.php';
-
-require 'end-controller.php';
+if (isset($_GET['id']) && isID($_GET['id']))
+    $id = $_GET['id'];

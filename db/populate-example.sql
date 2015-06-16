@@ -50,20 +50,20 @@ INSERT INTO ParticipatesIn VALUES
     ; 
 
 INSERT INTO Roster VALUES
-    (23, NULL, FALSE, 1, 1, 1),
-    (34, NULL, FALSE, 2, 1, 1),
-    (13, NULL, FALSE, 3, 1, 1),
-    (43, NULL, FALSE, 4, 1, 1),
-    (42, NULL, FALSE, 5, 1, 1),
+    ('23', NULL, FALSE, 1, 1, 1),
+    ('34', NULL, FALSE, 2, 1, 1),
+    ('13', NULL, FALSE, 3, 1, 1),
+    ('43', NULL, FALSE, 4, 1, 1),
+    ('42', NULL, FALSE, 5, 1, 1),
     (NULL, 'Injured', TRUE, 6, 1, 1),
-    (16, 'Someone\'s friend', TRUE, 7, 1, 1),
+    ('16', 'Someone\'s friend', TRUE, 7, 1, 1),
     (NULL, NULL, FALSE, 8, 1, 1),
-    (66, NULL, FALSE, 9, 1, 1),
-    (5, NULL, FALSE, 10, 1, 1),
-    (27, NULL, FALSE, 11, 1, 1),
-    (33, NULL, FALSE, 12, 1, 1),
-    (1, NULL, FALSE, 13, 1, 1),
-    (74, NULL, FALSE, 14, 1, 1),
+    ('66', NULL, FALSE, 9, 1, 1),
+    ('5', NULL, FALSE, 10, 1, 1),
+    ('27', NULL, FALSE, 11, 1, 1),
+    ('33', NULL, FALSE, 12, 1, 1),
+    ('1', NULL, FALSE, 13, 1, 1),
+    ('74', NULL, FALSE, 14, 1, 1),
     (NULL, NULL, FALSE, 15, 1, 1)
     ;
 
@@ -79,4 +79,8 @@ INSERT INTO Game VALUES
     (NULL, '2013-11-04 19:35:00', 'Regular', 17, 0, NULL, 3, 1, 1),
     (NULL, '2013-11-18 20:40:00', 'Regular', 12, 0, NULL, 4, 1, 1),
     (NULL, '2013-12-02 18:30:00', 'Tourney', 12, 0, NULL, 5, 1, 1)
+    ;
+
+INSERT INTO Lineup VALUES
+    (1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, NULL)
     ;

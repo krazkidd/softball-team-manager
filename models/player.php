@@ -39,7 +39,7 @@ function formatPhoneNumber($phoneStr)
 function getPlayerInfo($playerID)
 {
 //TODO sanitize param
-	$db_query_result = runQuery('SELECT FirstName, LastName, NickName, Email, PhoneNumber, Gender FROM Player WHERE Player.ID = \'' . $playerID . '\'');
+	$db_query_result = runQuery("SELECT * FROM Player WHERE Player.ID = $playerID");
 
 	return mysqli_fetch_array($db_query_result);
 }

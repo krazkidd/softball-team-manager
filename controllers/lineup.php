@@ -21,29 +21,36 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 
 doRequireLogin();
 
-//require_once '../models/common-definitions.php';
 require_once '../models/calendar.php';
 require_once '../models/lineup.php';
 
-if ( !isset($_GET["id"]))
-{
-    //TODO have getNextGames return a regular array instead of a mysql result
-    $nextGames = getNextGames(6, date("Y-m-d"));
+if (isset($id))
+    $gameID = $id;
+else
+    $gameID = 0;
 
-    for($nextGames as $gameInfo)
-    {
-        //TODO why am i setting this in a loop? $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
-    }
+//TODO have getNextGames return a regular array instead of a mysql result
+$nextGames = getNextGames(6, date("Y-m-d"));
+
+foreach ($nextGames as $gameInfo)
+{
+    //TODO why am i setting this in a loop? $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
 }
 
 //TODO id is lineup id: $gameInfo = getGameInfo($_GET['id']);
 //TODO change this from NULL
+
+
+
+
+ERROR changed this functions arg list
+
 $lineup = getLineup($_GET['id'], NULL);
 
 //ERROR need to pull starters/non-starters from lineup?
@@ -53,4 +60,4 @@ $gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTi
 
 require '../views/lineup.php';
 
-require 'end_controller.php';
+require 'end-controller.php';

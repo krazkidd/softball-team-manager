@@ -28,5 +28,5 @@ function getGameInfo($gameID)
 {
 //TODO sanity checks?
     //TODO add a function for when we expect single results (makes better self-documentation)
-	return mysqli_fetch_array(runQuery("SELECT * FROM games WHERE gameID = $gameID"));
+	return mysqli_fetch_array(runQuery("SELECT * FROM Game WHERE ID = $gameID"));
 }

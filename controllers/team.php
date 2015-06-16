@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-session_start();
+require 'begin-controller.php';
 
 require_once '../models/auth.php';
 require_once '../models/team.php';
@@ -45,4 +45,4 @@ $leagues = NULL;
 
 require '../views/team.php';
 
-require 'end_controller.php';
+require 'end-controller.php';
