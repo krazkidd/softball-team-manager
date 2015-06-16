@@ -27,7 +27,6 @@ require_once '../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/model.php';
 require_once '../models/calendar.php';
 require_once '../models/lineup.php';
 require_once '../models/game.php';

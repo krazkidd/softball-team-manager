@@ -54,6 +54,8 @@ else
     <!-- <div id="extra-player-list">
         <p>Extra players:</p>
         <ul> -->
+
+    <p>View the <a href="/lineup?<?= "gameid={$gameID}&teamid={$teamID}&leagueid={$leagueID}" ?>">Lineup</a>.</p>
 <?php
 }
 

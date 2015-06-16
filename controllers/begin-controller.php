@@ -27,3 +27,5 @@ require_once '../models/model.php';
 
 if (isset($_GET['id']) && isID($_GET['id']))
     $id = $_GET['id'];
+
+//TODO get other url params here instead of other controller files

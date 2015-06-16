@@ -23,6 +23,9 @@
 
 require_once 'model.php';
 require_once '../models/player.php'; //TODO without '../models/', this called views/player.php. WHY?
+                                     //     NOT A BUG: https://bugs.php.net/bug.php?id=9673
+                                     //     use: require(dirname(__FILE__) . "\..\second.php");
+                                     //     OR have functions like requireModel(NAME)...     
 
 $posArray = NULL;
 
@@ -125,14 +128,20 @@ function getSubs($lineup)
     $toReturn = array();
 
     $i = 0;
-    $qResult = runQuery("SELECT * FROM Player AS P WHERE P.ID IN ({$lineup['ExtraPlayer1PID']}, {$lineup['ExtraPlayer2PID']}, {$lineup['ExtraPlayer3PID']}");
-    while ($row = mysqli_fetch_array($qResult))
+    //FIXME have to be careful with commas; maybe just do a loop on a parameterized query?
+    $qResult = runQuery("SELECT * FROM Player AS P WHERE P.ID IN ({$lineup['ExtraPlayer1PID']}, {$lineup['ExtraPlayer2PID']}, {$lineup['ExtraPlayer3PID']})");
+
+    if ($qResult)
     {
-        $toReturn[$i] = $row;
-        $i++;
+        while ($row = mysqli_fetch_array($qResult))
+        {
+            $toReturn[$i] = $row;
+            $i++;
+        }
     }
 
-    return $toReturn;
+    //return $toReturn;
+    return array(); //TODO remove
 }
 
 //TODO for other function ideas, e.g. getStarters(), see this file before 15 june 2015

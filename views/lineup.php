@@ -21,78 +21,24 @@
   
   **************************************************************************/
 
-$title = 'Calendar';
+$title = 'Lineup';
 
 ob_start();
 
-if ( !isset($_GET["id"]))
-{
-//TODO have getNextGames return a regular array instead of a mysql result
-    $db_next_games_query_result = getNextGames(6, date("Y-m-d"));
-
-    if ($db_next_games_query_result == NULL)
-    {
-?>
-    <p>I need a game ID. Try using the <a href="calendar.php">Calendar</a>.</p>
-<?php
-    }
-    else
-    {
-?>
-    <p>I need a game ID. Try using the <a href="calendar.php">Calendar</a> or one of the following games in your default season:</p>
-    <ul>
-<?php
-        $thisFile = $_SERVER["PHP_SELF"];
-        $parts = Explode('/', $thisFile);
-        $thisFile = $parts[count($parts) - 1];
-
-        while ($row = mysqli_fetch_array($db_next_games_query_result))
-        {
-            $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
-?>
-        <li><a href="<?= $thisFile ?>?gameid=<?= $row["gameID"] ?>"><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></a></li>
-<?php
-        }
-    }
-?>
-    </ul>
-
-</body>
-</html>
-<?php
-    exit();
-}
-
-$gameInfo = getGameInfo($_GET["gameid"]);
-//TODO change this from NULL
-$lineup = getLineup($_GET["gameid"], NULL);
-//DEBUG
-if ($lineup == NULL)
+if ( !$isReqValid)
 {
 ?>
-    <p>Bit of a problem. getLineup() returned NULL.</p>
+    <p>Not a valid lineup request.</p>
 <?php
 }
-//END DEBUG
-
-
-
-//ERROR need to pull starters/non-starters from lineup?
-$starters = $lineup;
-
-//TODO need to check that a player's batting order number isn't NULL if they have a position, as well as several other things i have written on paper
-//TODO check if there aren't enough players and show warning
-
-// check the extra players. if there is an extra male and female, they belong in the starting lineup
-//TODO do some more checking, like for gender. set a note to check that extra players are put into the database correctly
-
-$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
+else
+{
 ?>
-
-    <h3><?= date("l\, F j\, Y", $gameTime) ?> @ <?= date("g\:i a", $gameTime) ?></h3>
+    <h3><?= date('l\, F j\, Y', $gameTime) ?> @ <?= date('g\:i a', $gameTime) ?></h3>
 
     <div id="lineup-whole-form">
-        <p>Team TODO</p>
+        <!-- TODO put underlines and embolden the headers -->
+        <p>Team <?= $teamInfo['TeamName'] ?></p>
         <p>League TODO</p>
         <p>Coach/Manager TODO</p>
 
@@ -109,35 +55,30 @@ $gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTi
                 </tr>
 
 <?php
-//TODO check for alternating gender
-for ($i = 1; $i <= count($starters); $i++)
-{
-//TODO is there anything wrong with being a little wanton with NULL?
-//TODO I probably want to show gender as well, so I'm really going to need a way to loop either through the IDs or the positions and record everything in a big array
-//TODO the style I have now should be the print style. i should make the default style easier to interact with, like when I add Javascript later
+    for ($i = 1; $i <= 12; $i++)
+    {
+        $player = getPlayerAtBatPos($lineup, $i);
+
+        if ($player)
+        {
 ?>
                 <tr>
-                    <td><?= $starters[$i]["shirtNumber"] ?></td>
-                    <td><?= $starters[$i]["firstName"] . " " . $starters[$i]["lastName"] ?></td>
-                    <td><?= $starters[$i]["position"] ?></td>
+                    <!-- TODO don't embolden the player data -->
+                    <td><!-- TODO shirt num --></td>
+                    <td><?= $player['FirstName'] . ' ' . $player['LastName'] ?></td>
+                    <td><!-- TODO position --></td>
                     <td>&nbsp;</td>
                 </tr>
 <?php
-}
-
-for ($i = count($starters) + 1; $i <= 12; $i++)
-{
+        }
+        else
+        {
 ?>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
+                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <?php
-}
+        }
+    }
 ?>
-
                 <tr>
                     <th colspan="4">Non-Starters</th>
                 </tr>
@@ -145,37 +86,37 @@ for ($i = count($starters) + 1; $i <= 12; $i++)
                     <td>No.</td>
                     <td colspan="3">First &amp; Last Name</td>
                 </tr>
-
 <?php
-for ($i = 1; $i <= count($nonstarters); $i++)
-{
+    $subs = getSubs($lineup);
+    for ($i = 0; $i <= 2; $i++)
+    {
+        //$player = $subs[$i]; //FIXME we want to always show three EP rows
+        $player = NULL;        //      but we don't necessarily have three EPs 
+
+        if ($player)
+        {
 ?>
                 <tr>
-                    <td><?= $nonstarters["EP$i"]["shirtNumber"] ?></td>
-                    <td colspan="3"><?= $nonstarters["EP$i"]["firstName"] . " " . $nonstarters["EP$i"]["lastName"] ?></td>
+                    <td><!-- TODO shirt num --></td>
+                    <td colspan="3"><?= $player['FirstName'] . ' ' . $player['LastName'] ?></td>
                 </tr>
 <?php
-}
-
-//TODO add EP6 to DB and to query above (and to same places in field-layout.php)
-for ($i = count($nonstarters) + 1; $i <= 6; $i++)
-{
+        }
+        else
+        {
 ?>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td colspan="3">&nbsp;</td>
-                </tr>
+                <tr><td>&nbsp;</td><td colspan="3">TODO&nbsp;</td></tr>
 <?php
-}
+        }
+    }
 ?>
             </table>
-        </div> <!-- lineup-whole-form -->
+        </div>
+    </div> <!-- lineup-whole-form -->
 
-    </div>
-
-    <p>View the graphical Field Layout page <a href="/field-layout/<?= $_GET["id"] /*TODO the id is the lineup id, so this is wrong*/ ?>">here</a>.</p>
-
+    <p>View the <a href="/field-layout?<?= "gameid={$gameID}&teamid={$teamID}&leagueid={$leagueID}" ?>">Field Layout</a>.</p>
 <?php
+}
 
 $content = ob_get_clean();
 

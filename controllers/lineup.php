@@ -29,34 +29,25 @@ doRequireLogin();
 
 require_once '../models/calendar.php';
 require_once '../models/lineup.php';
+require_once '../models/game.php';
+require_once '../models/team.php';
 
-if (isset($id))
-    $gameID = $id;
-else
-    $gameID = 0;
-
-//TODO have getNextGames return a regular array instead of a mysql result
-$nextGames = getNextGames(6, date("Y-m-d"));
-
-foreach ($nextGames as $gameInfo)
+if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
+  && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
-    //TODO why am i setting this in a loop? $gameTime = mktime(getHourFromMySQLTime($row['time']), getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date']));
+    $isReqValid = true; //TODO rename; tells the view code that all needed arguments are present
+
+    $gameID = $_GET['gameid'];
+    $teamID = $_GET['teamid'];
+    $leagueID = $_GET['leagueid'];
+
+    $teamInfo = getTeamInfo($teamID);
+    $lineup = getLineup($gameID, $teamID, $leagueID);
+    $gameInfo = getGameInfo($gameID);
+    $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
 }
 
-//TODO id is lineup id: $gameInfo = getGameInfo($_GET['id']);
-//TODO change this from NULL
-
-
-
-
-ERROR changed this functions arg list
-
-$lineup = getLineup($_GET['id'], NULL);
-
-//ERROR need to pull starters/non-starters from lineup?
-$starters = $lineup;
-
-$gameTime = mktime(getHourFromMySQLTime($gameInfo['time']), getMinuteFromMySQLTime($gameInfo['time']), 0, getMonthFromMySQLDate($gameInfo['date']), getDayFromMySQLDate($gameInfo['date']), getYearFromMySQLDate($gameInfo['date']));
+//TODO allow user to see others' lineups only after the game is finished
 
 require '../views/lineup.php';
 
