@@ -255,7 +255,8 @@ body {
 
 /************* field layout rules *************/
 
-#content-field-layout h3 {
+#content-field-layout h3,
+#content-lineup h3 {
     text-align: center;
 }
 
