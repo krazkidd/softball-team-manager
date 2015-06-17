@@ -21,11 +21,8 @@
   
   **************************************************************************/
 
-require_once 'model.php';
-require_once '../models/player.php'; //TODO without '../models/', this called views/player.php. WHY?
-                                     //     NOT A BUG: https://bugs.php.net/bug.php?id=9673
-                                     //     use: require(dirname(__FILE__) . "\..\second.php");
-                                     //     OR have functions like requireModel(NAME)...     
+require_once dirname(__FILE__) . '/model.php';
+require_once dirname(__FILE__) . '/player.php'; 
 
 $posArray = NULL;
 
@@ -123,25 +120,22 @@ function getPlayerAtBatPos($lineup, $pos)
      return getPlayerInfo($lineup["BatPos{$pos}PID"]);
 }
 
-function getSubs($lineup)
+function getExtraPlayer($lineup, $pos)
 {
-    $toReturn = array();
-
-    $i = 0;
-    //FIXME have to be careful with commas; maybe just do a loop on a parameterized query?
-    $qResult = runQuery("SELECT * FROM Player AS P WHERE P.ID IN ({$lineup['ExtraPlayer1PID']}, {$lineup['ExtraPlayer2PID']}, {$lineup['ExtraPlayer3PID']})");
-
-    if ($qResult)
-    {
-        while ($row = mysqli_fetch_array($qResult))
-        {
-            $toReturn[$i] = $row;
-            $i++;
-        }
-    }
-
-    //return $toReturn;
-    return array(); //TODO remove
+    return getPlayerInfo($lineup["ExtraPlayer{$pos}PID"]);
 }
 
-//TODO for other function ideas, e.g. getStarters(), see this file before 15 june 2015
+function hasExtraPlayers($lineup)
+{
+    return $lineup['ExtraPlayer1PID'] || $lineup['ExtraPlayer2PID'] || $lineup['ExtraPlayer3PID'];
+}
+
+function getLineupURI($lineup)
+{
+    return "/lineup?gameid={$lineup['GameID']}&teamid={$lineup['TeamID']}&leagueid={$lineup['LeagueID']}";
+}
+
+function getFieldLayoutURI($lineup)
+{
+    return "/field-layout?gameid={$lineup['GameID']}&teamid={$lineup['TeamID']}&leagueid={$lineup['LeagueID']}";
+}

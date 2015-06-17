@@ -21,13 +21,13 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/roster.php';
+require_once dirname(__FILE__) . '/../models/roster.php';
 
 if (isset($_GET['id']))
 {
@@ -40,6 +40,6 @@ else
 	$action = 'show-team-list';
 }
 
-require '../views/roster.php';
+require dirname(__FILE__) . '/../views/roster.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

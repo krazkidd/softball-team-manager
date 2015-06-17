@@ -21,9 +21,9 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
@@ -32,6 +32,6 @@ session_destroy();
 
 $action = 'logout-success';
 
-require '../views/logout.php';
+require dirname(__FILE__) . '/../views/logout.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

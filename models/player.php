@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-require_once 'model.php';
+require_once dirname(__FILE__) . '/model.php';
 
 function formatPhoneNumber($phoneStr)
 {
@@ -41,7 +41,10 @@ function getPlayerInfo($playerID)
 //TODO sanitize param
 	$db_query_result = runQuery("SELECT * FROM Player WHERE Player.ID = $playerID");
 
-	return mysqli_fetch_array($db_query_result);
+    if ($db_query_result)
+        return mysqli_fetch_array($db_query_result);
+
+    return NULL;
 }
 
 function getPlayerTeams($playerID)
@@ -59,4 +62,25 @@ function getPlayerTeams($playerID)
 	}
 
 	return $result;
+}
+
+function getplayerURI($player)
+{
+    return "/player/{$player['ID']}";
+}
+
+function getFullName($player)
+{
+    return $player['FirstName'] . ' ' . $player['LastName'];
+}
+
+function getShortName($player)
+{
+    return $player['FirstName'] . ' ' . $player['LastName'][0] . '.';
+}
+
+function getGender($player, $lowerCase)
+{
+    $gender = $player['Gender'];
+    return $lowerCase ? strtolower($gender) : $gender;
 }

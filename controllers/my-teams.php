@@ -21,17 +21,17 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/user.php';
+require_once dirname(__FILE__) . '/../models/user.php';
 
 $managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
 $rosteredTeamsList = getRosteredTeamsForPlayer(getUserPlayerID());
 
-require '../views/my-teams.php';
+require dirname(__FILE__) . '/../views/my-teams.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

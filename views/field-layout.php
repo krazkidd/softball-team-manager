@@ -42,23 +42,42 @@ else
     {
         $player = getPlayerAtFieldPos($lineup, $i);
 ?>
-        <div id="field-pos-<?= $i ?>" class="playerPos gender-<?= strtolower($player['Gender']) ?>">
+        <div id="field-pos-<?= $i ?>" class="playerPos gender-<?= getGender($player, true) ?>">
 <!-- TODO have to get shirt number from Roster table -->
-            <p><?= $player['FirstName'] ?> <?= $player['LastName'][0] ?>.</p>
+            <p><a href="<?= getPlayerURI($player) ?>">#TODO <?= getName($player) ?></a></p>
         </div>
 <?php
     }
 ?>
     </div>
-
-    <!-- <div id="extra-player-list">
+<?php
+    if ($doExtraPlayersExist)
+    {
+?>
+    <div id="extra-player-list">
         <p>Extra players:</p>
-        <ul> -->
-
-    <p>View the <a href="/lineup?<?= "gameid={$gameID}&teamid={$teamID}&leagueid={$leagueID}" ?>">Lineup</a>.</p>
+        <ul>
+<?php
+        for ($i = 1; $i <= 3; $i++)
+        {
+            $player = getExtraPlayer($lineup, $i);
+            if ($player)
+            {
+?>
+            <li><a href="<?= getPlayerURI($player) ?>">#TODO<!-- TODO shirt num --> <?= getName($player) ?></a></li>
+<?php
+            }
+        }
+?>
+        </ul>
+    </div>
+<?php
+    }
+?>
+    <p>View the <a href="<?= getLineupURI($lineup) ?>">Lineup</a>.</p>
 <?php
 }
 
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';

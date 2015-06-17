@@ -74,7 +74,7 @@ else
                 <tr>
                     <!-- TODO don't embolden the player data -->
                     <td><!-- TODO shirt num --></td>
-                    <td><?= $player['FirstName'] . ' ' . $player['LastName'] ?></td>
+                    <td><?= getFullName($player) ?></td>
                     <td><!-- TODO position --></td>
                     <td>&nbsp;</td>
                 </tr>
@@ -96,25 +96,23 @@ else
                     <th colspan="3">First &amp; Last Name</th>
                 </tr>
 <?php
-    $subs = getSubs($lineup);
-    for ($i = 0; $i <= 2; $i++)
+    for ($i = 1; $i <= 3; $i++)
     {
-        //$player = $subs[$i]; //FIXME we want to always show three EP rows
-        $player = NULL;        //      but we don't necessarily have three EPs 
+        $player = getExtraPlayer($lineup, $i);
 
         if ($player)
         {
 ?>
                 <tr>
                     <td><!-- TODO shirt num --></td>
-                    <td colspan="3"><?= $player['FirstName'] . ' ' . $player['LastName'] ?></td>
+                    <td colspan="3"><?= getFullName($player) ?></td>
                 </tr>
 <?php
         }
         else
         {
 ?>
-                <tr><td>&nbsp;</td><td colspan="3">TODO&nbsp;</td></tr>
+                <tr><td>&nbsp;</td><td colspan="3">&nbsp;</td></tr>
 <?php
         }
     }
@@ -123,10 +121,10 @@ else
         </div>
     </div> <!-- lineup-whole-form -->
 
-    <p>View the <a href="/field-layout?<?= "gameid={$gameID}&teamid={$teamID}&leagueid={$leagueID}" ?>">Field Layout</a>.</p>
+    <p>View the <a href="<?= getFieldLayoutURI($lineup) ?>">Field Layout</a>.</p>
 <?php
 }
 
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';

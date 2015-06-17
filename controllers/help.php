@@ -21,8 +21,8 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require '../views/help.php';
+require dirname(__FILE__) . '/../views/help.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

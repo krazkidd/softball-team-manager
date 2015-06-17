@@ -21,9 +21,9 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireNoLogin();
 
@@ -48,6 +48,6 @@ if (isset($_POST['btnRegister']))
 	}
 }
 
-require '../views/register.php';
+require dirname(__FILE__) . '/../views/register.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

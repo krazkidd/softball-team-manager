@@ -21,11 +21,11 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/calendar.php';
-require_once '../models/game.php';
-require_once '../models/team.php';
+require_once dirname(__FILE__) . '/../models/calendar.php';
+require_once dirname(__FILE__) . '/../models/game.php';
+require_once dirname(__FILE__) . '/../models/team.php';
 
 if (isset($id))
     $gameID = $id;
@@ -40,6 +40,6 @@ $showResults = false;
 if (time() > $gameTime)
     $showResults = true;
 
-require '../views/game.php';
+require dirname(__FILE__) . '/../views/game.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

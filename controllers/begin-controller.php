@@ -23,7 +23,7 @@
 
 session_start();
 
-require_once '../models/model.php';
+require_once dirname(__FILE__) . '/../models/model.php';
 
 if (isset($_GET['id']) && isID($_GET['id']))
     $id = $_GET['id'];

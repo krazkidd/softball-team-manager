@@ -21,9 +21,9 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/calendar.php';
+require_once dirname(__FILE__) . '/../models/calendar.php';
 
 //TODO when no team is given, don't show all games in cal. ask user to select region/season/league
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
@@ -77,6 +77,6 @@ else
 	$action = 'show-month';
 }
 
-require '../views/calendar.php';
+require dirname(__FILE__) . '/../views/calendar.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

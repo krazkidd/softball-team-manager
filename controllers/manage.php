@@ -21,13 +21,13 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/team.php';
+require_once dirname(__FILE__) . '/../models/team.php';
 
 //TODO make sure user is manager of the specified team
 
@@ -49,6 +49,6 @@ else
 	$managedTeamsList = getUserManagedTeamNames();
 }
 
-require '../views/manage.php';
+require dirname(__FILE__) . '/../views/manage.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

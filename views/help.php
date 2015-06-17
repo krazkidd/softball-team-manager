@@ -33,4 +33,4 @@ ob_start();
     <p>You can register as a new user but can't do much managing yet.</p><?php
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';

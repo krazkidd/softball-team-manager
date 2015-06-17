@@ -21,13 +21,13 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/player.php';
+require_once dirname(__FILE__) . '/../models/player.php';
 
 $playerInfo = getPlayerInfo($_GET['id']);
 //TODO if $playerInfo is NULL, then use an $action to show a query failure message
@@ -42,6 +42,6 @@ $gender = $playerInfo['Gender'] ? $playerInfo['Gender'] : '[Not Specified]';
 //TODO query DB for teams for teams this player manages or plays on and list them
 $teams = getPlayerTeams($_GET['id']);
 
-require '../views/player.php';
+require dirname(__FILE__) . '/../views/player.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

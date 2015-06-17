@@ -302,6 +302,10 @@ body {
 	text-align: center;
 }
 
+.playerPos a {
+    text-decoration: none;
+}
+
 /* pitcher */
 #field-pos-1 {
 	left: 70px;
@@ -366,6 +370,15 @@ body {
 	font-weight: bold;
 }
 
+#extra-player-list {
+    text-align: left;
+}
+
+#extra-player-list ul {
+    display: inline;
+    list-style-type: none;
+}
+
 /************* END field layout rules *************/
 
 #home-team {
@@ -403,6 +416,16 @@ body {
     text-align: center;
 }
 
+#extra-player-list {
+    margin-top: 8px;
+}
+
+#extra-player-list p,
+#extra-player-list ul {
+    padding: 0;
+    margin: 0;
+}
+
 #lineup-whole-form {
 	border-style: dashed;
 	border-width: 1px;
@@ -415,6 +438,11 @@ body {
     display: block;
 }
 
+/* NOTE: To get the lineup header fields to take up the remaining space, see:
+ *         https://stackoverflow.com/questions/1260122/expand-div-to-take-remaining-width
+ *       and
+ *         http://colinaarts.com/articles/the-magic-of-overflow-hidden/
+ */
 .lineup-header-left {
     text-align: left;
     margin: 0;

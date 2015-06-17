@@ -35,7 +35,7 @@ if ($action == 'show-roster') {
 			<?php foreach ($roster as $player) { ?>
 				<tr>
 					<td><?php echo $player['ShirtNum'] ?></td>
-                    <td><a href="/player/<?= $player['PlayerID'] ?>"><?= $player['FirstName'] . ' ' . $player['LastName'] ?></a></td>
+                    <td><a href="<?= getPlayerURI($player) ?>"><?= getPlayerFullName($player) ?></a></td>
 				</tr>
 			<?php } ?>
 		</table>
@@ -47,4 +47,4 @@ if ($action == 'show-roster') {
 
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';

@@ -21,15 +21,15 @@
 
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once '../models/calendar.php';
-require_once '../models/lineup.php';
-require_once '../models/game.php';
+require_once dirname(__FILE__) . '/../models/calendar.php';
+require_once dirname(__FILE__) . '/../models/lineup.php';
+require_once dirname(__FILE__) . '/../models/game.php';
 
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
@@ -43,10 +43,11 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
     $lineup = getLineup($gameID, $teamID, $leagueID);
     $gameInfo = getGameInfo($gameID);
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
+    $doExtraPlayersExist = hasExtraPlayers($lineup);
 }
 
 //TODO allow user to see others' lineups only after the game is finished
 
-require '../views/field-layout.php';
+require dirname(__FILE__) . '/../views/field-layout.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

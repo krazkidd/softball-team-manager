@@ -21,10 +21,10 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
-require_once '../models/team.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
+require_once dirname(__FILE__) . '/../models/team.php';
 
 $isLoggedIn = isLoggedIn();
 
@@ -36,13 +36,11 @@ $motto = $teamInfo['Motto'];
 $missionStatement = $teamInfo['MissionStatement'];
 $notes = '';
 
-$mgrInfo = getTeamManagerInfo($_GET['id']);
-$mgrID = $mgrInfo['ManagerID'];
-$mgrName = $mgrInfo['FirstName'] . ' ' . $mgrInfo['LastName'];
+$mgrInfo = getTeamManagerInfo($teamInfo);
 
 //TODO get current/past leagues
 $leagues = NULL;
 
-require '../views/team.php';
+require dirname(__FILE__) . '/../views/team.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

@@ -109,4 +109,4 @@ ERROR print calendar from array
 
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';

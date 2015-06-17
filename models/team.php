@@ -21,38 +21,24 @@
   
   **************************************************************************/
 
-require_once 'model.php';
+require_once dirname(__FILE__) . '/model.php';
+require_once dirname(__FILE__) . '/player.php';
 
 function getTeamInfo($teamID)
 {
 //TODO sanitize $teamName (make sure it's an int)
 	if (isset($teamID))
 	{
-		$team_query_result = runQuery("SELECT ID, TeamName, PriColor, SecColor, Motto, MissionStatement FROM Team WHERE ID = $teamID");
+		$team_query_result = runQuery("SELECT * FROM Team WHERE ID = $teamID");
 
-//DEBUG
-//TODO do better error handling here
-        if ( !$team_query_result || mysqli_num_rows($team_query_result) == 0)
-            error_log('No info was found for team \''. $escapedTeamName . '\' in the database.');
-//END DEBUG
-
-		$teamInfo = mysqli_fetch_array($team_query_result);
-
-        return $teamInfo;
-	}
+        if ($team_query_result)
+            return mysqli_fetch_array($team_query_result);
+    }
 
 	return NULL;
 }
 
-function getTeamManagerInfo($teamID)
+function getTeamManagerInfo($teamInfo)
 {
-	$mgr_query_result = runQuery("SELECT ManagerID, FirstName, LastName FROM Player AS P JOIN Team AS T ON P.ID = T.ManagerID WHERE T.ID = $teamID");
-
-	if ( !$mgr_query_result)
-	{
-		error_log('No manager was found for team \''. $teamID . '\' in the database. (This is a "feature", not really an error/bug.');
-		return NULL;
-	}
-
-	return mysqli_fetch_array($mgr_query_result);
+    return getPlayerInfo($teamInfo['ManagerID']);
 }

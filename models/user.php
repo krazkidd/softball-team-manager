@@ -21,7 +21,7 @@
   
   **************************************************************************/
 
-require_once 'model.php';
+require_once dirname(__FILE__) . '/model.php';
 
 /*
  * getUserSeasonID() -- this will return the softball season that should be

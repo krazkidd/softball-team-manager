@@ -21,9 +21,9 @@
   
   **************************************************************************/
 
-require 'begin-controller.php';
+require dirname(__FILE__) . '/begin-controller.php';
 
-require_once '../models/auth.php';
+require_once dirname(__FILE__) . '/../models/auth.php';
 
 //TODO save any Guest session preferences
 doRequireNoLogin();
@@ -53,6 +53,6 @@ else
     $action = 'login-attempt';
 }
 
-require '../views/login.php';
+require dirname(__FILE__) . '/../views/login.php';
 
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

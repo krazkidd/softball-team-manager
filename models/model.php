@@ -24,7 +24,7 @@
 //TODO rename this file; this is db access stuff. all other models should go
 //     through this to access db
 
-require_once '../config/config.php';
+require_once dirname(__FILE__) . '/../config/config.php';
 
 $db_con = NULL;
 

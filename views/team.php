@@ -34,7 +34,7 @@ ob_start();
 	<!-- <h6>Notes</h6>
 	<p><?= $notes ?></p> -->
 	<?php if ($isLoggedIn) { ?>
-		<p>Manager: <a href="/player/<?= $mgrID ?>"><?= $mgrName ?></a></p>
+        <p>Manager: <a href="<?= getPlayerURI($mgrInfo) ?>"><?= getFullName($mgrInfo) ?></a></p>
 	<?php } ?>
 
 	<?php if ($leagues) { ?>
@@ -49,4 +49,4 @@ ob_start();
 
 $content = ob_get_clean();
 
-require '../templates/layout.php';
+require dirname(__FILE__) . '/../templates/layout.php';
