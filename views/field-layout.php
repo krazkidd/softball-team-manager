@@ -18,65 +18,66 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Field Layout';
 
 ob_start();
 
-if ( !$isReqValid)
+?>
+    <h3><?= $gameDateTimeHeader ?></h3>
+
+    <div id="extra-player-table">
+        <table>
+            <tr>
+                <th colspan="2">Extra Players</th>
+            </tr>
+<?php
+if ($extraPlayers)
 {
 ?>
-    <p>Not a valid lineup request.</p>
+<?php
+    foreach ($extraPlayers as $player)
+    {
+        $shirtNum = getShirtNum($lineup, $player);
+?>
+            <tr>
+                <td><?= $shirtNum ? '#' . $shirtNum . ' ' : '' ?></td>
+                <td><a href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
+            </tr>
+<?php
+    }
+?>
+        </table>
 <?php
 }
 else
 {
 ?>
-    <h3><?= date('l\, F j\, Y', $gameTime) ?> @ <?= date('g\:i a', $gameTime) ?></h3>
+    <!-- TODO fix this with CSS before you put it back in: <p>None</p> -->
+<?php
+}
+?>
+    </div>
 
     <div id="softballField">
 <?php
-    for ($i = 1; $i <= 10; $i++)
-    {
-        $player = getPlayerAtFieldPos($lineup, $i);
+for ($i = 1; $i <= 10; $i++)
+{
+    $player = getPlayerAtFieldPos($lineup, $i);
+    $shirtNum = getShirtNum($lineup, $player);
 ?>
         <div id="field-pos-<?= $i ?>" class="playerPos gender-<?= getGender($player, true) ?>">
-<!-- TODO have to get shirt number from Roster table -->
-            <p><a href="<?= getPlayerURI($player) ?>">#TODO <?= getName($player) ?></a></p>
+            <p><?= $shirtNum ? '#' . $shirtNum . ' ' : '' ?><a href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></p>
         </div>
 <?php
-    }
+}
 ?>
     </div>
-<?php
-    if ($doExtraPlayersExist)
-    {
-?>
-    <div id="extra-player-list">
-        <p>Extra players:</p>
-        <ul>
-<?php
-        for ($i = 1; $i <= 3; $i++)
-        {
-            $player = getExtraPlayer($lineup, $i);
-            if ($player)
-            {
-?>
-            <li><a href="<?= getPlayerURI($player) ?>">#TODO<!-- TODO shirt num --> <?= getName($player) ?></a></li>
-<?php
-            }
-        }
-?>
-        </ul>
-    </div>
-<?php
-    }
-?>
+
     <p>View the <a href="<?= getLineupURI($lineup) ?>">Lineup</a>.</p>
 <?php
-}
 
 $content = ob_get_clean();
 

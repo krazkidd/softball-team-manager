@@ -120,6 +120,26 @@ function getPlayerAtBatPos($lineup, $pos)
      return getPlayerInfo($lineup["BatPos{$pos}PID"]);
 }
 
+function getExtraPlayers($lineup)
+{
+    if (hasExtraPlayers($lineup))
+    {
+        $toReturn = array();
+
+        for ($i = 1; $i <= 3; $i++)
+        {
+            $player = getExtraPlayer($lineup, $i);
+
+            if ($player)
+                $toReturn[$i] = $player;
+        }
+
+        return $toReturn;
+    }
+
+    return NULL;
+}
+
 function getExtraPlayer($lineup, $pos)
 {
     return getPlayerInfo($lineup["ExtraPlayer{$pos}PID"]);
@@ -138,4 +158,10 @@ function getLineupURI($lineup)
 function getFieldLayoutURI($lineup)
 {
     return "/field-layout?gameid={$lineup['GameID']}&teamid={$lineup['TeamID']}&leagueid={$lineup['LeagueID']}";
+}
+
+function getShirtNum($lineup, $player)
+{
+	$row = mysqli_fetch_array(runQuery("SELECT ShirtNum FROM Roster AS R WHERE R.PlayerID = {$player['ID']} AND R.TeamID = {$lineup['TeamID']} AND R.LeagueID = {$lineup['LeagueID']}"));
+    return $row['ShirtNum'];
 }

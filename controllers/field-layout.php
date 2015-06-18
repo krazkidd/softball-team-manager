@@ -34,20 +34,26 @@ require_once dirname(__FILE__) . '/../models/game.php';
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
-    $isReqValid = true; //TODO rename; tells the view code that all needed arguments are present
-
     $gameID = $_GET['gameid'];
     $teamID = $_GET['teamid'];
     $leagueID = $_GET['leagueid'];
 
+    //TODO get shirt nums.
     $lineup = getLineup($gameID, $teamID, $leagueID);
     $gameInfo = getGameInfo($gameID);
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
-    $doExtraPlayersExist = hasExtraPlayers($lineup);
+    $gameDateTimeHeader = date('l\, F j\, Y', $gameTime) . ' @ ' . date('g\:i a', $gameTime);
+    $extraPlayers = getExtraPlayers($lineup);
+ 
+    //TODO allow user to see others' lineups only after the game is finished
+    require dirname(__FILE__) . '/../views/field-layout.php';
 }
-
-//TODO allow user to see others' lineups only after the game is finished
-
-require dirname(__FILE__) . '/../views/field-layout.php';
+else
+{
+    $msgTitle = "Field Layout";
+    $msg = "Not a valid lineup request."; //TODO add more info
+    $msgClass = "failure";
+    require dirname(__FILE__) . '/../views/show-message.php';
+}
 
 require dirname(__FILE__) . '/end-controller.php';

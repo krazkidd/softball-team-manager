@@ -261,13 +261,18 @@ body {
 }
 
 #softballField { 
-        background-image: url('/img/baseball-field-w-t-ball-positions-hi.png');
-        background-repeat: no-repeat;
-        width: 600px;
-        height: 330px;
-        position: relative;
-        padding: 0;
-        margin: 0 auto;
+    float: left;
+    background-image: url('/img/baseball-field-w-t-ball-positions-hi.png');
+    background-repeat: no-repeat;
+    width: 600px;
+    height: 330px;
+    position: relative;
+    padding: 0;
+    margin: 0 auto;
+}
+
+#softballField + p {
+    clear: both;
 }
       
 #gameInfo {
@@ -370,13 +375,22 @@ body {
 	font-weight: bold;
 }
 
-#extra-player-list {
-    text-align: left;
+#extra-player-table {
+    float: left;
+    /* TODO probably need max width if we leave next to field graphic */
 }
 
-#extra-player-list ul {
-    display: inline;
-    list-style-type: none;
+#extra-player-table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+#extra-player-table td {
+    text-align: right;
+}
+
+#extra-player-table td + td {
+    text-align: left;
 }
 
 /************* END field layout rules *************/
@@ -508,8 +522,7 @@ body {
 {
 }
 
-.msg-success
-{
+.msg-success {
 /*TODO center text or shrink box (instead of stretching accross) */
 	margin: 10px 0;
 	padding: 8px;
@@ -518,14 +531,22 @@ body {
 	background-color: #99ffcc;
 }
 
-.msg-failure
-{
+.msg-failure {
 /*TODO center text or shrink box (instead of stretching accross) */
 	margin: 10px 0;
 	padding: 8px;
 	font-weight: bold;
 	border: 1px solid #ff0000;
 	background-color: #ff99cc;
+}
+
+.msg-neutral {
+/*TODO center text or shrink box (instead of stretching accross) */
+	margin: 10px 0;
+	padding: 8px;
+	font-weight: bold;
+	border: 1px solid #000000;
+	background-color: #cccccc;
 }
 
 #team-img {
