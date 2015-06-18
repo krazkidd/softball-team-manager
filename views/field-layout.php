@@ -42,23 +42,24 @@ if ($extraPlayers)
     {
         $shirtNum = getShirtNum($lineup, $player);
 ?>
-            <tr>
-                <td><?= $shirtNum ? '#' . $shirtNum . ' ' : '' ?></td>
-                <td><a href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
+            <tr style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+                <!-- center shirt num; put a badge (a thin color strip) for gender next to name -->
+                <td><?= $shirtNum ? "#$shirtNum" : '' ?></td>
+                <td><a style="color: #<?= $priColor ?>" href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
             </tr>
 <?php
     }
-?>
-        </table>
-<?php
 }
 else
 {
 ?>
-    <!-- TODO fix this with CSS before you put it back in: <p>None</p> -->
+            <tr>
+                <td>&lt;None&gt;</td>
+            </tr>
 <?php
 }
 ?>
+        </table>
     </div>
 
     <div id="softballField">
@@ -68,8 +69,14 @@ for ($i = 1; $i <= 10; $i++)
     $player = getPlayerAtFieldPos($lineup, $i);
     $shirtNum = getShirtNum($lineup, $player);
 ?>
-        <div id="field-pos-<?= $i ?>" class="playerPos gender-<?= getGender($player, true) ?>">
-            <p><?= $shirtNum ? '#' . $shirtNum . ' ' : '' ?><a href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></p>
+        <div id="field-pos-<?= $i ?>" class="playerPos playerPos-left">
+            <p class="playerPos-GenderBadge playerPos-right gender-<?= getGender($player, true) ?>">
+                &nbsp;
+            </p>
+<!-- TODO long names are getting wrapped. why? -->
+            <p class="playerPos-left" style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+                <?= $shirtNum ? "#$shirtNum " : ' ' ?><a href="<?= getPlayerURI($player) ?>" style="color: #<?= $priColor ?>"><?= getShortName($player) ?></a>
+            </p>
         </div>
 <?php
 }

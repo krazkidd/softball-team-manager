@@ -30,6 +30,7 @@ doRequireLogin();
 require_once dirname(__FILE__) . '/../models/calendar.php';
 require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/game.php';
+require_once dirname(__FILE__) . '/../models/team.php';
 
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
@@ -44,6 +45,9 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
     $gameDateTimeHeader = date('l\, F j\, Y', $gameTime) . ' @ ' . date('g\:i a', $gameTime);
     $extraPlayers = getExtraPlayers($lineup);
+    $teamInfo = getTeamInfo($teamID);
+    $priColor = getPrimaryColor($teamInfo);
+    $secColor = getSecondaryColor($teamInfo);
  
     //TODO allow user to see others' lineups only after the game is finished
     require dirname(__FILE__) . '/../views/field-layout.php';

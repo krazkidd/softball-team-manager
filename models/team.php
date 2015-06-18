@@ -42,3 +42,13 @@ function getTeamManagerInfo($teamInfo)
 {
     return getPlayerInfo($teamInfo['ManagerID']);
 }
+
+function getPrimaryColor($teamInfo)
+{
+    return $teamInfo['PriColor'];
+}
+
+function getSecondaryColor($teamInfo)
+{
+    return $teamInfo['SecColor'];
+}

@@ -253,6 +253,10 @@ body {
 	font-weight: bold;
 }
 
+.center {
+    text-align: center;
+}
+
 /************* field layout rules *************/
 
 #content-field-layout h3,
@@ -294,21 +298,34 @@ body {
 
 .playerPos {
 	position: absolute;
-	padding: 2px;
+	padding: 0;
 	margin: 0;
 	min-width: 150px;
+    max-width: 300px;
+	font-weight: bold;
+	text-align: center;
 }
 
 .playerPos p {
-	font-family: sans-serif;
-	font-weight: bold;
-	padding: 0;
-	margin: 0;
-	text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 .playerPos a {
     text-decoration: none;
+}
+
+.playerPos-GenderBadge {
+    width: 5%;
+    max-width: 15px;
+}
+
+.playerPos-left {
+    overflow: hidden;
+}
+
+.playerPos-right {
+    float: right;
 }
 
 /* pitcher */
@@ -377,7 +394,7 @@ body {
 
 #extra-player-table {
     float: left;
-    /* TODO probably need max width if we leave next to field graphic */
+    max-width: 200px; /* container width = 800, softball field image width = 600 */
 }
 
 #extra-player-table th {
@@ -386,7 +403,7 @@ body {
 }
 
 #extra-player-table td {
-    text-align: right;
+    text-align: center;
 }
 
 #extra-player-table td + td {
