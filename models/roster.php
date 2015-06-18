@@ -28,7 +28,7 @@ function getRoster($teamID)
 //TODO validate!
 //TODO need season/league parameters! (and fix query below)
 	//$roster_query_result = runQuery('SELECT DISTINCT TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription FROM Roster WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY SeasonDescription');
-	$roster_query_result = runQuery('SELECT PlayerID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY LastName');
+	$roster_query_result = runQuery('SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY LastName');
 
 	if ( !$roster_query_result)
 	{

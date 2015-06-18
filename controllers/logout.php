@@ -25,13 +25,22 @@ require dirname(__FILE__) . '/begin-controller.php';
 
 require_once dirname(__FILE__) . '/../models/auth.php';
 
-doRequireLogin();
+$msgTitle = "Logout";
 
-$_SESSION = array(); // or session_unset()
-session_destroy();
+if ( !isLoggedIn())
+{
+    $msg = "You were not logged in. And you still aren't.";
+    $msgClass = "success";
+}
+else
+{
+    $_SESSION = array(); // or session_unset()
+    session_destroy();
 
-$action = 'logout-success';
+    $msg = "You were successfully logged out!";
+    $msgClass = "success";
+}
 
-require dirname(__FILE__) . '/../views/logout.php';
+require dirname(__FILE__) . '/../views/show-message.php';
 
 require dirname(__FILE__) . '/end-controller.php';

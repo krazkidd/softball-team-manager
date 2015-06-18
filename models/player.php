@@ -64,7 +64,7 @@ function getPlayerTeams($playerID)
 	return $result;
 }
 
-function getplayerURI($player)
+function getPlayerURI($player)
 {
     return "/player/{$player['ID']}";
 }

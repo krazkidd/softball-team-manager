@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 //TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
 
 // show all leagues that play on a certain day of the week when the user clicks on the day header
-if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
+/*if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 {
 	// show leagues that play on selected day
 	$action = 'list-leagues-day-of-week';
@@ -77,6 +77,11 @@ else
 	$action = 'show-month';
 }
 
-require dirname(__FILE__) . '/../views/calendar.php';
+require dirname(__FILE__) . '/../views/calendar.php';*/
+
+$msgTitle = "Calendar (DISABLED)";
+$msg = "The calendar function is not working right now.";
+$msgClass = "failure";
+require dirname(__FILE__) . '/../views/show-message.php';
 
 require dirname(__FILE__) . '/end-controller.php';

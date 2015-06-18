@@ -21,6 +21,8 @@
   
   **************************************************************************/
 
+require_once dirname(__FILE__) . '/../models/player.php';
+
 $title = 'Roster';
 
 ob_start();
@@ -35,7 +37,7 @@ if ($action == 'show-roster') {
 			<?php foreach ($roster as $player) { ?>
 				<tr>
 					<td><?php echo $player['ShirtNum'] ?></td>
-                    <td><a href="<?= getPlayerURI($player) ?>"><?= getPlayerFullName($player) ?></a></td>
+                    <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
 				</tr>
 			<?php } ?>
 		</table>
