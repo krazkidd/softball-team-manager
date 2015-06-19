@@ -54,8 +54,8 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
 }
 else
 {
-    $msgTitle = "Field Layout";
-    $msg = "Not a valid lineup request."; //TODO add more info
+    $msgTitle = "Bad Field Layout Request";
+    $msg = "Your request didn't have a valid combination of gameid, teamid, and leagueid.";
     $msgClass = "failure";
     require dirname(__FILE__) . '/../views/show-message.php';
 }

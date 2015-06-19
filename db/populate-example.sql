@@ -1,9 +1,3 @@
-INSERT INTO Season VALUES
-    (NULL, 'Fall 2013', '2013-09-03', '2013-10-25')
-/*  ('Spring 2013', '2013-??-??', '2013-??-??')*/
-    ;
-
-
 INSERT INTO Player VALUES
     (NULL, NULL, 'Mark', 'Ross', NULL, 'mr@email', '5553434', 'M'),
     (NULL, NULL, 'Marla', 'Pearl', NULL, 'mp@email', '5554534', 'F'),
@@ -28,7 +22,7 @@ INSERT INTO `User` VALUES
     ;
 
 INSERT INTO League VALUES
-    (NULL, 'Generic City Park', 2, 'Coed E', 1)
+    (NULL, 'City League @ City Park, Monday', '2013-09-03', '2013-10-25', 1)
     ;
 
 INSERT INTO Team VALUES

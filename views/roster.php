@@ -22,30 +22,35 @@
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/../models/player.php';
+require_once dirname(__FILE__) . '/../models/roster.php';
+require_once dirname(__FILE__) . '/../models/team.php';
 
 $title = 'Roster';
 
 ob_start();
 
-if ($action == 'show-roster') {
-?><!--TODO show team info -->
-		<table>
-			<tr>
-				<th>#</th>
-				<th>Name</th>
-			</tr>
-			<?php foreach ($roster as $player) { ?>
-				<tr>
-					<td><?php echo $player['ShirtNum'] ?></td>
-                    <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
-				</tr>
-			<?php } ?>
-		</table>
-	<?php } else if ($action == 'show-team-list') { ?>
-<!--TODO if a name is shown but other parameters are missing, show a list of seasons/leagues -->
-<!--TODO show a list of managed teams instead of error msg. -->
-		<p class="error">No team selected.</p>
-	<?php }
+?>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+        <?php foreach ($roster as $player) { ?>
+            <tr>
+                <td><?= getShirtNum($player) ?></td>
+                <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
+            </tr>
+        <?php } ?>
+    </table>
+
+    <div>
+        <!-- <img id="team-img" title="<?= $teamName ?>" src="/img/team-no-image.png" /> -->
+        <!-- <h2><span style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h2> -->
+        <p><a href="<?= $teamURI ?>"><?= $teamName ?></a></p>
+        <p><?= $leagueDesc ?></p>
+        <p><?= $leagueClass ?></p>
+    </div>
+<?php
 
 $content = ob_get_clean();
 

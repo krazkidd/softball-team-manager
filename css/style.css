@@ -35,7 +35,7 @@ body {
 #navbar
 {
 	padding: 0;
-/*TODO #navbar has 0x0 dimensions because of floated elements. I don't think this margin is the best way to push down the content body */
+/*TODO #navbar has 0 height because of floated elements. Is this margin the best way to push down the content body? */
 	margin-bottom: 50px;
 }
 
@@ -458,15 +458,13 @@ body {
 }
 
 #lineup-whole-form {
-	border-style: dashed;
-	border-width: 1px;
+    border: 1px dashed black;
 	display: inline-block;
 }
 
-.lineup-header-div {
+.lineup-header {
 	margin: 15px 3px;
     padding: 0;
-    display: block;
 }
 
 /* NOTE: To get the lineup header fields to take up the remaining space, see:
@@ -474,44 +472,39 @@ body {
  *       and
  *         http://colinaarts.com/articles/the-magic-of-overflow-hidden/
  */
-.lineup-header-left {
-    text-align: left;
+.lineup-header p {
     margin: 0;
     margin-right: 8px;
     padding: 0;
+    display: block;
+    text-align: left;
     float: left;
-    display:block;
     clear: left;
     border-bottom: 1px solid white;
+    font-weight: bold;
 }
 
-.lineup-header-right {
+.lineup-header p + p {
     margin: 0;
-    padding: 0;
     padding-left: 3px;
     overflow: hidden;
-    text-align: left;
-	display: block;
+    float: none;
+    clear: none;
     border-bottom: 1px solid black;
+    font-weight: normal;
 }
 
 #lineup-whole-form table {
 	margin: 5px;	
 	padding: 0;
-	border-style: solid;
-	border-width: 1px;
+	border: 1px solid black;
 	border-collapse: collapse;
     clear: both;
 }
 
-/*#lineup-whole-form tr th + tr td {
-	font-weight: bold;
-}*/
-
 #lineup-whole-form table th,
 #lineup-whole-form table td {
-	border-style: solid;
-	border-width: 1px;
+	border: 1px solid black;
 	padding: 3px;
 }
 

@@ -28,18 +28,36 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/roster.php';
+require_once dirname(__FILE__) . '/../models/game.php';
+require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/league.php';
 
-if (isset($_GET['id']))
+if (isset($_GET['teamid']) && isset($_GET['leagueid'])
+  && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
-//TODO must get other parameters
-	$action = 'show-roster';
-	$roster = getRoster($_GET['id']);
+    $teamID = $_GET['teamid'];
+    $leagueID = $_GET['leagueid'];
+
+    $roster = getRoster($teamID, $leagueID);
+
+    $teamInfo = getTeamInfo($teamID);
+    $teamURI = getTeamURI($teamInfo);
+    $teamName = getTeamName($teamInfo);
+    unset($teamInfo);
+
+    $leagueInfo = getLeagueInfo($leagueID);
+    $leagueDesc = getLeagueDescription($leagueInfo);
+    $leagueClass = getLeagueClass($leagueInfo);
+    unset($leagueInfo);
+
+    require dirname(__FILE__) . '/../views/roster.php';
 }
 else
 {
-	$action = 'show-team-list';
+    $msgTitle = "Bad Roster Request";
+    $msg = "Your request didn't have a valid combination of teamid and leagueid.";
+    $msgClass = "failure";
+    require dirname(__FILE__) . '/../views/show-message.php';
 }
-
-require dirname(__FILE__) . '/../views/roster.php';
 
 require dirname(__FILE__) . '/end-controller.php';

@@ -23,26 +23,29 @@
 
 require_once dirname(__FILE__) . '/model.php';
 
-function getRoster($teamID)
+function getRoster($teamID, $leagueID)
 {
-//TODO validate!
-//TODO need season/league parameters! (and fix query below)
-	//$roster_query_result = runQuery('SELECT DISTINCT TeamName, ParkName, FieldNum, DayOfWeek, SeasonDescription FROM Roster WHERE TeamName = \'' . $escapedTeamName . '\' ORDER BY SeasonDescription');
-	$roster_query_result = runQuery('SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, NickName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = ' . $teamID . ' ORDER BY LastName');
+	$roster_query_result = runQuery("SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = $teamID AND LeagueID = $leagueID ORDER BY LastName");
 
-	if ( !$roster_query_result)
-	{
-		error_log("Roster query result was NULL");
-		return NULL;
-	}
+	if ($roster_query_result)
+    {
+        $result = array();
+        $i = 0;
+        while ($row = mysqli_fetch_array($roster_query_result))
+        {
+            $result[$i] = $row;
+            $i++;
+        }
 
-	$result = array();
-	while ($row = mysqli_fetch_array($roster_query_result))
-	{
-		$result[] = $row;
-	}
+        return $result;
+    }
 
-	return $result;
+    return NULL;
+}
+
+function getShirtNum($playerInfo)
+{
+    return $playerInfo['ShirtNum'];
 }
 
 /*ERROR this function cannot work with just a team ID.

@@ -31,24 +31,46 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/league.php';
 
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
-    $isReqValid = true; //TODO rename; tells the view code that all needed arguments are present
-
     $gameID = $_GET['gameid'];
-    $teamID = $_GET['teamid'];
     $leagueID = $_GET['leagueid'];
+    $teamID = $_GET['teamid'];
+
+    $lineup = getLineup($gameID, $teamID, $leagueID);
 
     $teamInfo = getTeamInfo($teamID);
-    $lineup = getLineup($gameID, $teamID, $leagueID);
+    $teamName = getTeamName($teamInfo);
+    $mgrName = getFullName(getTeamManagerInfo($teamInfo));
+    unset($teamInfo);
+
+    $leagueInfo = getLeagueInfo($leagueID);
+    $leagueDesc = getLeagueDescription($leagueInfo);
+    unset($leagueInfo);
+
     $gameInfo = getGameInfo($gameID);
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
+    unset($gameInfo);
+
+    unset($teamID);
+    unset($gameID);
+    unset($leagueID);
+    unset($teamInfo);
+
+    require_once dirname(__FILE__) . '/../views/lineup.php';
+}
+else
+{
+    $msgTitle = "Bad Lineup Request";
+    $msg = "Your request didn't have a valid combination of gameid, teamid, and leagueid.";
+    $msgClass = "failure";
+    require_once dirname(__FILE__) . '/../views/show-message.php';
 }
 
 //TODO allow user to see others' lineups only after the game is finished
 
-require '../views/lineup.php';
 
 require 'end-controller.php';

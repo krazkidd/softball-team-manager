@@ -21,34 +21,28 @@
   
   **************************************************************************/
 
+require_once dirname(__FILE__) . '/../models/lineup.php';
+
 $title = 'Lineup';
 
 ob_start();
 
-if ( !$isReqValid)
-{
-?>
-    <p>Not a valid lineup request.</p>
-<?php
-}
-else
-{
 ?>
     <h3><?= date('l\, F j\, Y', $gameTime) ?> @ <?= date('g\:i a', $gameTime) ?></h3>
 
     <div id="lineup-whole-form">
-        <!-- TODO put underlines and embolden the headers -->
-        <div class="lineup-header-div">
-            <p class="lineup-header-left">Team</p>
-            <p class="lineup-header-right"><?= $teamInfo['TeamName'] ?></p>
+        <div class="lineup-header">
+            <p>Team</p>
+            <p><?= $teamName ?></p>
         </div>
-        <div class="lineup-header-div">
-            <p class="lineup-header-left">League</p>
-            <p class="lineup-header-right">TODO</p>
+        <div class="lineup-header">
+            <p>League</p>
+            <!-- TODO when this is too long, it makes the table not take up the whole width; see css -->
+            <p><?= $leagueDesc ?></p>
         </div>
-        <div class="lineup-header-div">
-            <p class="lineup-header-left">Coach/Manager</p>
-            <p class="lineup-header-right">TODO</p>
+        <div class="lineup-header">
+            <p>Coach/Manager</p>
+            <p><?= $mgrName ?></p>
         </div>
 
         <div id="batting-order">
@@ -64,29 +58,28 @@ else
                 </tr>
 
 <?php
-    for ($i = 1; $i <= 12; $i++)
-    {
-        $player = getPlayerAtBatPos($lineup, $i);
+for ($i = 1; $i <= 12; $i++)
+{
+    $player = getPlayerAtBatPos($lineup, $i);
 
-        if ($player)
-        {
+    if ($player)
+    {
 ?>
                 <tr>
-                    <!-- TODO don't embolden the player data -->
-                    <td><!-- TODO shirt num --></td>
+                    <td><?= getShirtNum($lineup, $player) ?></td>
                     <td><?= getFullName($player) ?></td>
-                    <td><!-- TODO position --></td>
+                    <td></td>
                     <td>&nbsp;</td>
                 </tr>
 <?php
-        }
-        else
-        {
+    }
+    else
+    {
 ?>
                 <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <?php
-        }
     }
+}
 ?>
                 <tr>
                     <th colspan="4">Non-Starters</th>
@@ -96,26 +89,26 @@ else
                     <th colspan="3">First &amp; Last Name</th>
                 </tr>
 <?php
-    for ($i = 1; $i <= 3; $i++)
-    {
-        $player = getExtraPlayer($lineup, $i);
+for ($i = 1; $i <= 3; $i++)
+{
+    $player = getExtraPlayer($lineup, $i);
 
-        if ($player)
-        {
+    if ($player)
+    {
 ?>
                 <tr>
-                    <td><!-- TODO shirt num --></td>
+                    <td><?= getShirtNum($lineup, $player) ?></td>
                     <td colspan="3"><?= getFullName($player) ?></td>
                 </tr>
 <?php
-        }
-        else
-        {
+    }
+    else
+    {
 ?>
                 <tr><td>&nbsp;</td><td colspan="3">&nbsp;</td></tr>
 <?php
-        }
     }
+}
 ?>
             </table>
         </div>
@@ -123,7 +116,6 @@ else
 
     <p>View the <a href="<?= getFieldLayoutURI($lineup) ?>">Field Layout</a>.</p>
 <?php
-}
 
 $content = ob_get_clean();
 

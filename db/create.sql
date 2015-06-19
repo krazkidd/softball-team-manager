@@ -21,17 +21,6 @@
 
 /*TODO create/destroy the whole database using config settings (write a bash script to handle all that */
 
-/* season entity */
-CREATE TABLE Season (
-    ID                INTEGER NOT NULL AUTO_INCREMENT,
-    Description       VARCHAR(32),
-    StartDate         DATE,
-    RosterFreezeDate  DATE,
-
-    PRIMARY KEY (ID)
-    )
-    CHARACTER SET utf8 COLLATE utf8_general_ci;
-
 /* player entity */
 CREATE TABLE Player (
     ID          INTEGER NOT NULL AUTO_INCREMENT,
@@ -81,17 +70,28 @@ INSERT INTO FieldPosition VALUES
     (10, 'Rover', 'RO')
     ;
 
+CREATE TABLE Class (
+    ID       INTEGER UNSIGNED NOT NULL,
+    Name     CHAR(64),
+
+    PRIMARY KEY (ID)
+    );
+
+INSERT INTO Class VALUES
+    (1, 'Adult Coed E'),
+    (2, 'Adult Coed D')
+    ;
+
 /* league entity */
 CREATE TABLE League (
     ID                INTEGER NOT NULL AUTO_INCREMENT,
-    ParkName          VARCHAR(128),
-    FieldNum          SMALLINT UNSIGNED,
-    Class             VARCHAR(32),
+    Description       VARCHAR(128),
+    StartDate         DATE,
+    RosterFreezeDate  DATE,
 
-    SeasonID          INTEGER,
+    ClassID           INTEGER UNSIGNED NULL,
 
-    FOREIGN KEY (SeasonID) REFERENCES Season(ID),
-    /*PRIMARY KEY (ParkName, FieldNum, DayOfWeek, SeasonDescription)*/
+    FOREIGN KEY (ClassID) REFERENCES Class(ID),
     PRIMARY KEY (ID)
     )
     CHARACTER SET utf8 COLLATE utf8_general_ci;

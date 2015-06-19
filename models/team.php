@@ -52,3 +52,13 @@ function getSecondaryColor($teamInfo)
 {
     return $teamInfo['SecColor'];
 }
+
+function getTeamName($teamInfo)
+{
+    return $teamInfo['TeamName'];
+}
+
+function getTeamURI($teamInfo)
+{
+    return "/team/{$teamInfo['ID']}";
+}

@@ -1,3 +1,4 @@
+
 <?php
 
   /**************************************************************************
@@ -21,33 +22,19 @@
   
   **************************************************************************/
 
-$title = 'Team Profile';
+require_once dirname(__FILE__) . '/model.php';
 
-ob_start();
+function getLeagueInfo($leagueID)
+{
+	return mysqli_fetch_array(runQuery("SELECT * FROM League AS L JOIN Class AS C ON L.ClassID = C.ID WHERE L.ID = $leagueID"));
+}
 
-?>
-    <img id="team-img" title="<?= $teamName ?>" src="/img/team-no-image.png" />
-	<h2><span style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h2>
-	<h4>Motto</h4>
-	<p><?= $motto ?></p>
-	<h4>Mission Statement</h4>
-	<p><?= $missionStatement ?></p>
-	<!-- <h6>Notes</h6>
-	<p><?= $notes ?></p> -->
-	<?php if ($isLoggedIn) { ?>
-        <p>Manager: <a href="<?= getPlayerURI($mgrInfo) ?>"><?= getFullName($mgrInfo) ?></a></p>
-	<?php } ?>
+function getLeagueDescription($leagueInfo)
+{
+    return $leagueInfo['Description'] . ' (' . getLeagueClass($leagueInfo) . ')';
+}
 
-	<?php if ($leagues) { ?>
-		<p><?php echo $teamName ?> have played in these leagues:<br />
-			<ul>
-				<?php foreach ($leagues as $league) { ?>
-					<li>TODO</li>
-				<?php } ?>
-			</ul>
-		</p>
-	<?php }
-
-$content = ob_get_clean();
-
-require dirname(__FILE__) . '/../templates/layout.php';
+function getLeagueClass($leagueInfo)
+{
+    return $leagueInfo['Name'];
+}
