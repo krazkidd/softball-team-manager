@@ -29,31 +29,27 @@ $title = 'My Teams';
 ob_start();
 
 //TODO show team colors and small icon; remove list bullets
-
-if ($managedTeamsList)
-{
 ?>
+<?php if ($managedTeamsList): ?>
     <p>Teams I manage (click to go to team's management interface):</p>
     <ul>
-<?php foreach ($managedTeamsList as $team ) { ?>
+    <?php foreach ($managedTeamsList as $team ): ?>
         <li><a href="<?= getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
-<?php } ?>
+    <?php endforeach; ?>
     </ul>
-<?php
-}
+<?php endif; ?>
 
-if ($rosteredTeamsList)
-{
-?>
+<?php if ($rosteredTeamsList): ?>
     <p>Teams I play on (click to go to team's profile):</p>
     <ul>
-<?php foreach ($rosteredTeamsList as $teamLeague) { ?>
+    <?php foreach ($rosteredTeamsList as $teamLeague): ?>
         <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . ' - ' . getLeagueDescription($teamLeague) ?></a></li>
-<?php } ?>
+    <?php endforeach; ?>
     </ul>
+<?php endif; ?>
 <?php
-}
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

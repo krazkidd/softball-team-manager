@@ -43,16 +43,12 @@ ob_start();
                 <th>#</th>
                 <th>Name</th>
             </tr>
-<?php
-foreach ($roster as $player) {
-?>
+<?php foreach ($roster as $player): ?>
             <tr>
                 <td><?= getShirtNum($player) ?></td>
                 <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
             </tr>
-<?php
-}
-?>
+<?php endforeach; ?>
         </table>
     </div>
 <?php
@@ -60,3 +56,4 @@ foreach ($roster as $player) {
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

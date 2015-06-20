@@ -25,8 +25,8 @@ $title = 'Calendar';
 
 ob_start();
 
-if ($action == 'list-leagues-day-of-week')
-{ ?>
+if ($action == 'list-leagues-day-of-week') {
+?>
     <h2><?= $day ?> Leagues</h2>
 
     <table>
@@ -110,3 +110,4 @@ ERROR print calendar from array
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

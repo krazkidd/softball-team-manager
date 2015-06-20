@@ -30,17 +30,13 @@ ob_start();
 ?>
     <p>Which team do you want to manage?</p>
     <ul>
-<?php
-foreach ($managedTeamsList as $team)
-{
-?>
+<?php foreach ($managedTeamsList as $team): ?>
             <li><a href="<?= getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
-<?php
-}
-?>
+<?php endforeach; ?>
     </ul>
 <?php
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

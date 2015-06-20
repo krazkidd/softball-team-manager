@@ -42,9 +42,9 @@ ob_start();
         </div>
     </form>
 
-<?php if (isset($failedLoginName)) { ?>
+<?php if (isset($failedLoginName)): ?>
     <p class='msg-failure'>Login failed!</p>
-<?php } ?>
+<?php endif; ?>
 
     <p>or <a href="/register" title="Register">Register</a></p>
 <?php
@@ -52,3 +52,4 @@ ob_start();
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

@@ -31,23 +31,14 @@ ob_start();
     <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
         <?= $teamName ?>
     </h1>
-<?php
-if ($isLoggedIn)
-{
-    if (isset($mgrURI) && isset($mgrName))
-    {
-?>
+<?php if ($isLoggedIn): ?>
+    <?php if (isset($mgrURI) && isset($mgrName)): ?>
     <p>Manager: <a href="<?= $mgrURI ?>"><?= $mgrName ?></a></p>
-<?php
-    }
-    else
-    {
-?>
+    <?php else: ?>
     <p>Manager: None</p>
-<?php
-    }
-}
-?>
+    <?php endif; ?>
+<?php endif; ?>
+
     <h4>Motto</h4>
     <p><?= $motto ?></p>
 
@@ -56,23 +47,17 @@ if ($isLoggedIn)
 
     <hr />
 
-<?php
-if ($leagueList)
-{
-?>
+<?php if ($leagueList): ?>
     <p><?php echo $teamName ?> have played in these leagues:</p>
     <ul>
-<?php
-    foreach ($leagueList as $league)
-    {
-?>
+    <?php foreach ($leagueList as $league): ?>
         <li><?= getLeagueDescription($league) ?></li>
-<?php
-    }
-?>
+    <?php endforeach; ?>
     </ul>
-<?php }
+<?php endif; ?>
+<?php 
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

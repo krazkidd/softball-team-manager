@@ -25,9 +25,10 @@ $title = 'Register';
 
 ob_start();
 
-?><?php if ( !empty($action) && $action == 'reg-success') { ?>
+?>
+<?php if (!empty($action) && $action == 'reg-success'): ?>
     <p class='success-msg'>Your registration was successful! You are now logged in.</p>
-<?php }    else { // show registration form ?>
+<?php else: ?>
     <p>This website uses cookies to keep track of your session.</p>
 
     <p class="warning">Do NOT use the same login name/password combination that you use on another site.</span></p>
@@ -51,11 +52,13 @@ ob_start();
         </div>
     </form>
 
-    <?php if ( !empty($action) && $action == 'reg-fail') { ?>
-        <p class="fail-msg">Registration failed. Try again.</p>
-    <?php } ?>
-<?php }
+    <?php if ( !empty($action) && $action == 'reg-fail'): ?>
+    <p class="fail-msg">Registration failed. Try again.</p>
+    <?php endif; ?>
+<?php endif; ?>
+<?php 
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

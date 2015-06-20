@@ -38,26 +38,19 @@ ob_start();
     <span class="bold">Email:</span> <?= $email ?><br />
     <span class="bold">Gender:</span> <?= $gender ?></p>
 
-<?php
-if ($teams)
-{
-?>
+<?php if ($teams): ?>
     <hr />
 
     <p><?= !empty($nickName) ? $nickName : $firstName ?>'s current and past teams:</p>
     <ul>
-<?php
-    foreach ($teams as $teamLeague)
-    {
-?>
+    <?php foreach ($teams as $teamLeague): ?>
         <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . ' - ' . getLeagueDescription($teamLeague) ?></a></li>
-<?php
-    }
-?>
+    <?php endforeach; ?>
     </ul>
+<?php endif; ?>
 <?php
-}
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

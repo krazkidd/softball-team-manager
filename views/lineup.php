@@ -56,28 +56,18 @@ ob_start();
                     <th>Pos.</th>
                     <th>Sub. #</th>
                 </tr>
-<?php
-foreach ($starters as $player)
-{
-    if ($player)
-    {
-?>
+<?php foreach ($starters as $player): ?>
+    <?php if ($player): ?>
                 <tr>
                     <td><?= getShirtNum($lineup, $player) ?></td>
                     <td><?= getFullName($player) ?></td>
                     <td><?= getShortPosName(getFieldPosForPlayer($lineup, $player)) ?></td>
                     <td>&nbsp;</td>
                 </tr>
-<?php
-    }
-    else
-    {
-?>
+    <?php else: ?>
                 <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<?php
-    }
-}
-?>
+    <?php endif; ?>
+<?php endforeach; ?>
                 <tr>
                     <th colspan="4">Non-Starters</th>
                 </tr>
@@ -85,26 +75,16 @@ foreach ($starters as $player)
                     <th>No.</th>
                     <th colspan="3">First &amp; Last Name</th>
                 </tr>
-<?php
-foreach ($extraPlayers as $player)
-{
-    if ($player)
-    {
-?>
+<?php foreach ($extraPlayers as $player): ?>
+    <?php if ($player): ?>
                 <tr>
                     <td><?= getShirtNum($lineup, $player) ?></td>
                     <td colspan="3"><?= getFullName($player) ?></td>
                 </tr>
-<?php
-    }
-    else
-    {
-?>
+    <?php else: ?>
                 <tr><td>&nbsp;</td><td colspan="3">&nbsp;</td></tr>
-<?php
-    }
-}
-?>
+    <?php endif; ?>
+<?php endforeach; ?>
             </table>
         </div>
     </div> <!-- lineup-whole-form -->
@@ -115,3 +95,4 @@ foreach ($extraPlayers as $player)
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

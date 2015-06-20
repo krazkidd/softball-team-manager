@@ -35,30 +35,19 @@ ob_start();
 
     <img id="team-img" title="<?= $teamName ?>" src="<?= $imageURI ?>" />
 
-<?php
-if ($leagueList)
-{
-?>
+<?php if ($leagueList): ?>
     <p>Rosters (ordered by league start date):</p>
     <ul>
-<?php
-    foreach ($leagueList as $roster)
-    {
-?>
+    <?php foreach ($leagueList as $roster): ?>
         <li><a href="<?= getRosterURI($roster['TID'], $roster['LID']) ?>"><?= getLeagueDescription($roster) ?></a></li>
-<?php
-    }
-?>
+    <?php endforeach; ?>
     </ul>
-<?php
-}
-else
-{
-?>
+<?php else: ?>
     <p>This team has no active rosters.</p>
-<?php
-}
+<?php endif; ?> 
+<?
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

@@ -25,14 +25,17 @@ $title = 'Logout';
 
 ob_start();
 
-?><?php if ($action == 'logout-success') { ?>
+?>
+<?php if ($action == 'logout-success'): ?>
     <p class="success-msg">You were successfully logged out!</p>
 
     <p>You may close your browser window now.</p>
-<?php }    else { ?>
+<?php else: ?>
     <p class="error">There was some kind of error.</p>
-<?php }
+<?php endif; ?>
+<?php 
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

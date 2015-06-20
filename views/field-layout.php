@@ -33,48 +33,30 @@ ob_start();
             <tr>
                 <th colspan="2">Extra Players</th>
             </tr>
-<?php
-if (hasExtraPlayers($lineup))
-{
-?>
-<?php
-    foreach ($extraPlayers as $player)
-    {
-        if ($player)
-        {
-            $shirtNum = getShirtNum($lineup, $player);
-?>
+<?php if (hasExtraPlayers($lineup)): ?>
+    <?php foreach ($extraPlayers as $player): ?>
+        <?php if ($player): ?>
+            <?php $shirtNum = getShirtNum($lineup, $player); ?>
             <tr style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
                 <!-- TODO center shirt num; put a badge (a thin color strip) for gender next to name -->
                 <td><?= $shirtNum ? "#$shirtNum" : '' ?></td>
                 <td><a style="color: #<?= $priColor ?>" href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
             </tr>
-<?php
-        }
-    }
-}
-else
-{
-?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
             <tr>
                 <td>&lt;None&gt;</td>
             </tr>
-<?php
-}
-?>
+<?php endif; ?>
         </table>
     </div>
 
     <div id="softballField">
-<?php
-for ($i = 1; $i <= 10; $i++)
-{
-    $player = $positions[$i];
-
-    if ($player)
-    {
-        $shirtNum = getShirtNum($lineup, $player);
-?>
+<?php for ($i = 1; $i <= 10; $i++): ?>
+    <?php $player = $positions[$i]; ?>
+    <?php if ($player): ?>
+        <?php $shirtNum = getShirtNum($lineup, $player); ?>
         <div id="field-pos-<?= $i ?>" class="playerPos playerPos-left">
             <p class="playerPos-GenderBadge playerPos-right gender-<?= getGender($player, true) ?>">
                 &nbsp;
@@ -84,10 +66,8 @@ for ($i = 1; $i <= 10; $i++)
                 <?= $shirtNum ? "#$shirtNum " : ' ' ?><a href="<?= getPlayerURI($player) ?>" style="color: #<?= $priColor ?>"><?= getShortName($player) ?></a>
             </p>
         </div>
-<?php
-    }
-}
-?>
+    <?php endif; ?>
+<?php endfor; ?>
     </div>
 
     <p>View the <a href="<?= getLineupURI($lineup) ?>">Lineup</a>.</p>
@@ -96,3 +76,4 @@ for ($i = 1; $i <= 10; $i++)
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+

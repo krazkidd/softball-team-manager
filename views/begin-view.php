@@ -25,13 +25,13 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 require_once dirname(__FILE__) . '/../models/user.php';
 
 $isLoggedIn = isLoggedIn();
-if ($isLoggedIn)
-{
+if ($isLoggedIn) {
     $userName = getLoginName();
     $userPID = getUserPlayerID();
     //TODO need a separate function for ID's
     //$playerURI =
 }
 
-// get a CSS-friendly version of the title
+// get a CSS-friendly version of the title (make title lowercase and substitute spaces w/ dashes)
 $titleCSS = str_replace(' ', '-', mb_strtolower($title, 'UTF-8'));
+

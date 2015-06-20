@@ -43,16 +43,15 @@ ob_start();
         <img alt="<?= $homeTeamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
         <p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
     </div> <!-- home-team -->
-<?php
-if ($showResults)
-{ ?>
+<?php if ($showResults): ?>
     <div id="final-score">
         <p>Final Score</p>
         <p><?= $gameInfo['AwayTeamScore'] ?> - <?= $gameInfo['HomeTeamScore'] ?></p>
     </div> <!-- final-score -->
+<?php endif; ?>
 <?php
-}
 
 $content = ob_get_clean();
 
 require dirname(__FILE__) . '/../templates/layout.php';
+
