@@ -26,13 +26,12 @@ require_once dirname(__FILE__) . '/player.php';
 
 function getTeamInfo($teamID)
 {
-//TODO sanitize $teamName (make sure it's an int)
-	if (isset($teamID))
+	if (is_int($teamID + 0))
 	{
-		$team_query_result = runQuery("SELECT * FROM Team WHERE ID = $teamID");
+		$qResult = runQuery("SELECT * FROM Team WHERE ID = $teamID");
 
-        if ($team_query_result)
-            return mysqli_fetch_array($team_query_result);
+        if ($qResult)
+            return mysqli_fetch_array($qResult);
     }
 
 	return NULL;
@@ -40,25 +39,80 @@ function getTeamInfo($teamID)
 
 function getTeamManagerInfo($teamInfo)
 {
-    return getPlayerInfo($teamInfo['ManagerID']);
+    if ($teamInfo)
+        return getPlayerInfo($teamInfo['ManagerID']);
+
+    return NULL;
 }
 
 function getPrimaryColor($teamInfo)
 {
-    return $teamInfo['PriColor'];
+    if ($teamInfo)
+        return $teamInfo['PriColor'];
+
+    return '000000';
 }
 
 function getSecondaryColor($teamInfo)
 {
-    return $teamInfo['SecColor'];
+    if ($teamInfo)
+        return $teamInfo['SecColor'];
+
+    return 'ffffff';
 }
 
 function getTeamName($teamInfo)
 {
-    return $teamInfo['TeamName'];
+    if ($teamInfo)
+        return $teamInfo['TeamName'];
+
+    return '';
 }
 
 function getTeamURI($teamInfo)
 {
-    return "/team/{$teamInfo['ID']}";
+    if ($teamInfo)
+        return "/team/{$teamInfo['ID']}";
+
+    return '#';
+}
+
+function getManageURI($teamInfo)
+{
+    if ($teamInfo)
+        return "/manage/{$teamInfo['ID']}";
+
+    return '#';
+}
+
+function getTeamMotto($teamInfo)
+{
+    if ($teamInfo)
+        return $teamInfo['Motto'];
+
+    return '';
+}
+
+function getMissionStatement($teamInfo)
+{
+    if ($teamInfo)
+        return $teamInfo['MissionStatement'];
+
+    return '';
+}
+
+function getNotes($teamInfo)
+{
+    if ($teamInfo)
+        return $teamInfo['Notes'];
+
+    return '';
+}
+
+function getTeamImageURI($teamInfo)
+{
+    if ($teamInfo)
+        return '/img/team-no-image.png';
+
+    return '/img/team-no-image.png';
 }

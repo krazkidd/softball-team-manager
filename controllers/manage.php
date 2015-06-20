@@ -28,27 +28,48 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/user.php';
+require_once dirname(__FILE__) . '/../models/player.php';
+require_once dirname(__FILE__) . '/../models/league.php';
 
 //TODO make sure user is manager of the specified team
 
-if (isset($id))
-    $teamID = $id;
-else
-    $teamID = 0;
-
-if ($teamID > 0)
+if (isset($id) && isID($id))
 {
-//TODO this doesn't check the user is a manager
-	$action = 'show-team';
-	$teamInfo = getTeamInfo($_GET['id']);
+    $teamInfo = getTeamInfo($id);
+
+    if ($teamInfo)
+    {
+        $teamName = getTeamname($teamInfo);
+        $imageURI = getTeamImageURI($teamInfo);
+        $priColor = getPrimaryColor($teamInfo);
+        $secColor = getSecondaryColor($teamInfo);
+        $teamMotto = getTeamMotto($teamInfo);
+        //TODO missionStatement and notes not used
+        //$missionStatement = getMissionStatement($teamInfo);
+        //$notes = getNotes($teamInfo);
+        $leagueList = getLeaguesForTeam($id);
+
+        unset($teamInfo);
+
+        require dirname(__FILE__) . '/../views/manage-team.php';
+    }
 }
 else
 {
-	// show all teams managed by this user
-    $action = 'show-list';
-	$managedTeamsList = getUserManagedTeamNames();
-}
+	$managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
 
-require dirname(__FILE__) . '/../views/manage.php';
+    if ($managedTeamsList)
+    {
+        require dirname(__FILE__) . '/../views/manage-show-teams.php';
+    }
+    else
+    {
+        $msgTitle = "Manage";
+        $msg = "You are not a manager of any teams.";
+        $msgClass = "failure";
+        require dirname(__FILE__) . '/../views/show-message.php';
+    }
+}
 
 require dirname(__FILE__) . '/end-controller.php';

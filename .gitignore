@@ -2,3 +2,5 @@ LOCAL
 config/local-config*
 *.swp
 img/*
+*.bak
+*.BAK

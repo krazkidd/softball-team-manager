@@ -22,12 +22,16 @@
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/../models/auth.php';
+require_once dirname(__FILE__) . '/../models/user.php';
 
 $isLoggedIn = isLoggedIn();
 if ($isLoggedIn)
+{
     $userName = getLoginName();
-else
-    $userName = 'Guest';
+    $userPID = getUserPlayerID();
+    //TODO need a separate function for ID's 
+    //$playerURI =
+}
 
 // get a CSS-friendly version of the title
 $titleCSS = str_replace(' ', '-', mb_strtolower($title, 'UTF-8'));

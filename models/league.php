@@ -1,4 +1,3 @@
-
 <?php
 
   /**************************************************************************
@@ -26,15 +25,44 @@ require_once dirname(__FILE__) . '/model.php';
 
 function getLeagueInfo($leagueID)
 {
-	return mysqli_fetch_array(runQuery("SELECT L.*, C.Name FROM League AS L JOIN Class AS C ON L.ClassID = C.ID WHERE L.ID = $leagueID"));
+    $qResult = runQuery("SELECT L.*, C.Name FROM League AS L JOIN Class AS C ON L.ClassID = C.ID WHERE L.ID = $leagueID");
+
+    if ($qResult)
+        return mysqli_fetch_array($qResult);
+
+    return NULL;
 }
 
 function getLeagueDescription($leagueInfo)
 {
-    return $leagueInfo['Description'] . ' (' . getLeagueClass($leagueInfo) . ')';
+    if ($leagueInfo)
+        return $leagueInfo['Description'] . ' (' . getLeagueClass($leagueInfo) . ')';
+
+    return '';
 }
 
 function getLeagueClass($leagueInfo)
 {
-    return $leagueInfo['Name'];
+    if ($leagueInfo)
+        return $leagueInfo['Name'];
+
+    return '';
+}
+
+function getLeaguesForTeam($teamID)
+{
+	$qResult = runQuery("SELECT T.ID AS TID, T.TeamName, L.ID AS LID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = $teamID ORDER BY L.StartDate DESC");
+
+	if ($qResult)
+	{
+		$result = array();
+		while($row = mysqli_fetch_array($qResult))
+		{
+			$result[] = $row;
+		}
+
+		return $result;
+	}
+
+	return NULL;
 }

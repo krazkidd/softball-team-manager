@@ -25,22 +25,39 @@ require dirname(__FILE__) . '/begin-controller.php';
 
 require_once dirname(__FILE__) . '/../models/auth.php';
 require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/league.php';
 
-$isLoggedIn = isLoggedIn();
+if (isset($id) && isID($id))
+{
+    $isLoggedIn = isLoggedIn();
+    $teamInfo = getTeamInfo($id);
+    $mgrInfo = getTeamManagerInfo($teamInfo);
 
-$teamInfo = getTeamInfo($_GET['id']);
-$teamName = $teamInfo['TeamName'];
-$priColor = $teamInfo['PriColor'];
-$secColor = $teamInfo['SecColor'];
-$motto = $teamInfo['Motto'];
-$missionStatement = $teamInfo['MissionStatement'];
-$notes = '';
+    $teamName = getTeamName($teamInfo);
+    $teamImageURI = getTeamImageURI($teamInfo);
+    $priColor = getPrimaryColor($teamInfo);
+    $secColor = getSecondaryColor($teamInfo);
+    $motto = getTeamMotto($teamInfo);
+    $missionStatement = getMissionStatement($teamInfo);
+    //TODO notes not used
+    //$notes = getNotes($teamInfo);
+    $leagueList = getLeaguesForTeam($id);
+    if ($mgrInfo)
+    {
+        $mgrURI = getPlayerURI($mgrInfo);
+        $mgrName = getFullName($mgrInfo);
+    }
 
-$mgrInfo = getTeamManagerInfo($teamInfo);
+    unset($teamInfo, $mgrInfo);
 
-//TODO get current/past leagues
-$leagues = NULL;
-
-require dirname(__FILE__) . '/../views/team.php';
+    require dirname(__FILE__) . '/../views/team.php';
+}
+else
+{
+        $msgTitle = "Team";
+        $msg = "Not a valid team ID.";
+        $msgClass = "failure";
+        require dirname(__FILE__) . '/../views/show-message.php';
+}
 
 require dirname(__FILE__) . '/end-controller.php';

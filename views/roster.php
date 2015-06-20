@@ -30,25 +30,30 @@ $title = 'Roster';
 ob_start();
 
 ?>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-        </tr>
-        <?php foreach ($roster as $player) { ?>
+    <div>
+        <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h1>
+        <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
+        <p><a href="<?= $teamURI ?>"><?= $teamName ?></a></p>
+        <p><?= $leagueDesc ?></p>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+            </tr>
+<?php
+foreach ($roster as $player) {
+?>
             <tr>
                 <td><?= getShirtNum($player) ?></td>
                 <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
             </tr>
-        <?php } ?>
-    </table>
-
-    <div>
-        <!-- <img id="team-img" title="<?= $teamName ?>" src="/img/team-no-image.png" /> -->
-        <!-- <h2><span style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h2> -->
-        <p><a href="<?= $teamURI ?>"><?= $teamName ?></a></p>
-        <p><?= $leagueDesc ?></p>
-        <p><?= $leagueClass ?></p>
+<?php
+}
+?>
+        </table>
     </div>
 <?php
 

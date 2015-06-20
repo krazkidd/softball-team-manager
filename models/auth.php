@@ -65,15 +65,16 @@ function getUserName()
 
 function attemptLogin($username, $password)
 {
+    //TODO clear previous session here or somewhere?
+
 //TODO sanitize input
 	if ($username && !empty($username) && $password && !empty($password))
 
-	$ret = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
-
-	$result = mysqli_fetch_array($ret)['PasswordHash'];
-
-	if ($ret)
+	$qResult = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
+	if ($qResult)
 	{
+        $result = mysqli_fetch_array($qResult)['PasswordHash'];
+
 		if (password_verify($password, $result))
 		{
 			// save login name to session

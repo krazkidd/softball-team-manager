@@ -23,69 +23,140 @@
 
 require_once dirname(__FILE__) . '/model.php';
 
-function formatPhoneNumber($phoneStr)
-{
-	if ($phoneStr != NULL)
-	{
-		if (strlen($phoneStr) == 10)
-			return '(' . substr($phoneStr, 0, 3) . ') ' . substr($phoneStr, 3, 3) . '-' . substr($phoneStr, 6, 4);
-		else if (strlen($phoneStr) == 7)
-			return substr($phoneStr, 0, 3) . '-' . substr($phoneStr, 3, 4);
-	}
-
-	return $phoneStr;
-}
-
 function getPlayerInfo($playerID)
 {
-//TODO sanitize param
-	$db_query_result = runQuery("SELECT * FROM Player WHERE Player.ID = $playerID");
+    //TODO sanitize param (and all params in every db call)
+    if ($playerID)
+    {
+        $qResult = runQuery("SELECT * FROM Player WHERE Player.ID = $playerID");
 
-    if ($db_query_result)
-        return mysqli_fetch_array($db_query_result);
+        if ($qResult)
+            return mysqli_fetch_array($qResult);
+    }
 
     return NULL;
 }
 
-function getPlayerTeams($playerID)
+function getFormattedPhoneNumber($player)
 {
-//TODO sanitize input!
-	$db_query_result = runQuery('SELECT R.TeamID, T.TeamName FROM Player AS P JOIN Roster AS R ON P.ID = R.PlayerID JOIN Team AS T ON T.ID = R.TeamID WHERE R.PlayerID = ' . $playerID);
+    if ($player)
+    {
+        $phoneStr = $player['PhoneNumber'];
 
-	if ($db_query_result == NULL)
-		return NULL;
+        if ( !empty($phoneStr))
+        {
+            if (strlen($phoneStr) == 10)
+                return '(' . substr($phoneStr, 0, 3) . ') ' . substr($phoneStr, 3, 3) . '-' . substr($phoneStr, 6, 4);
+            else if (strlen($phoneStr) == 7)
+                return substr($phoneStr, 0, 3) . '-' . substr($phoneStr, 3, 4);
+        }
+    }
 
-	$result = array();
-	while ($row = mysqli_fetch_array($db_query_result))
-	{
-		$result[] = $row;
-	}
+    return '';
+}
 
-	return $result;
+function getEmail($player)
+{
+    if ($player)
+        return $player['Email'];
+
+    return '';
+}
+
+function getRosteredTeamsForPlayer($pid)
+{
+    if (isID($pid))
+    {
+        $qResult = runQuery("SELECT T.ID, T.TeamName, L.Description, C.Name FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID JOIN ParticipatesIn AS P ON P.TeamID = T.ID JOIN League AS L ON P.LeagueID = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE R.PlayerID = $pid ORDER BY L.StartDate DESC");
+
+        if ($qResult)
+        {
+            $result = array();
+            while($row = mysqli_fetch_array($qResult))
+            {
+                $result[] = $row;
+            }
+
+            return $result;
+        }
+    }
+
+	return NULL;
 }
 
 function getPlayerURI($player)
 {
-    return "/player/{$player['ID']}";
+    if ($player)
+        return "/player/{$player['ID']}";
+
+    return '#';
+}
+
+function getFirstName($player)
+{
+    if ($player)
+        return $player['FirstName'];
+
+    return '';
 }
 
 function getFullName($player)
 {
-    return $player['FirstName'] . ' ' . $player['LastName'];
+    if ($player)
+        return $player['FirstName'] . ' ' . $player['LastName'];
+
+    return '';
 }
 
 function getShortName($player)
 {
-    return $player['FirstName'] . ' ' . $player['LastName'][0] . '.';
+    if ($player)
+        return $player['FirstName'] . ' ' . $player['LastName'][0] . '.';
+
+    return '';
+}
+
+function getNickName($player)
+{
+    if ($player)
+        return $player['NickName'];
+
+    return '';
 }
 
 function getGender($player, $lowerCase)
 {
-    $gender = $player['Gender'];
-    return $lowerCase ? strtolower($gender) : $gender;
+    if ($player)
+        return $lowerCase ? strtolower($player['Gender']) : $player['Gender'];
+
+    return '';
 }
 
 function getPlayerID($playerInfo)
 {
-    return $playerInfo['ID'];
+    if ($playerInfo)
+        return $playerInfo['ID'];
+
+    return -1;
+}
+
+function getManagedTeamsForPlayer($pid)
+{
+    if (isID($pid + 0))
+    {
+        $qResult = runQuery("SELECT T.ID, T.TeamName FROM Team AS T WHERE T.ManagerID = $pid");
+
+        if ($qResult)
+        {
+            $result = array();
+            while($row = mysqli_fetch_array($qResult))
+            {
+                $result[] = $row;
+            }
+
+            return $result;
+        }
+    }
+
+	return NULL;
 }

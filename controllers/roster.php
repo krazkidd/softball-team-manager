@@ -38,17 +38,16 @@ if (isset($_GET['teamid']) && isset($_GET['leagueid'])
     $teamID = $_GET['teamid'];
     $leagueID = $_GET['leagueid'];
 
-    $roster = getRoster($teamID, $leagueID);
-
     $teamInfo = getTeamInfo($teamID);
-    $teamURI = getTeamURI($teamInfo);
-    $teamName = getTeamName($teamInfo);
-    unset($teamInfo);
-
     $leagueInfo = getLeagueInfo($leagueID);
+
+    $roster = getRoster($teamID, $leagueID);
+    $teamName = getTeamName($teamInfo);
+    $teamURI = getTeamURI($teamInfo);
+    $teamImageURI = getTeamImageURI($teamInfo);
     $leagueDesc = getLeagueDescription($leagueInfo);
-    $leagueClass = getLeagueClass($leagueInfo);
-    unset($leagueInfo);
+
+    unset($teamInfo, $leagueInfo);
 
     require dirname(__FILE__) . '/../views/roster.php';
 }

@@ -28,10 +28,23 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/user.php';
+require_once dirname(__FILE__) . '/../models/player.php';
 
-$managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
-$rosteredTeamsList = getRosteredTeamsForPlayer(getUserPlayerID());
+$pid = getUserPlayerID();
 
-require dirname(__FILE__) . '/../views/my-teams.php';
+$managedTeamsList = getManagedTeamsForPlayer($pid);
+$rosteredTeamsList = getRosteredTeamsForPlayer($pid);
+
+if ($managedTeamsList || $rosteredTeamsList)
+{
+    require dirname(__FILE__) . '/../views/my-teams.php';
+}
+else
+{
+    $msgTitle = "My Teams";
+    $msg = "You are not managing or playing on any teams!";
+    $msgClass = "neutral";
+    require dirname(__FILE__) . '/../views/show-message.php';
+}
 
 require dirname(__FILE__) . '/end-controller.php';

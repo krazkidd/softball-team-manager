@@ -26,27 +26,52 @@ $title = 'Team Profile';
 ob_start();
 
 ?>
-    <img id="team-img" title="<?= $teamName ?>" src="/img/team-no-image.png" />
-	<h2><span style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h2>
+    <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
+
+    <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+        <?= $teamName ?>
+    </h1>
+<?php
+if ($isLoggedIn)
+{
+    if (isset($mgrURI) && isset($mgrName))
+    {
+?>
+    <p>Manager: <a href="<?= $mgrURI ?>"><?= $mgrName ?></a></p>
+<?php
+    }
+    else
+    {
+?>
+    <p>Manager: None</p>
+<?php
+    }
+}
+?>
 	<h4>Motto</h4>
 	<p><?= $motto ?></p>
+
 	<h4>Mission Statement</h4>
 	<p><?= $missionStatement ?></p>
-	<!-- <h6>Notes</h6>
-	<p><?= $notes ?></p> -->
-	<?php if ($isLoggedIn) { ?>
-        <p>Manager: <a href="<?= getPlayerURI($mgrInfo) ?>"><?= getFullName($mgrInfo) ?></a></p>
-	<?php } ?>
 
-	<?php if ($leagues) { ?>
-		<p><?php echo $teamName ?> have played in these leagues:<br />
-			<ul>
-				<?php foreach ($leagues as $league) { ?>
-					<li>TODO</li>
-				<?php } ?>
-			</ul>
-		</p>
-	<?php }
+    <hr />
+
+<?php
+if ($leagueList)
+{
+?>
+    <p><?php echo $teamName ?> have played in these leagues:</p>
+    <ul>
+<?php
+    foreach ($leagueList as $league)
+    {
+?>
+        <li><?= getLeagueDescription($league) ?></li>
+<?php
+    }
+?>
+    </ul>
+<?php }
 
 $content = ob_get_clean();
 

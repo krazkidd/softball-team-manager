@@ -18,34 +18,46 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
+
+require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/roster.php';
 
 $title = 'Manage';
 
 ob_start();
 
-?><?php if ($action == 'show-team') { ?>
-	<img id="team-img" title="<?= $teamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
-	<h2><span style="color: #<?= $teamInfo['PriColor'] ?>; background-color: #<?= $teamInfo['SecColor'] ?>"><?= $teamInfo['TeamName'] ?></span></h2>
-	<p><?= $teamInfo['Motto'] ?></p>
-	<p><a href="/roster/<?= urlencode($teamInfo['ID']) ?>">View Rosters</a><br />
-	    <a href="#">View lineups for next games</a></p>
-<?php }	else { // $action == 'show-list' ?>
-	<?php if ($managedTeamsList) { ?>
-		<p>Which team do you want to manage?</p>
-		<p>
-			<ul>
-				<?php foreach ($managedTeamsList as $team ) { ?>
-					<li><a href="/manage/<?= $team['TeamID'] ?>"><?= $team['TeamName'] ?></a></li>
-				<?php } ?>
-			</ul>
-		</p>
-	<?php } else { ?>
-		<p>You are not a manager of any teams.</p>
-	<?php } ?>
+?>
+    <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+        <?= $teamName ?>
+    </h1>
+
+    <img id="team-img" title="<?= $teamName ?>" src="<?= $imageURI ?>" />
+
 <?php
-	}
+if ($leagueList)
+{
+?>
+    <p>Rosters (ordered by league start date):</p>
+    <ul>
+<?php
+    foreach ($leagueList as $roster)
+    {
+?>
+        <li><a href="<?= getRosterURI($roster['TID'], $roster['LID']) ?>"><?= getLeagueDescription($roster) ?></a></li>
+<?php
+    }
+?>
+    </ul>
+<?php
+}
+else
+{
+?>
+    <p>This team has no active rosters.</p>
+<?php
+}
 
 $content = ob_get_clean();
 

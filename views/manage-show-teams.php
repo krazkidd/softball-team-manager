@@ -18,17 +18,27 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
-$title = 'Help';
+require_once dirname(__FILE__) . '/../models/league.php';
+
+$title = 'Manage';
 
 ob_start();
 
 ?>
-    <p>You can log in as 'mark', 'blaze', 'sharon', 'wanda', 'mario', or 'peach'--all with password 'pass'. Each is the manager of a team.</p>
-
-    <p>You can register as a new user but can't do much managing yet.</p>
+    <p>Which team do you want to manage?</p>
+    <ul>
+<?php
+foreach ($managedTeamsList as $team)
+{
+?>
+            <li><a href="<?= getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
+<?php
+}
+?>
+    </ul>
 <?php
 
 $content = ob_get_clean();

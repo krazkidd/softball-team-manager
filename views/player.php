@@ -21,28 +21,42 @@
   
   **************************************************************************/
 
+require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/league.php';
+
 $title = 'Player Profile';
 
 ob_start();
 
-?><img id="player-img" title="<?= $firstName . ' ' . $lastName ?>" src="/img/player-no-image.gif" />
+?>
+    <img id="player-img" title="<?= $name ?>" src="/img/player-no-image.gif" />
 
-	<h2><?= $firstName . ' ' . $lastName ?></h2>
-	<?= $nickName ? '<h3>"' . $nickName . '"</h3>' : '' ?>
+	<h1><?= $name ?></h1>
+	<?= !empty($nickName) ? '<h2>"' . $nickName . '"</h2>' : '' ?>
 
 	<p><span class="bold">Phone:</span> <?= $phone ?><br />
-	    <span class="bold">Email:</span> <?= $email ?><br />
-	    <span class="bold">Gender:</span> <?= $gender ?></p>
+    <span class="bold">Email:</span> <?= $email ?><br />
+    <span class="bold">Gender:</span> <?= $gender ?></p>
 
-<!--TODO show nickname below if it exists -->
-	<p><?= $firstName ?>'s current and past teams:<br />
-		<ul>
-			<?php foreach ($teams as $team) { ?>
-<!--TODO need to escape team name string, right? -->
-				<li><a href="/team/<?= $team['TeamID'] ?>"><?= $team['TeamName'] ?></a></li>
-			<?php } ?>
-		</ul>
-    </p><?php
+<?php
+if ($teams)
+{
+?>
+    <hr />
+
+	<p><?= !empty($nickName) ? $nickName : $firstName ?>'s current and past teams:</p>
+    <ul>
+<?php
+    foreach ($teams as $teamLeague)
+    {
+?>
+        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . ' - ' . getLeagueDescription($teamLeague) ?></a></li>
+<?php
+    }
+?>
+    </ul>
+<?php
+}
 
 $content = ob_get_clean();
 

@@ -29,19 +29,30 @@ doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/player.php';
 
-$playerInfo = getPlayerInfo($_GET['id']);
-//TODO if $playerInfo is NULL, then use an $action to show a query failure message
+if (isset($id) && isID($id))
+{
+    $playerInfo = getPlayerInfo($id);
 
-$firstName = $playerInfo['FirstName'];
-$lastName = $playerInfo['LastName'];
-$nickName = $playerInfo['NickName'];
-$phone = $playerInfo['PhoneNumber'] ? formatPhoneNumber($playerInfo['PhoneNumber']) : '[Not Specified]';
-$email = $playerInfo['Email'] ? '<a href="mailto:' . $playerInfo['Email'] . '">' . $playerInfo['Email'] . '</a>' : '[Not Specified]';
-$gender = $playerInfo['Gender'] ? $playerInfo['Gender'] : '[Not Specified]';
+    if ($playerInfo)
+    {
+        $name = getFullName($playerInfo);
+        $firstName = getFirstName($playerInfo);
+        $nickName = getNickName($playerInfo);
+        //TODO only show this stuff to the player's managers
+        $phone = getFormattedPhoneNumber($playerInfo);
+        $email = getEmail($playerInfo);
+        $gender = getGender($playerInfo, false);
+        $teams = getRosteredTeamsForPlayer($id);
 
-//TODO query DB for teams for teams this player manages or plays on and list them
-$teams = getPlayerTeams($_GET['id']);
-
-require dirname(__FILE__) . '/../views/player.php';
+        require dirname(__FILE__) . '/../views/player.php';
+    }
+}
+else
+{
+    $msgTitle = "Player";
+    $msg = "Not a valid player id.";
+    $msgClass = "failure";
+    require dirname(__FILE__) . '/../views/show-message.php';
+}
 
 require dirname(__FILE__) . '/end-controller.php';
