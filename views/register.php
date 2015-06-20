@@ -18,13 +18,13 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Register';
 
 ob_start();
-	
+
 ?><?php if ( !empty($action) && $action == 'reg-success') { ?>
 	<p class='success-msg'>Your registration was successful! You are now logged in.</p>
 <?php }	else { // show registration form ?>

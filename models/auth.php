@@ -18,10 +18,10 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
-//TODO does this file not need a session_start() to use $_SESSION['loginname']? 
+//TODO does this file not need a session_start() to use $_SESSION['loginname']?
 //     begin-controller.php now makes that function call.
 
 require_once dirname(__FILE__) . '/model.php';

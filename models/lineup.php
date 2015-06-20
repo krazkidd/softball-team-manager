@@ -18,11 +18,11 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/model.php';
-require_once dirname(__FILE__) . '/player.php'; 
+require_once dirname(__FILE__) . '/player.php';
 
 $posArray = NULL;
 
@@ -74,7 +74,7 @@ function getPosName($pos)
 }
 
 /*
- * getLineup -- 
+ * getLineup --
  */
 function getLineup($gameID, $teamID, $leagueID)
 {

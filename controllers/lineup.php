@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require dirname(__FILE__) . '/begin-controller.php';
@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../models/player.php';
 
 //TODO are array indexes case-sensitive? YES. so we need to write a controller class
 //     to at least handle url parameters
-if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
+if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
     //TODO allow user to see others' lineups only after the game is finished

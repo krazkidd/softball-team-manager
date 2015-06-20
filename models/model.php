@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 //TODO rename this file; this is db access stuff. all other models should go
@@ -70,5 +70,5 @@ function isID($id)
     return is_numeric($id) && is_int($id + 0) && $id > 0;
 }
 
-//TODO add a parser for url arg lists that ignores case and 
+//TODO add a parser for url arg lists that ignores case and
 //     maybe checks types

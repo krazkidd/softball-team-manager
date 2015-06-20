@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/model.php';
@@ -188,7 +188,7 @@ function getCalendarArray($month, $year)
 		else if ($monthlyDayCount == date('d'))
 			$elementClass = 'todays-date';
 		$monthlyDayCount++;
-		
+
 		$weeklyDayCount++;
 		if ($weeklyDayCount > 7)
 		{

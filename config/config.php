@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 //NOTE: PHP_VERSION_ID and the *_VERSION constants were introduced in 5.2.7
@@ -37,4 +37,4 @@ else if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)
 
 require_once 'local-config.php';
 
-define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME); 
+define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME);

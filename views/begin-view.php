@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/../models/auth.php';
@@ -29,7 +29,7 @@ if ($isLoggedIn)
 {
     $userName = getLoginName();
     $userPID = getUserPlayerID();
-    //TODO need a separate function for ID's 
+    //TODO need a separate function for ID's
     //$playerURI =
 }
 

@@ -18,13 +18,13 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Logout';
 
 ob_start();
-	
+
 ?><?php if ($action == 'logout-success') { ?>
 	<p class="success-msg">You were successfully logged out!</p>
 

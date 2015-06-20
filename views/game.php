@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Game';
@@ -26,7 +26,7 @@ $title = 'Game';
 ob_start();
 
 ?>
-    <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> --> 
+    <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
 
     <div id="game-info">
         <p><?= date("l\, F j\, Y", $gameTime) ?></p>

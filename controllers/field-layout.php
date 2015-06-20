@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../models/team.php';
 require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/calendar.php';
 
-if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
+if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
     //TODO allow user to see others' lineups only after the game is finished
@@ -51,7 +51,7 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
     $extraPlayers = getExtraPlayers($lineup);
     $priColor = getPrimaryColor($teamInfo);
     $secColor = getSecondaryColor($teamInfo);
- 
+
     unset($gameID, $teamID, $leagueID, $gameInfo, $teamInfo);
 
     require dirname(__FILE__) . '/../views/field-layout.php';

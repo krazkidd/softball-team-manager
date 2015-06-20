@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/../models/team.php';
@@ -31,7 +31,7 @@ ob_start();
 //TODO show team colors and small icon; remove list bullets
 
 if ($managedTeamsList)
-{ 
+{
 ?>
     <p>Teams I manage (click to go to team's management interface):</p>
     <ul>

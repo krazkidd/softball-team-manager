@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Calendar';
@@ -47,11 +47,11 @@ if ($action == 'list-leagues-day-of-week')
         <?php } ?>
     </table>
 <!--TODO fix. if  -->
-<?php 
+<?php
 }
 else if ($action = 'list-games-on-date')
 { ?>
-    <h3><?= $date ?></h3> 
+    <h3><?= $date ?></h3>
 
     <div id="game-list">
         <table>

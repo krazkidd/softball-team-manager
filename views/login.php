@@ -18,13 +18,13 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 $title = 'Login';
 
 ob_start();
-	
+
 ?>
     <p>This website uses cookies to track your session.</p>
 
@@ -47,7 +47,7 @@ ob_start();
 <?php } ?>
 
 	<p>or <a href="/register" title="Register">Register</a></p>
-<?php 
+<?php
 
 $content = ob_get_clean();
 

@@ -19,7 +19,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   ********************************************************************** --!>
 
 <?php require '../views/begin-view.php'; ?>
@@ -28,7 +28,7 @@
 	<head>
 		<title><?= $title . ' - ' . PROJECT_NAME ?></title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="/css/style.css" /> 
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 	</head>
 
 	<body>

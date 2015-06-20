@@ -18,7 +18,7 @@
 
   You should have received a copy of the GNU Affero General Public License
   along with Team Manager.  If not, see <http://www.gnu.org/licenses/>.
-  
+
   **************************************************************************/
 
 require dirname(__FILE__) . '/begin-controller.php';
@@ -33,9 +33,9 @@ if (isset($_POST['btnLogIn']) && attemptLogin($_POST['loginName'], $_POST['passw
 {
     //TODO add a "remember me" button and check for it here (p.s. it's a little hard to
     //     do, security-wise, so do a good search on the topic)
-    
+
     //TODO move to message view? header('Refresh: 10; URL=/my-teams');
-    
+
     $msgTitle = "Login";
     $msg = "You were successfully logged in!";
     $msgClass = "success";
