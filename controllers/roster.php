@@ -32,12 +32,7 @@ require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
 require_once dirname(__FILE__) . '/../models/league.php';
 
-if (isset($_GET['teamid']) && isset($_GET['leagueid'])
-  && isID($_GET['teamid']) && isID($_GET['leagueid']))
-{
-    $teamID = $_GET['teamid'];
-    $leagueID = $_GET['leagueid'];
-
+if (isset($teamID) && isset($leagueID)) {
     $teamInfo = getTeamInfo($teamID);
     $leagueInfo = getLeagueInfo($leagueID);
 
@@ -50,9 +45,7 @@ if (isset($_GET['teamid']) && isset($_GET['leagueid'])
     unset($teamInfo, $leagueInfo);
 
     require dirname(__FILE__) . '/../views/roster.php';
-}
-else
-{
+} else {
     $msgTitle = "Bad Roster Request";
     $msg = "Your request didn't have a valid combination of teamid and leagueid.";
     $msgClass = "failure";
@@ -60,3 +53,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

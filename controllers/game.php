@@ -27,19 +27,24 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
 
-if (isset($id))
-    $gameID = $id;
+if (isset($gameID)) {
+    $gameInfo = getGameInfo($gameID);
+    $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
+    //TODO allow for home/away to be null and show 'TBD' or somesuch
+    $homeTeamInfo = getTeamInfo($gameInfo['HomeID']);
+    $awayTeamInfo = getTeamInfo($gameInfo['AwayID']);
 
-$gameInfo = getGameInfo($_GET['id']);
-$gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
-//TODO allow for home/away to be null and show 'TBD' or somesuch
-$homeTeamInfo = getTeamInfo($gameInfo['HomeID']);
-$awayTeamInfo = getTeamInfo($gameInfo['AwayID']);
+    $showResults = false;
+    if (time() > $gameTime)
+        $showResults = true;
 
-$showResults = false;
-if (time() > $gameTime)
-    $showResults = true;
-
-require dirname(__FILE__) . '/../views/game.php';
+    require dirname(__FILE__) . '/../views/game.php';
+} else {
+    $msgTitle = "Bad Game Request";
+    $msg = "Not a valid gameid.";
+    $msgClass = "failure";
+    require dirname(__FILE__) . '/../views/show-message.php';
+}
 
 require dirname(__FILE__) . '/end-controller.php';
+

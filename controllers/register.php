@@ -27,27 +27,22 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireNoLogin();
 
-if (isset($_POST['btnRegister']))
-{
+if (isset($_POST['btnRegister'])) {
 //TODO warn user if a field was missing or passwords don't match.
 //TODO is an empty field ever null, or just an empty string?
-    if ($_POST['password1'] == $_POST['password2'] && attemptRegistration($_POST['loginName'], $_POST['password1']))
-    {
+    if ($_POST['password1'] == $_POST['password2'] && attemptRegistration($_POST['loginName'], $_POST['password1'])) {
         $action = 'reg-success';
-    }
-    else
-    {
+    } else {
 //TODO check password match earlier and attemptRegistration() on its own. maybe we can get a more specific error message
         $action = 'reg-fail';
         if (strcmp($_POST['password1'], $_POST['password2']) != 0)
             $reason = 'passwords-dont-match';
         else
-        {
             $reason = 'other';
-        }
     }
 }
 
 require dirname(__FILE__) . '/../views/register.php';
 
 require dirname(__FILE__) . '/end-controller.php';
+

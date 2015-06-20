@@ -26,21 +26,18 @@ require dirname(__FILE__) . '/begin-controller.php';
 require_once dirname(__FILE__) . '/../models/auth.php';
 
 $msgTitle = "Logout";
+$msgClass = "success";
 
-if ( !isLoggedIn())
-{
+if ( !isLoggedIn()) {
     $msg = "You were not logged in. And you still aren't.";
-    $msgClass = "success";
-}
-else
-{
+} else {
     $_SESSION = array(); // or session_unset()
     session_destroy();
 
     $msg = "You were successfully logged out!";
-    $msgClass = "success";
 }
 
 require dirname(__FILE__) . '/../views/show-message.php';
 
 require dirname(__FILE__) . '/end-controller.php';
+

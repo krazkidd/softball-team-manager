@@ -26,3 +26,4 @@ require dirname(__FILE__) . '/begin-controller.php';
 require dirname(__FILE__) . '/../views/index.php';
 
 require dirname(__FILE__) . '/end-controller.php';
+

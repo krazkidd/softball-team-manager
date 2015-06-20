@@ -35,12 +35,9 @@ $pid = getUserPlayerID();
 $managedTeamsList = getManagedTeamsForPlayer($pid);
 $rosteredTeamsList = getRosteredTeamsForPlayer($pid);
 
-if ($managedTeamsList || $rosteredTeamsList)
-{
+if ($managedTeamsList || $rosteredTeamsList) {
     require dirname(__FILE__) . '/../views/my-teams.php';
-}
-else
-{
+} else {
     $msgTitle = "My Teams";
     $msg = "You are not managing or playing on any teams!";
     $msgClass = "neutral";
@@ -48,3 +45,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

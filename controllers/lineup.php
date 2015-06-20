@@ -33,17 +33,10 @@ require_once dirname(__FILE__) . '/../models/league.php';
 require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/player.php';
 
-//TODO are array indexes case-sensitive? YES. so we need to write a controller class
-//     to at least handle url parameters
-if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
-  && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
-{
+if (isset($gameID) && isset($teamID) && isset($leagueID)) {
     //TODO allow user to see others' lineups only after the game is finished
     //     (make sure user's playerID is on roster or is manager)
 
-    $gameID = $_GET['gameid'];
-    $teamID = $_GET['teamid'];
-    $leagueID = $_GET['leagueid'];
     $gameInfo = getGameInfo($gameID);
     $teamInfo = getTeamInfo($teamID);
     $leagueInfo = getLeagueInfo($leagueID);
@@ -56,12 +49,10 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
     $starters = getBattingOrder($lineup);
     $extraPlayers = getExtraPlayers($lineup);
 
-    unset($gameID, $teamID, $leagueID, $gameInfo, $teamInfo, $leagueInfo);
+    unset($gameInfo, $teamInfo, $leagueInfo);
 
     require dirname(__FILE__) . '/../views/lineup.php';
-}
-else
-{
+} else {
     $msgTitle = "Bad Lineup Request";
     $msg = "Your request didn't have a valid combination of gameid, teamid, and leagueid.";
     $msgClass = "failure";
@@ -69,3 +60,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

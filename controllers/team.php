@@ -27,8 +27,7 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 require_once dirname(__FILE__) . '/../models/team.php';
 require_once dirname(__FILE__) . '/../models/league.php';
 
-if (isset($id) && isID($id))
-{
+if (isset($id) && isID($id)) {
     $isLoggedIn = isLoggedIn();
     $teamInfo = getTeamInfo($id);
     $mgrInfo = getTeamManagerInfo($teamInfo);
@@ -42,8 +41,7 @@ if (isset($id) && isID($id))
     //TODO notes not used
     //$notes = getNotes($teamInfo);
     $leagueList = getLeaguesForTeam($id);
-    if ($mgrInfo)
-    {
+    if ($mgrInfo) {
         $mgrURI = getPlayerURI($mgrInfo);
         $mgrName = getFullName($mgrInfo);
     }
@@ -51,9 +49,7 @@ if (isset($id) && isID($id))
     unset($teamInfo, $mgrInfo);
 
     require dirname(__FILE__) . '/../views/team.php';
-}
-else
-{
+} else {
         $msgTitle = "Team";
         $msg = "Not a valid team ID.";
         $msgClass = "failure";
@@ -61,3 +57,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

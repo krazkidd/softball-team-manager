@@ -34,12 +34,10 @@ require_once dirname(__FILE__) . '/../models/league.php';
 
 //TODO make sure user is manager of the specified team
 
-if (isset($id) && isID($id))
-{
+if (isset($id)) {
     $teamInfo = getTeamInfo($id);
 
-    if ($teamInfo)
-    {
+    if ($teamInfo) {
         $teamName = getTeamname($teamInfo);
         $imageURI = getTeamImageURI($teamInfo);
         $priColor = getPrimaryColor($teamInfo);
@@ -54,17 +52,12 @@ if (isset($id) && isID($id))
 
         require dirname(__FILE__) . '/../views/manage-team.php';
     }
-}
-else
-{
+} else {
     $managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
 
-    if ($managedTeamsList)
-    {
+    if ($managedTeamsList) {
         require dirname(__FILE__) . '/../views/manage-show-teams.php';
-    }
-    else
-    {
+    } else {
         $msgTitle = "Manage";
         $msg = "You are not a manager of any teams.";
         $msgClass = "failure";
@@ -73,3 +66,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

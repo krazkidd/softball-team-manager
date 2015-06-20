@@ -85,3 +85,4 @@ $msgClass = "failure";
 require dirname(__FILE__) . '/../views/show-message.php';
 
 require dirname(__FILE__) . '/end-controller.php';
+

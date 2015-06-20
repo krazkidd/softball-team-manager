@@ -29,12 +29,10 @@ doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/player.php';
 
-if (isset($id) && isID($id))
-{
+if (isset($id)) {
     $playerInfo = getPlayerInfo($id);
 
-    if ($playerInfo)
-    {
+    if ($playerInfo) {
         $name = getFullName($playerInfo);
         $firstName = getFirstName($playerInfo);
         $nickName = getNickName($playerInfo);
@@ -44,11 +42,11 @@ if (isset($id) && isID($id))
         $gender = getGender($playerInfo, false);
         $teams = getRosteredTeamsForPlayer($id);
 
+        unset($playerInfo);
+
         require dirname(__FILE__) . '/../views/player.php';
     }
-}
-else
-{
+} else {
     $msgTitle = "Player";
     $msg = "Not a valid player id.";
     $msgClass = "failure";
@@ -56,3 +54,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+

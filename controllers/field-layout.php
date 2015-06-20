@@ -32,15 +32,10 @@ require_once dirname(__FILE__) . '/../models/team.php';
 require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/calendar.php';
 
-if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
-  && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
-{
+if (isset($gameID) && isset($teamID) && isset($leagueID)) {
     //TODO allow user to see others' lineups only after the game is finished
     //     (make sure user's playerID is on roster or is manager)
 
-    $gameID = $_GET['gameid'];
-    $teamID = $_GET['teamid'];
-    $leagueID = $_GET['leagueid'];
     $gameInfo = getGameInfo($gameID);
     $teamInfo = getTeamInfo($teamID);
 
@@ -52,12 +47,10 @@ if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid'])
     $priColor = getPrimaryColor($teamInfo);
     $secColor = getSecondaryColor($teamInfo);
 
-    unset($gameID, $teamID, $leagueID, $gameInfo, $teamInfo);
+    unset($gameInfo, $teamInfo);
 
     require dirname(__FILE__) . '/../views/field-layout.php';
-}
-else
-{
+} else {
     $msgTitle = "Bad Field Layout Request";
     $msg = "Your request didn't have a valid combination of gameid, teamid, and leagueid.";
     $msgClass = "failure";
@@ -65,3 +58,4 @@ else
 }
 
 require dirname(__FILE__) . '/end-controller.php';
+
