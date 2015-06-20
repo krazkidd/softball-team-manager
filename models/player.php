@@ -84,3 +84,8 @@ function getGender($player, $lowerCase)
     $gender = $player['Gender'];
     return $lowerCase ? strtolower($gender) : $gender;
 }
+
+function getPlayerID($playerInfo)
+{
+    return $playerInfo['ID'];
+}

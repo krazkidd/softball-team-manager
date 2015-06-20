@@ -27,50 +27,45 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once dirname(__FILE__) . '/../models/calendar.php';
-require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
 require_once dirname(__FILE__) . '/../models/league.php';
+require_once dirname(__FILE__) . '/../models/lineup.php';
+require_once dirname(__FILE__) . '/../models/player.php';
 
+//TODO are array indexes case-sensitive? YES. so we need to write a controller class
+//     to at least handle url parameters
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
+    //TODO allow user to see others' lineups only after the game is finished
+    //     (make sure user's playerID is on roster or is manager)
+
     $gameID = $_GET['gameid'];
-    $leagueID = $_GET['leagueid'];
     $teamID = $_GET['teamid'];
-
-    $lineup = getLineup($gameID, $teamID, $leagueID);
-
-    $teamInfo = getTeamInfo($teamID);
-    $teamName = getTeamName($teamInfo);
-    $mgrName = getFullName(getTeamManagerInfo($teamInfo));
-    unset($teamInfo);
-
-    $leagueInfo = getLeagueInfo($leagueID);
-    $leagueDesc = getLeagueDescription($leagueInfo);
-    unset($leagueInfo);
-
+    $leagueID = $_GET['leagueid'];
     $gameInfo = getGameInfo($gameID);
-    $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
-    unset($gameInfo);
+    $teamInfo = getTeamInfo($teamID);
+    $leagueInfo = getLeagueInfo($leagueID);
 
-    unset($teamID);
-    unset($gameID);
-    unset($leagueID);
-    unset($teamInfo);
+    $gameTime = getGameDateTime($gameInfo);
+    $teamName = getTeamName($teamInfo);
+    $leagueDesc = getLeagueDescription($leagueInfo);
+    $mgrName = getFullName(getTeamManagerInfo($teamInfo));
+    $lineup = getLineup($gameID, $teamID, $leagueID);
+    $starters = getBattingOrder($lineup);
+    $extraPlayers = getExtraPlayers($lineup);
 
-    require_once dirname(__FILE__) . '/../views/lineup.php';
+    unset($gameID, $teamID, $leagueID, $gameInfo, $teamInfo, $leagueInfo);
+
+    require dirname(__FILE__) . '/../views/lineup.php';
 }
 else
 {
     $msgTitle = "Bad Lineup Request";
     $msg = "Your request didn't have a valid combination of gameid, teamid, and leagueid.";
     $msgClass = "failure";
-    require_once dirname(__FILE__) . '/../views/show-message.php';
+    require dirname(__FILE__) . '/../views/show-message.php';
 }
 
-//TODO allow user to see others' lineups only after the game is finished
-
-
-require 'end-controller.php';
+require dirname(__FILE__) . '/end-controller.php';

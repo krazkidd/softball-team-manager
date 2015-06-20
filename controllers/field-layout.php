@@ -27,29 +27,33 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once dirname(__FILE__) . '/../models/calendar.php';
-require_once dirname(__FILE__) . '/../models/lineup.php';
 require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
+require_once dirname(__FILE__) . '/../models/lineup.php';
+require_once dirname(__FILE__) . '/../models/calendar.php';
 
 if (isset($_GET['gameid']) && isset($_GET['teamid']) && isset($_GET['leagueid']) 
   && isID($_GET['gameid']) && isID($_GET['teamid']) && isID($_GET['leagueid']))
 {
+    //TODO allow user to see others' lineups only after the game is finished
+    //     (make sure user's playerID is on roster or is manager)
+
     $gameID = $_GET['gameid'];
     $teamID = $_GET['teamid'];
     $leagueID = $_GET['leagueid'];
-
-    //TODO get shirt nums.
-    $lineup = getLineup($gameID, $teamID, $leagueID);
     $gameInfo = getGameInfo($gameID);
+    $teamInfo = getTeamInfo($teamID);
+
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
     $gameDateTimeHeader = date('l\, F j\, Y', $gameTime) . ' @ ' . date('g\:i a', $gameTime);
+    $lineup = getLineup($gameID, $teamID, $leagueID);
+    $positions = getPositions($lineup);
     $extraPlayers = getExtraPlayers($lineup);
-    $teamInfo = getTeamInfo($teamID);
     $priColor = getPrimaryColor($teamInfo);
     $secColor = getSecondaryColor($teamInfo);
  
-    //TODO allow user to see others' lineups only after the game is finished
+    unset($gameID, $teamID, $leagueID, $gameInfo, $teamInfo);
+
     require dirname(__FILE__) . '/../views/field-layout.php';
 }
 else

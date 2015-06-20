@@ -41,113 +41,157 @@ function doBuildPosArray()
 
 function getShortPosName($pos)
 {
-//	switch ($pos)
-//	{
-//		case 1:
-//			return "P";
-//		case 2:
-//			return "C";
-//		case 3:
-//			return "1B";
-//		case 4:
-//			return "2B";
-//		case 5:
-//			return "3B";
-//		case 6:
-//			return "SS";
-//		case 7:
-//			return "LF";
-//		case 8:
-//			return "CF";
-//		case 9:
-//			return "RF";
-//		case 10:
-//			return "RC";
-//TODO do i want to use cases 11 and 12 for EP1 and EP2?
-//		default:
-//			return "Invalid Position";
-//	}
+    global $posArray;
 
     if ( !$posArray)
-    {
         doBuildPosArray();
+
+    if ($posArray && $pos >= 1 && $pos <= 10)
+    {
+        $name = $posArray[$pos][1];
+        if ($name)
+            return $name;
     }
 
-    if ( !$posArray)
-            return '';
-
-    $name = $posArray[$pos][1];
-
-    if ( !$name)
-        return '';
-
-    return $name;
+    return 'EH';
 }
 
 function getPosName($pos)
 {
+    global $posArray;
+
     if ( !$posArray)
-    {
         doBuildPosArray();
+
+    if ($posArray && $pos >= 1 && $pos <= 10)
+    {
+        $name = $posArray[$pos][0];
+        if ($name)
+            return $name;
     }
 
-    if ( !$posArray)
-            return '';
-
-    $name = $posArray[$pos][0];
-
-    if ( !$name)
-        return '';
-
-    return $name;
+    return 'Extra Hitter';
 }
 
 /*
- * getLineup --  returns an array of player information from the db where the indices are the batting order, between 1 and 12 inclusive. Players 11 and 12 are extra players that can bat. Extra players that are non-starter substitutes are indexed as "EP{1..5}"
+ * getLineup -- 
  */
 function getLineup($gameID, $teamID, $leagueID)
 {
-	return mysqli_fetch_array(runQuery("SELECT * FROM Lineup AS L WHERE L.GameID = $gameID AND L.TeamID = $teamID AND L.LeagueID = $leagueID"));
-}
+    $qResult = runQuery("SELECT * FROM Lineup AS L WHERE L.GameID = $gameID AND L.TeamID = $teamID AND L.LeagueID = $leagueID");
 
-function getPlayerAtFieldPos($lineup, $pos)
-{
-     return getPlayerInfo($lineup["FieldPos{$pos}PID"]);
-}
-
-function getPlayerAtBatPos($lineup, $pos)
-{
-     return getPlayerInfo($lineup["BatPos{$pos}PID"]);
-}
-
-function getExtraPlayers($lineup)
-{
-    if (hasExtraPlayers($lineup))
-    {
-        $toReturn = array();
-
-        for ($i = 1; $i <= 3; $i++)
-        {
-            $player = getExtraPlayer($lineup, $i);
-
-            if ($player)
-                $toReturn[$i] = $player;
-        }
-
-        return $toReturn;
-    }
+    if ($qResult)
+        return mysqli_fetch_array($qResult);
 
     return NULL;
 }
 
-function getExtraPlayer($lineup, $pos)
+function getPlayerIDAtFieldPos($lineup, $pos)
 {
-    return getPlayerInfo($lineup["ExtraPlayer{$pos}PID"]);
+    if ($pos >= 1 && $pos <= 10)
+    {
+        return $lineup["FieldPos{$pos}PID"];
+    }
+
+    return -1;
+}
+
+function getPlayerIDAtBatPos($lineup, $pos)
+{
+    if ($pos >= 1 && $pos <= 12)
+        return $lineup["BatPos{$pos}PID"];
+
+    return -1;
+}
+
+function getFieldPosForPlayer($lineup, $playerInfo)
+{
+    // get player's DB ID
+    $pid = getPlayerID($playerInfo);
+
+    // loop through field pos #'s
+    for ($i = 1; $i <= 10; $i++)
+    {
+        // get the player ID at that field pos
+        $pidAtPos = getPlayerIDAtFieldPos($lineup, $i);
+
+        if ($pidAtPos == $pid)
+            return $i;
+    }
+
+    return 0;
+}
+
+function getPositions($lineup)
+{
+    $toReturn = array();
+
+    for ($i = 1; $i <= 10; $i++)
+    {
+        $pid = getPlayerIDAtFieldPos($lineup, $i);
+        if ($pid >= 0) //TODO >= 0?
+        {
+            $player = getPlayerInfo($pid);
+            if ($player)
+                $toReturn[$i] = $player;
+            else
+                $toReturn[$i] = NULL;
+        }
+    }
+
+    return $toReturn;
+}
+
+function getBattingOrder($lineup)
+{
+    $toReturn = array();
+
+    for ($i = 1; $i <= 12; $i++)
+    {
+        $pid = getPlayerIDAtBatPos($lineup, $i);
+        if ($pid >= 0) //TODO >= 0?
+        {
+            $player = getPlayerInfo($pid);
+            if ($player)
+                $toReturn[$i] = $player;
+            else
+                $toReturn[$i] = NULL;
+        }
+    }
+
+    return $toReturn;
+}
+
+function getExtraPlayers($lineup)
+{
+    $toReturn = array();
+
+    for ($i = 1; $i <= 3; $i++)
+    {
+        $pid = getExtraPlayerID($lineup, $i);
+        if ($pid >= 0)
+        {
+            $player = getPlayerInfo($pid);
+            $toReturn[$i] = $player;
+        }
+        else
+            $toReturn[$i] = NULL;
+    }
+
+    return $toReturn;
+}
+
+function getExtraPlayerID($lineup, $epNum)
+{
+    if ($lineup["ExtraPlayer{$epNum}PID"])
+        return $lineup["ExtraPlayer{$epNum}PID"];
+
+    return -1;
 }
 
 function hasExtraPlayers($lineup)
 {
-    return $lineup['ExtraPlayer1PID'] || $lineup['ExtraPlayer2PID'] || $lineup['ExtraPlayer3PID'];
+    return getExtraPlayerID($lineup, 1) > -1 || getExtraPlayerID($lineup, 2) > -1 || getExtraPlayerID($lineup, 3) > -1;
 }
 
 function getLineupURI($lineup)
@@ -162,6 +206,9 @@ function getFieldLayoutURI($lineup)
 
 function getShirtNum($lineup, $player)
 {
-	$row = mysqli_fetch_array(runQuery("SELECT ShirtNum FROM Roster AS R WHERE R.PlayerID = {$player['ID']} AND R.TeamID = {$lineup['TeamID']} AND R.LeagueID = {$lineup['LeagueID']}"));
-    return $row['ShirtNum'];
+    $qResult = runQuery("SELECT ShirtNum FROM Roster AS R WHERE R.PlayerID = {$player['ID']} AND R.TeamID = {$lineup['TeamID']} AND R.LeagueID = {$lineup['LeagueID']}");
+    if ($qResult)
+        return mysqli_fetch_array($qResult)['ShirtNum'];
+
+    return '';
 }

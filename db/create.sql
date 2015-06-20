@@ -65,9 +65,10 @@ INSERT INTO FieldPosition VALUES
     (5, 'Third Base', '3B'),
     (6, 'Short Stop', 'SS'),
     (7, 'Left Field', 'LF'),
-    (8, 'Center Field', 'CF'),
+    (8, 'Left Center', 'LC'),
     (9, 'Right Field', 'RF'),
-    (10, 'Rover', 'RO')
+    (10, 'Right Center', 'RC')
+    /* (11, 'Rover', 'RO') //NOTE: adding something like this require a new *column* in the Lineup table. bleh. */
     ;
 
 CREATE TABLE Class (

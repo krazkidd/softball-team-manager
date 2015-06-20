@@ -56,19 +56,16 @@ ob_start();
                     <th>Pos.</th>
                     <th>Sub. #</th>
                 </tr>
-
 <?php
-for ($i = 1; $i <= 12; $i++)
+foreach ($starters as $player)
 {
-    $player = getPlayerAtBatPos($lineup, $i);
-
     if ($player)
     {
 ?>
                 <tr>
                     <td><?= getShirtNum($lineup, $player) ?></td>
                     <td><?= getFullName($player) ?></td>
-                    <td></td>
+                    <td><?= getShortPosName(getFieldPosForPlayer($lineup, $player)) ?></td>
                     <td>&nbsp;</td>
                 </tr>
 <?php
@@ -89,10 +86,8 @@ for ($i = 1; $i <= 12; $i++)
                     <th colspan="3">First &amp; Last Name</th>
                 </tr>
 <?php
-for ($i = 1; $i <= 3; $i++)
+foreach ($extraPlayers as $player)
 {
-    $player = getExtraPlayer($lineup, $i);
-
     if ($player)
     {
 ?>

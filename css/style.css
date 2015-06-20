@@ -318,6 +318,7 @@ body {
 .playerPos-GenderBadge {
     width: 5%;
     max-width: 15px;
+    border-left: 1px solid black;
 }
 
 .playerPos-left {

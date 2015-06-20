@@ -34,20 +34,23 @@ ob_start();
                 <th colspan="2">Extra Players</th>
             </tr>
 <?php
-if ($extraPlayers)
+if (hasExtraPlayers($lineup))
 {
 ?>
 <?php
     foreach ($extraPlayers as $player)
     {
-        $shirtNum = getShirtNum($lineup, $player);
+        if ($player)
+        {
+            $shirtNum = getShirtNum($lineup, $player);
 ?>
             <tr style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
-                <!-- center shirt num; put a badge (a thin color strip) for gender next to name -->
+                <!-- TODO center shirt num; put a badge (a thin color strip) for gender next to name -->
                 <td><?= $shirtNum ? "#$shirtNum" : '' ?></td>
                 <td><a style="color: #<?= $priColor ?>" href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
             </tr>
 <?php
+        }
     }
 }
 else
@@ -66,8 +69,11 @@ else
 <?php
 for ($i = 1; $i <= 10; $i++)
 {
-    $player = getPlayerAtFieldPos($lineup, $i);
-    $shirtNum = getShirtNum($lineup, $player);
+    $player = $positions[$i];
+
+    if ($player)
+    {
+        $shirtNum = getShirtNum($lineup, $player);
 ?>
         <div id="field-pos-<?= $i ?>" class="playerPos playerPos-left">
             <p class="playerPos-GenderBadge playerPos-right gender-<?= getGender($player, true) ?>">
@@ -79,6 +85,7 @@ for ($i = 1; $i <= 10; $i++)
             </p>
         </div>
 <?php
+    }
 }
 ?>
     </div>

@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/model.php';
 
 function getLeagueInfo($leagueID)
 {
-	return mysqli_fetch_array(runQuery("SELECT * FROM League AS L JOIN Class AS C ON L.ClassID = C.ID WHERE L.ID = $leagueID"));
+	return mysqli_fetch_array(runQuery("SELECT L.*, C.Name FROM League AS L JOIN Class AS C ON L.ClassID = C.ID WHERE L.ID = $leagueID"));
 }
 
 function getLeagueDescription($leagueInfo)
