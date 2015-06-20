@@ -28,14 +28,10 @@ function getRoster($teamID, $leagueID)
 {
     $roster_query_result = runQuery("SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = $teamID AND LeagueID = $leagueID ORDER BY LastName");
 
-    if ($roster_query_result)
-    {
+    if ($roster_query_result) {
         $result = array();
-        $i = 0;
-        while ($row = mysqli_fetch_array($roster_query_result))
-        {
-            $result[$i] = $row;
-            $i++;
+        while ($row = mysqli_fetch_array($roster_query_result)) {
+            $result[] = $row;
         }
 
         return $result;
@@ -53,3 +49,4 @@ function getRosterURI($teamID, $leagueID)
 {
     return "/roster?teamid=$teamID&leagueid=$leagueID";
 }
+

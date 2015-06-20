@@ -58,8 +58,7 @@ function isValidMySQLDateString($dateString)
 
 function getLeaguesThatPlayOnDayOfWeek($day)
 {
-    switch (strtolower(substr($day)))
-    {
+    switch (strtolower(substr($day))) {
         case 'sun':
         case 'mon':
         case 'tue':
@@ -75,11 +74,10 @@ function getLeaguesThatPlayOnDayOfWeek($day)
     }
 
 //TODO fix query!
-    $db_query_result = runQuery("SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
+    $qResult = runQuery("SELECT * FROM leagues JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE leagues.dayOfWeek = '$day' ORDER BY startDate DESC");
 
     $result = array();
-    while ($row = mysqli_fetch_array($db_query_result))
-    {
+    while ($row = mysqli_fetch_array($qResult)) {
         $result[] = $row;
     }
 
@@ -90,20 +88,18 @@ function getGamesByDate($dateStr)
 {
 //TODO make sure date argument is in proper format
 //TODO fix query
-    $db_game_info_query_result = runQuery("SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
+    $qResult = runQuery("SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
 
-    if ($db_game_info_query_result == null)
-    {
-        error_log('The game info query result was null');
+    if ($qResult) {
+        $result = array();
+        while ($row = mysqli_fetch_array($db_game_info_query_result)) {
+            $result[] = $row;
+        }
+
+        return $result;
     }
 
-    $result = array();
-    while ($row = mysqli_fetch_array($db_game_info_query_result))
-    {
-        $result[] = $row;
-    }
-
-    return $result;
+    return null;
 }
 
 function getCalendarArray($month, $year)
@@ -116,7 +112,7 @@ function getCalendarArray($month, $year)
 
 //TODO need to check that this is not null!
 //TODO this is grabbing all games for all teams...
-    $gameList = runQuery("SELECT DateTime FROM Game AS G NATURAL JOIN League AS L JOIN Season AS S ON S.Description = L.SeasonDescription WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime");
+    $qResult = runQuery("SELECT DateTime FROM Game AS G NATURAL JOIN League AS L JOIN Season AS S ON S.Description = L.SeasonDescription WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime");
 
     // get the time for the 1st of the month
     $timeOfFirstDay = mktime(0, 0, 0, $month, 1, $year);
@@ -128,8 +124,7 @@ function getCalendarArray($month, $year)
     $dayOfWeek = date('D', $timeOfFirstDay);
 
     // how many blank days to draw in calendar grid before the 1st
-    switch($dayOfWeek)
-    {
+    switch($dayOfWeek) {
         case 'Sun':
             $numBlankDays = 0;
             break;
@@ -160,23 +155,20 @@ function getCalendarArray($month, $year)
     // keep track of the day of the week
     $weeklyDayCount = 1;
     // print blank days
-    while ($numBlankDays > 0)
-    {
+    while ($numBlankDays > 0) {
         $numBlankDays--;
         $weeklyDayCount++;
     }
 
     // print the days of the month
     $monthlyDayCount = 1;
-    $gameRow = mysqli_fetch_array($gameList);
-    while ($monthlyDayCount <= $numDaysInMonth)
-    {
+    $gameRow = mysqli_fetch_array($qResult);
+    while ($monthlyDayCount <= $numDaysInMonth) {
         $gameDate = null;
         $elementClass = null;
 
         // if there is/was a game on this date, link to it and set the next game date to check for
-        if ($monthlyDayCount == getDayFromMySQLDate($gameRow['date']))
-        {
+        if ($monthlyDayCount == getDayFromMySQLDate($gameRow['date'])) {
             $elementClass = 'gameday';
             $gameDate = $gameRow['date'];
             $gameRow = mysqli_fetch_array($gameList);
@@ -187,17 +179,15 @@ function getCalendarArray($month, $year)
             $elementClass = 'calDatePassed';
         else if ($monthlyDayCount == date('d'))
             $elementClass = 'todays-date';
-        $monthlyDayCount++;
 
+        $monthlyDayCount++;
         $weeklyDayCount++;
+
         if ($weeklyDayCount > 7)
-        {
             $weeklyDayCount = 1;
-        }
     }
 
-    while ($weeklyDayCount <= 7)
-    {
+    while ($weeklyDayCount <= 7) {
         $weeklyDayCount++;
     }
 
@@ -212,15 +202,13 @@ function getNextGames($numGames, $MySQLDateString)
 {
     $toReturn = array();
 
-    if (isValidMySQLDateString($MySQLDateString))
-    {
+    if (isValidMySQLDateString($MySQLDateString)) {
         //TODO need to add league ID or something?
         //TODO use getGameInfo function for each row (either just return IDs here or use that function)
-        $queryResult = runQuery("SELECT ID FROM Game JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
+        $qResult = runQuery("SELECT ID FROM Game JOIN leagues ON games.associatedLeague = leagues.leagueID JOIN seasons ON leagues.associatedSeason = seasons.seasonID WHERE seasons.seasonID = " . getUserSeasonID() . " WHERE games.date >= $MySQLDateString ORDER BY games.date LIMIT $numGames");
 
         $i = 0;
-        while($row = mysqli_fetch_array($queryResult))
-        {
+        while($row = mysqli_fetch_array($qResult)) {
             $toReturn[i] = array();
             $i++;
         }

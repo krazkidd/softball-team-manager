@@ -28,8 +28,7 @@ require_once dirname(__FILE__) . '/model.php';
 
 function doRequireLogin()
 {
-    if ( !isLoggedIn())
-    {
+    if ( !isLoggedIn()) {
         //TODO add data so after login, user is redirected to requested dest.
         header('Location: /login');
         exit(0);
@@ -38,8 +37,7 @@ function doRequireLogin()
 
 function doRequireNoLogin()
 {
-    if (isLoggedIn())
-    {
+    if (isLoggedIn()) {
         header('Location: /');
         exit(0);
     }
@@ -69,14 +67,12 @@ function attemptLogin($username, $password)
 
 //TODO sanitize input
     if ($username && !empty($username) && $password && !empty($password))
+        $qResult = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
 
-    $qResult = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
-    if ($qResult)
-    {
+    if ($qResult) {
         $result = mysqli_fetch_array($qResult)['PasswordHash'];
 
-        if (password_verify($password, $result))
-        {
+        if (password_verify($password, $result)) {
             // save login name to session
             $_SESSION['loginname'] = $username;
 
@@ -91,21 +87,19 @@ function attemptRegistration($loginName, $password)
 {
 //TODO don't allow blank password. do some basic password enforcement
 //TODO sanitize input. also don't allow only differences in case or spacing for login names
-    if ($loginName && strlen($loginName) >= 3
-        && $password && strlen($password) >= 6)
-    {
-        $ret = runQuery('INSERT INTO `User` VALUES (null, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', null)');
+    if ($loginName && strlen($loginName) >= 3 && $password && strlen($password) >= 6) {
+        $qResult = runQuery('INSERT INTO `User` VALUES (null, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', null)');
 
-        if ($ret)
-        {
+        if ($qResult) {
             // save login name to session
             $_SESSION['loginname'] = $loginName;
 
             return TRUE;
-        }
-        else
+        } else {
             error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
+        }
     }
 
     return FALSE;
 }
+

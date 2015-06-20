@@ -53,11 +53,9 @@ function getLeaguesForTeam($teamID)
 {
     $qResult = runQuery("SELECT T.ID AS TID, T.TeamName, L.ID AS LID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = $teamID ORDER BY L.StartDate DESC");
 
-    if ($qResult)
-    {
+    if ($qResult) {
         $result = array();
-        while($row = mysqli_fetch_array($qResult))
-        {
+        while($row = mysqli_fetch_array($qResult)) {
             $result[] = $row;
         }
 
@@ -66,3 +64,4 @@ function getLeaguesForTeam($teamID)
 
     return null;
 }
+

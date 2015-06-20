@@ -37,3 +37,4 @@ function getGameDateTime($gameInfo)
 {
     return mktimeFromMySQLDateTime($gameInfo['DateTime']);
 }
+

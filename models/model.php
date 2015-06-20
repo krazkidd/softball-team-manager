@@ -32,25 +32,19 @@ function runQuery($queryStr)
 {
     global $db_con;
 
-    if ($db_con == null)
-    {
+    if (!$db_con) {
         $db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-//DEBUG
-        //echo 'Making new connection...';
-//END DEBUG
-    }
 
     $result = null;
 
-    if ($db_con)
-    {
-        //TODO can I/should I escape all query strings here and not worry about it elsewhere?
+    if ($db_con) {
+        //TODO can I/should I escape all query strings here and not worry about it elsewhere? (yes)
         $result = mysqli_query($db_con, $queryStr);
-    }
+    } else {
 //DEBUG
-    else
         error_log('Database connection error (' . mysqli_connect_errno() . '): ' . mysqli_connect_error());
 //END DEBUG
+    }
 
     return $result;
 }
@@ -59,7 +53,7 @@ function closeDB()
 {
     global $db_con;
 
-    if ($db_con == null)
+    if (!$db_con)
         return false;
 
     return mysqli_close($db_con);
@@ -70,5 +64,3 @@ function isID($id)
     return is_numeric($id) && is_int($id + 0) && $id > 0;
 }
 
-//TODO add a parser for url arg lists that ignores case and
-//     maybe checks types

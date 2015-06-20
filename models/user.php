@@ -32,8 +32,7 @@ function getUserPlayerID()
     //TODO we should set a session var
     $qResult = runQuery('SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
 
-    if ($qResult)
-    {
+    if ($qResult) {
         $row = mysqli_fetch_array($qResult);
 
         return $row['PlayerID'];
@@ -41,3 +40,4 @@ function getUserPlayerID()
 
     return -1;
 }
+

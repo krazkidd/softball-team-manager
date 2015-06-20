@@ -33,8 +33,7 @@ function doBuildPosArray()
 
     $query_result = runQuery("SELECT * FROM FieldPosition");
 
-    while($row = mysqli_fetch_array($query_result))
-    {
+    while($row = mysqli_fetch_array($query_result)) {
         $posArray[$row['PosNum']] = array($row['PosName'], $row['ShortPosName']);
     }
 }
@@ -46,8 +45,7 @@ function getShortPosName($pos)
     if ( !$posArray)
         doBuildPosArray();
 
-    if ($posArray && $pos >= 1 && $pos <= 10)
-    {
+    if ($posArray && $pos >= 1 && $pos <= 10) {
         $name = $posArray[$pos][1];
         if ($name)
             return $name;
@@ -63,8 +61,7 @@ function getPosName($pos)
     if ( !$posArray)
         doBuildPosArray();
 
-    if ($posArray && $pos >= 1 && $pos <= 10)
-    {
+    if ($posArray && $pos >= 1 && $pos <= 10) {
         $name = $posArray[$pos][0];
         if ($name)
             return $name;
@@ -88,8 +85,7 @@ function getLineup($gameID, $teamID, $leagueID)
 
 function getPlayerIDAtFieldPos($lineup, $pos)
 {
-    if ($pos >= 1 && $pos <= 10)
-    {
+    if ($pos >= 1 && $pos <= 10) {
         return $lineup["FieldPos{$pos}PID"];
     }
 
@@ -110,8 +106,7 @@ function getFieldPosForPlayer($lineup, $playerInfo)
     $pid = getPlayerID($playerInfo);
 
     // loop through field pos #'s
-    for ($i = 1; $i <= 10; $i++)
-    {
+    for ($i = 1; $i <= 10; $i++) {
         // get the player ID at that field pos
         $pidAtPos = getPlayerIDAtFieldPos($lineup, $i);
 
@@ -126,11 +121,9 @@ function getPositions($lineup)
 {
     $toReturn = array();
 
-    for ($i = 1; $i <= 10; $i++)
-    {
+    for ($i = 1; $i <= 10; $i++) {
         $pid = getPlayerIDAtFieldPos($lineup, $i);
-        if ($pid >= 0) //TODO >= 0?
-        {
+        if ($pid >= 0) { //TODO >= 0?
             $player = getPlayerInfo($pid);
             if ($player)
                 $toReturn[$i] = $player;
@@ -146,11 +139,9 @@ function getBattingOrder($lineup)
 {
     $toReturn = array();
 
-    for ($i = 1; $i <= 12; $i++)
-    {
+    for ($i = 1; $i <= 12; $i++) {
         $pid = getPlayerIDAtBatPos($lineup, $i);
-        if ($pid >= 0) //TODO >= 0?
-        {
+        if ($pid >= 0) { //TODO >= 0?
             $player = getPlayerInfo($pid);
             if ($player)
                 $toReturn[$i] = $player;
@@ -166,16 +157,14 @@ function getExtraPlayers($lineup)
 {
     $toReturn = array();
 
-    for ($i = 1; $i <= 3; $i++)
-    {
+    for ($i = 1; $i <= 3; $i++) {
         $pid = getExtraPlayerID($lineup, $i);
-        if ($pid >= 0)
-        {
+        if ($pid >= 0) {
             $player = getPlayerInfo($pid);
             $toReturn[$i] = $player;
-        }
-        else
+        } else {
             $toReturn[$i] = null;
+        }
     }
 
     return $toReturn;
@@ -212,3 +201,4 @@ function getShirtNum($lineup, $player)
 
     return '';
 }
+

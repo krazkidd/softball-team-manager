@@ -26,8 +26,7 @@ require_once dirname(__FILE__) . '/player.php';
 
 function getTeamInfo($teamID)
 {
-    if (is_int($teamID + 0))
-    {
+    if (is_int($teamID + 0)) {
         $qResult = runQuery("SELECT * FROM Team WHERE ID = $teamID");
 
         if ($qResult)
@@ -116,3 +115,4 @@ function getTeamImageURI($teamInfo)
 
     return '/img/team-no-image.png';
 }
+

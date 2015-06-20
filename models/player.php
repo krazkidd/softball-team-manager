@@ -26,8 +26,7 @@ require_once dirname(__FILE__) . '/model.php';
 function getPlayerInfo($playerID)
 {
     //TODO sanitize param (and all params in every db call)
-    if ($playerID)
-    {
+    if ($playerID) {
         $qResult = runQuery("SELECT * FROM Player WHERE Player.ID = $playerID");
 
         if ($qResult)
@@ -39,12 +38,10 @@ function getPlayerInfo($playerID)
 
 function getFormattedPhoneNumber($player)
 {
-    if ($player)
-    {
+    if ($player) {
         $phoneStr = $player['PhoneNumber'];
 
-        if ( !empty($phoneStr))
-        {
+        if (!empty($phoneStr)) {
             if (strlen($phoneStr) == 10)
                 return '(' . substr($phoneStr, 0, 3) . ') ' . substr($phoneStr, 3, 3) . '-' . substr($phoneStr, 6, 4);
             else if (strlen($phoneStr) == 7)
@@ -65,15 +62,12 @@ function getEmail($player)
 
 function getRosteredTeamsForPlayer($pid)
 {
-    if (isID($pid))
-    {
+    if (isID($pid)) {
         $qResult = runQuery("SELECT T.ID, T.TeamName, L.Description, C.Name FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID JOIN ParticipatesIn AS P ON P.TeamID = T.ID JOIN League AS L ON P.LeagueID = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE R.PlayerID = $pid ORDER BY L.StartDate DESC");
 
-        if ($qResult)
-        {
+        if ($qResult) {
             $result = array();
-            while($row = mysqli_fetch_array($qResult))
-            {
+            while($row = mysqli_fetch_array($qResult)) {
                 $result[] = $row;
             }
 
@@ -142,15 +136,12 @@ function getPlayerID($playerInfo)
 
 function getManagedTeamsForPlayer($pid)
 {
-    if (isID($pid + 0))
-    {
+    if (isID($pid + 0)) {
         $qResult = runQuery("SELECT T.ID, T.TeamName FROM Team AS T WHERE T.ManagerID = $pid");
 
-        if ($qResult)
-        {
+        if ($qResult) {
             $result = array();
-            while($row = mysqli_fetch_array($qResult))
-            {
+            while($row = mysqli_fetch_array($qResult)) {
                 $result[] = $row;
             }
 
@@ -160,3 +151,4 @@ function getManagedTeamsForPlayer($pid)
 
     return null;
 }
+
