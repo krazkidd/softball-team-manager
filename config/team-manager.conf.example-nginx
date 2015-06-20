@@ -18,6 +18,7 @@ server {
 		# as directory, then fall back to displaying a 404.
 		#try_files $uri $uri/ =404;
 
+        # rename requests to look in controllers/ directory
 		rewrite ^/([a-zA-Z0-9_\-]+)$ /controllers/$1.php;
 		rewrite ^/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]*)$ /controllers/$1.php?id=$2;
 	}
@@ -34,3 +35,4 @@ server {
 		include fastcgi_params;
 	}
 }
+

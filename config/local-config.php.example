@@ -1,13 +1,12 @@
 <?php
 
-//TODO read https://php.net/manual/en/userlandnaming.tips.php about global names and namespaces
+define('PROJECT_NAME', 'Team Manager');
 
 /* database access vars */
 define('DB_HOST', 'localhost');
 define('DB_USER', 'user');
 define('DB_PASS', 'pass');
-define('DB_PREFIX', 'prefix');
+//NOTE: DB_NAME is defined by combining PREFIX and SHORTNAME
+define('DB_PREFIX', '');
 define('DB_SHORTNAME', 'team_mgr');
 
-/************ DON'T EDIT BELOW THIS LINE ************/
-define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME); 

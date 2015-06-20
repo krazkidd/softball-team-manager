@@ -22,15 +22,12 @@
   **************************************************************************/
 
 //NOTE: PHP_VERSION_ID and the *_VERSION constants were introduced in 5.2.7
-if ( !defined('PHP_VERSION_ID') || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
-{
+if ( !defined('PHP_VERSION_ID') || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
     exit("PHP version 5.3.7 or greater is required for this site to run.");
-}
-else if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)
-{
+} else if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5) {
     //TODO this block needs to be tested
-    if ( !file_exists('../lib/password.php'))
-        exit("The password_compat library is required for this version of PHP but it cannot be found in the models/ directory.");
+    if ( !file_exists(dirname(__FILE__) . '/../lib/password.php'))
+        exit("The password_compat library is required for this version of PHP but it cannot be found in the lib/ directory.");
 
     require_once '../lib/password.php';
 }
@@ -38,3 +35,4 @@ else if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)
 require_once 'local-config.php';
 
 define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME);
+
