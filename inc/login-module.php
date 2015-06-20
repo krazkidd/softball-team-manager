@@ -25,13 +25,14 @@ require_once '../models/model.php';
 
 $name = getLoginName();
 
-?><div id="login-module">
-    <p>Hello, <?= empty($name) ? 'Guest' : $name ?>!
-    <br />
-        <?php if ( empty($name)) { ?>
+?>
+    <div id="login-module">
+        <p>Hello, <?= empty($name) ? 'Guest' : $name ?>!<br />
+        <?php if (empty($name)) { ?>
             <a href="/login">Login</a>
         <?php } else { ?>
             <a href="/logout">Logout</a>
         <?php } ?>
-    </p>
-</div>
+        </p>
+    </div>
+

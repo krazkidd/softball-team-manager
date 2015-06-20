@@ -25,17 +25,19 @@
 //     can i make a standard include with basic stuff in it like this?
 $isLoggedIn = isLoggedIn()
 
-?><div id="navbar">
-    <ul>
-        <li><a href="/" title="Home">Home</a></li>
-        <!-- <li<?= !$isLoggedIn ? ' class="navNotLoggedIn"' : "" ?>><a href="/roster">Roster</a></li> -->
-        <?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/about" title="About this site">About</a></li>
-        <li><a href="/help" title="How to use this site">Help</a></li>
-    </ul>
+?>
+    <div id="navbar">
+        <ul>
+            <li><a href="/" title="Home">Home</a></li>
+            <!-- <li<?= !$isLoggedIn ? ' class="navNotLoggedIn"' : "" ?>><a href="/roster">Roster</a></li> -->
+            <?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/about" title="About this site">About</a></li>
+            <li><a href="/help" title="How to use this site">Help</a></li>
+        </ul>
 
-    <p id="navLoginName"><?= $isLoggedIn ? "You are logged in as " . getLoginName() . ". <a href=\"/logout\" title=\"Log out\">Log out</a>"
-                                         : "You are not logged in. <a href=\"/login\" title=\"Log in or Register\">Log in or Register</a>" ?>
-    </p>
-</div>
+        <p id="navLoginName"><?= $isLoggedIn ? "You are logged in as " . getLoginName() . ". <a href=\"/logout\" title=\"Log out\">Log out</a>"
+                                             : "You are not logged in. <a href=\"/login\" title=\"Log in or Register\">Log in or Register</a>" ?>
+        </p>
+    </div>
+
