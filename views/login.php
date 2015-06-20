@@ -28,25 +28,25 @@ ob_start();
 ?>
     <p>This website uses cookies to track your session.</p>
 
-	<form action="/login" method="post">
-		<div id="frmLogin">
-			<label for="loginName">Login name:</label>
-			<input type="text" name="loginName" id="loginName" value="<?= isset($failedLoginName) ? $failedLoginName : '' ?>"/><br />
+    <form action="/login" method="post">
+        <div id="frmLogin">
+            <label for="loginName">Login name:</label>
+            <input type="text" name="loginName" id="loginName" value="<?= isset($failedLoginName) ? $failedLoginName : '' ?>"/><br />
 
-			<label for="password">Password:</label>
-			<input type="password" name="password" id="password" /><br />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" /><br />
 
             <!-- TODO <input type="checkbox" name="rememberme" value="rememberme" /><label for="rememberme">Remember me on this computer</label><br /> -->
 
-			<input type="submit" value="Log In" name="btnLogIn" />
-		</div>
-	</form>
+            <input type="submit" value="Log In" name="btnLogIn" />
+        </div>
+    </form>
 
 <?php if (isset($failedLoginName)) { ?>
     <p class='msg-failure'>Login failed!</p>
 <?php } ?>
 
-	<p>or <a href="/register" title="Register">Register</a></p>
+    <p>or <a href="/register" title="Register">Register</a></p>
 <?php
 
 $content = ob_get_clean();

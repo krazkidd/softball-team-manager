@@ -47,20 +47,20 @@ function doRequireNoLogin()
 
 function isLoggedIn()
 {
-	return isset($_SESSION['loginname']);
+    return isset($_SESSION['loginname']);
 }
 
 function getLoginName()
 {
-	if (isLoggedIn())
-		return $_SESSION['loginname'];
-	else
-		return '';
+    if (isLoggedIn())
+        return $_SESSION['loginname'];
+    else
+        return '';
 }
 
 function getUserName()
 {
-	return getLoginName();
+    return getLoginName();
 }
 
 function attemptLogin($username, $password)
@@ -68,44 +68,44 @@ function attemptLogin($username, $password)
     //TODO clear previous session here or somewhere?
 
 //TODO sanitize input
-	if ($username && !empty($username) && $password && !empty($password))
+    if ($username && !empty($username) && $password && !empty($password))
 
-	$qResult = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
-	if ($qResult)
-	{
+    $qResult = runQuery('SELECT PasswordHash FROM `User` WHERE Login = \'' . $username . '\'');
+    if ($qResult)
+    {
         $result = mysqli_fetch_array($qResult)['PasswordHash'];
 
-		if (password_verify($password, $result))
-		{
-			// save login name to session
-			$_SESSION['loginname'] = $username;
+        if (password_verify($password, $result))
+        {
+            // save login name to session
+            $_SESSION['loginname'] = $username;
 
-			return True;
-		}
-	}
+            return True;
+        }
+    }
 
-	return False;
+    return False;
 }
 
 function attemptRegistration($loginName, $password)
 {
 //TODO don't allow blank password. do some basic password enforcement
 //TODO sanitize input. also don't allow only differences in case or spacing for login names
-	if ($loginName && strlen($loginName) >= 3
-	    && $password && strlen($password) >= 6)
-	{
-		$ret = runQuery('INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
+    if ($loginName && strlen($loginName) >= 3
+        && $password && strlen($password) >= 6)
+    {
+        $ret = runQuery('INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
 
-		if ($ret)
-		{
-			// save login name to session
-			$_SESSION['loginname'] = $loginName;
+        if ($ret)
+        {
+            // save login name to session
+            $_SESSION['loginname'] = $loginName;
 
-			return TRUE;
-		}
-		else
-			error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
-	}
+            return TRUE;
+        }
+        else
+            error_log('Could not register user \'' . $loginName . '\'. (Could not INSERT into User table.)');
+    }
 
-	return FALSE;
+    return FALSE;
 }

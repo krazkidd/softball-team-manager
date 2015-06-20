@@ -31,10 +31,10 @@ ob_start();
 ?>
     <img id="player-img" title="<?= $name ?>" src="/img/player-no-image.gif" />
 
-	<h1><?= $name ?></h1>
-	<?= !empty($nickName) ? '<h2>"' . $nickName . '"</h2>' : '' ?>
+    <h1><?= $name ?></h1>
+    <?= !empty($nickName) ? '<h2>"' . $nickName . '"</h2>' : '' ?>
 
-	<p><span class="bold">Phone:</span> <?= $phone ?><br />
+    <p><span class="bold">Phone:</span> <?= $phone ?><br />
     <span class="bold">Email:</span> <?= $email ?><br />
     <span class="bold">Gender:</span> <?= $gender ?></p>
 
@@ -44,7 +44,7 @@ if ($teams)
 ?>
     <hr />
 
-	<p><?= !empty($nickName) ? $nickName : $firstName ?>'s current and past teams:</p>
+    <p><?= !empty($nickName) ? $nickName : $firstName ?>'s current and past teams:</p>
     <ul>
 <?php
     foreach ($teams as $teamLeague)

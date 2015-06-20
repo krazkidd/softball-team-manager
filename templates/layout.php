@@ -25,44 +25,44 @@
 <?php require '../views/begin-view.php'; ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title><?= $title . ' - ' . PROJECT_NAME ?></title>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="/css/style.css" />
-	</head>
+    <head>
+        <title><?= $title . ' - ' . PROJECT_NAME ?></title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
 
-	<body>
-		<div id="container">
-			<div id="header-<?= $titleCSS ?>" class="header">
-				<h1><?= $title ?></h1>
-			</div>
+    <body>
+        <div id="container">
+            <div id="header-<?= $titleCSS ?>" class="header">
+                <h1><?= $title ?></h1>
+            </div>
 
-			<div id="navbar">
-				<ul>
-					<li><a href="/" title="Home">Home</a></li>
-					<?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : '' ?>
-					<!-- <li><a href="/calendar">Calendar</a></li> -->
-					<li><a href="/about" title="About this site">About</a></li>
-					<li><a href="/help" title="How to use this site">Help</a></li>
-				</ul>
+            <div id="navbar">
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                    <?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : '' ?>
+                    <!-- <li><a href="/calendar">Calendar</a></li> -->
+                    <li><a href="/about" title="About this site">About</a></li>
+                    <li><a href="/help" title="How to use this site">Help</a></li>
+                </ul>
 
-				<p id="navLoginName">
+                <p id="navLoginName">
 <?php if ($isLoggedIn) { ?>
                         You are logged in as <a href="<?= "/player/$userPID" ?>"><?= $userName ?></a> | <a href="/logout" title="Log out">Log out</a>
 <?php } else { ?>
-						You are not logged in | <a href="/login" title="Log in or Register">Log in or Register</a>
+                        You are not logged in | <a href="/login" title="Log in or Register">Log in or Register</a>
 <?php } ?>
-				</p>
-			</div>
+                </p>
+            </div>
 
             <div id="content-<?= $titleCSS ?>" class="content">
-				<?= $content ?>
-			</div>
+                <?= $content ?>
+            </div>
 
-			<div id="footer-<?= $titleCSS ?>" class="footer">
-				<p><a href="/">Home</a></p>
-				<p>Copyright &copy; 2013. Website design by Mark Ross.</p>
-			</div>
-		</div>
-	</body>
+            <div id="footer-<?= $titleCSS ?>" class="footer">
+                <p><a href="/">Home</a></p>
+                <p>Copyright &copy; 2013. Website design by Mark Ross.</p>
+            </div>
+        </div>
+    </body>
 </html>

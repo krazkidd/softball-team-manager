@@ -26,15 +26,15 @@ require_once dirname(__FILE__) . '/player.php';
 
 function getTeamInfo($teamID)
 {
-	if (is_int($teamID + 0))
-	{
-		$qResult = runQuery("SELECT * FROM Team WHERE ID = $teamID");
+    if (is_int($teamID + 0))
+    {
+        $qResult = runQuery("SELECT * FROM Team WHERE ID = $teamID");
 
         if ($qResult)
             return mysqli_fetch_array($qResult);
     }
 
-	return NULL;
+    return NULL;
 }
 
 function getTeamManagerInfo($teamInfo)

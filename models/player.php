@@ -81,7 +81,7 @@ function getRosteredTeamsForPlayer($pid)
         }
     }
 
-	return NULL;
+    return NULL;
 }
 
 function getPlayerURI($player)
@@ -158,5 +158,5 @@ function getManagedTeamsForPlayer($pid)
         }
     }
 
-	return NULL;
+    return NULL;
 }

@@ -24,13 +24,13 @@
 require_once dirname(__FILE__) . '/calendar.php';
 
 /*
- *	getGameInfo --
+ *    getGameInfo --
  */
 function getGameInfo($gameID)
 {
 //TODO sanity checks?
     //TODO add a function for when we expect single results (makes better self-documentation)
-	return mysqli_fetch_array(runQuery("SELECT * FROM Game WHERE ID = $gameID"));
+    return mysqli_fetch_array(runQuery("SELECT * FROM Game WHERE ID = $gameID"));
 }
 
 function getGameDateTime($gameInfo)

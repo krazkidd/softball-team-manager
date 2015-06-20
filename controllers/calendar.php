@@ -31,50 +31,50 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 // show all leagues that play on a certain day of the week when the user clicks on the day header
 /*if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
 {
-	// show leagues that play on selected day
-	$action = 'list-leagues-day-of-week';
-	$day = ucwords(strtolower($_GET['day']));
-	$leaguesList = getLeaguesThatPlayOnDayOfWeek($_GET['day']);
+    // show leagues that play on selected day
+    $action = 'list-leagues-day-of-week';
+    $day = ucwords(strtolower($_GET['day']));
+    $leaguesList = getLeaguesThatPlayOnDayOfWeek($_GET['day']);
 }
 else if (isset($_GET['date']))
 {
-	$action = 'list-games-on-date';
-	$date = NULL;
+    $action = 'list-games-on-date';
+    $date = NULL;
 //TODO make sure to grab game scores when getting games list
 //TODO check to see if the scores are NULL and output something appropriate (because I show the score columns before all games have finished)
-	$gamesList = NULL;
+    $gamesList = NULL;
 //TODO when to show results columns? (game time + 1 hr.?) -->
 //TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page -->
-	if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
-		$showResults = false;
-	else
-		$showResults = true;
+    if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
+        $showResults = false;
+    else
+        $showResults = true;
 
-	// get team info
+    // get team info
     //TODO where does $row come from?
-	//$homeTeamInfo = getTeamInfo($row['HomeID']);
-	//$awayTeamInfo = getTeamInfo($row['AwayID']);
+    //$homeTeamInfo = getTeamInfo($row['HomeID']);
+    //$awayTeamInfo = getTeamInfo($row['AwayID']);
 }
 else
 //TODO fix this block!
 {
 //TODO make a 2-d array for the month with date and game info
-	if (isset($_GET['mo']))
-	{
-		$month = $_GET['mo'];
-		if (isset($_GET['yr']))
-			$year = $_GET['yr'];
-		else
-			$year = date('Y');
-	}
-	else
-	{
-		$month = date('m');
-		$year = date('Y');
-	}
+    if (isset($_GET['mo']))
+    {
+        $month = $_GET['mo'];
+        if (isset($_GET['yr']))
+            $year = $_GET['yr'];
+        else
+            $year = date('Y');
+    }
+    else
+    {
+        $month = date('m');
+        $year = date('Y');
+    }
 
-	$calendarArray = getCalendarArray($month, $year);
-	$action = 'show-month';
+    $calendarArray = getCalendarArray($month, $year);
+    $action = 'show-month';
 }
 
 require dirname(__FILE__) . '/../views/calendar.php';*/

@@ -30,14 +30,14 @@ require_once dirname(__FILE__) . '/auth.php';
 function getUserPlayerID()
 {
     //TODO we should set a session var
-	$qResult = runQuery('SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
+    $qResult = runQuery('SELECT PlayerID FROM User WHERE Login = \'' . getLoginName() . '\'');
 
-	if ($qResult)
-	{
-		$row = mysqli_fetch_array($qResult);
+    if ($qResult)
+    {
+        $row = mysqli_fetch_array($qResult);
 
-		return $row['PlayerID'];
-	}
+        return $row['PlayerID'];
+    }
 
-	return -1;
+    return -1;
 }

@@ -26,9 +26,9 @@ require_once dirname(__FILE__) . '/team.php';
 
 function getRoster($teamID, $leagueID)
 {
-	$roster_query_result = runQuery("SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = $teamID AND LeagueID = $leagueID ORDER BY LastName");
+    $roster_query_result = runQuery("SELECT P.ID, ShirtNum, Disabled, FirstName, LastName, Gender FROM Roster AS R JOIN Player AS P ON R.PlayerID = P.ID WHERE TeamID = $teamID AND LeagueID = $leagueID ORDER BY LastName");
 
-	if ($roster_query_result)
+    if ($roster_query_result)
     {
         $result = array();
         $i = 0;

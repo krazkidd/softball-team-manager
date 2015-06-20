@@ -57,7 +57,7 @@ if (isset($id) && isID($id))
 }
 else
 {
-	$managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
+    $managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
 
     if ($managedTeamsList)
     {

@@ -45,7 +45,7 @@ function runQuery($queryStr)
     if ($db_con)
     {
         //TODO can I/should I escape all query strings here and not worry about it elsewhere?
-	    $result = mysqli_query($db_con, $queryStr);
+        $result = mysqli_query($db_con, $queryStr);
     }
 //DEBUG
     else
@@ -62,7 +62,7 @@ function closeDB()
     if ($db_con == NULL)
         return false;
 
-	return mysqli_close($db_con);
+    return mysqli_close($db_con);
 }
 
 function isID($id)

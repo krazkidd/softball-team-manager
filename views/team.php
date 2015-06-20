@@ -48,11 +48,11 @@ if ($isLoggedIn)
     }
 }
 ?>
-	<h4>Motto</h4>
-	<p><?= $motto ?></p>
+    <h4>Motto</h4>
+    <p><?= $motto ?></p>
 
-	<h4>Mission Statement</h4>
-	<p><?= $missionStatement ?></p>
+    <h4>Mission Statement</h4>
+    <p><?= $missionStatement ?></p>
 
     <hr />
 

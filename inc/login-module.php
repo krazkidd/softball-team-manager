@@ -29,9 +29,9 @@ $name = getLoginName();
     <p>Hello, <?= empty($name) ? 'Guest' : $name ?>!
     <br />
         <?php if ( empty($name)) { ?>
-		    <a href="/login">Login</a>
+            <a href="/login">Login</a>
         <?php } else { ?>
-		    <a href="/logout">Logout</a>
+            <a href="/logout">Logout</a>
         <?php } ?>
     </p>
 </div>
