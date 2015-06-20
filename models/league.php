@@ -30,7 +30,7 @@ function getLeagueInfo($leagueID)
     if ($qResult)
         return mysqli_fetch_array($qResult);
 
-    return NULL;
+    return null;
 }
 
 function getLeagueDescription($leagueInfo)
@@ -64,5 +64,5 @@ function getLeaguesForTeam($teamID)
         return $result;
     }
 
-    return NULL;
+    return null;
 }

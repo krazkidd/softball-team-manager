@@ -39,10 +39,10 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 else if (isset($_GET['date']))
 {
     $action = 'list-games-on-date';
-    $date = NULL;
+    $date = null;
 //TODO make sure to grab game scores when getting games list
-//TODO check to see if the scores are NULL and output something appropriate (because I show the score columns before all games have finished)
-    $gamesList = NULL;
+//TODO check to see if the scores are null and output something appropriate (because I show the score columns before all games have finished)
+    $gamesList = null;
 //TODO when to show results columns? (game time + 1 hr.?) -->
 //TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page -->
     if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))

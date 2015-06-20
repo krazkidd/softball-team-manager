@@ -34,7 +34,7 @@ function getPlayerInfo($playerID)
             return mysqli_fetch_array($qResult);
     }
 
-    return NULL;
+    return null;
 }
 
 function getFormattedPhoneNumber($player)
@@ -81,7 +81,7 @@ function getRosteredTeamsForPlayer($pid)
         }
     }
 
-    return NULL;
+    return null;
 }
 
 function getPlayerURI($player)
@@ -158,5 +158,5 @@ function getManagedTeamsForPlayer($pid)
         }
     }
 
-    return NULL;
+    return null;
 }

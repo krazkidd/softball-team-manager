@@ -101,7 +101,7 @@ WHILE LOOP HERE
 ERROR print calendar from array
                 <td>$calendarArray[FIX][FIX]</td>
 //TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
-                <td<?= $elementClass != NULL ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != NULL ? "<a href=\"/calendar/date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
+                <td<?= $elementClass != null ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != null ? "<a href=\"/calendar/date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
         </tr>
     </table>
 <?php

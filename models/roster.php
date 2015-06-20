@@ -41,7 +41,7 @@ function getRoster($teamID, $leagueID)
         return $result;
     }
 
-    return NULL;
+    return null;
 }
 
 function getShirtNum($playerInfo)

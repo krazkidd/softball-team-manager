@@ -26,13 +26,13 @@
 
 require_once dirname(__FILE__) . '/../config/config.php';
 
-$db_con = NULL;
+$db_con = null;
 
 function runQuery($queryStr)
 {
     global $db_con;
 
-    if ($db_con == NULL)
+    if ($db_con == null)
     {
         $db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 //DEBUG
@@ -40,7 +40,7 @@ function runQuery($queryStr)
 //END DEBUG
     }
 
-    $result = NULL;
+    $result = null;
 
     if ($db_con)
     {
@@ -59,7 +59,7 @@ function closeDB()
 {
     global $db_con;
 
-    if ($db_con == NULL)
+    if ($db_con == null)
         return false;
 
     return mysqli_close($db_con);

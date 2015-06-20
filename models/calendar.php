@@ -41,7 +41,7 @@ function getMonthFromMySQLDate($dateString)
 }
 function getDayFromMySQLDate($dateString)
 {
-//TODO check for NULL argument?
+//TODO check for null argument?
     return substr($dateString, 8, 2);
 }
 
@@ -71,7 +71,7 @@ function getLeaguesThatPlayOnDayOfWeek($day)
             break;
         default:
             error_log('Bad value for day of week was provided: \'' . $day . '\'');
-            return NULL;
+            return null;
     }
 
 //TODO fix query!
@@ -92,9 +92,9 @@ function getGamesByDate($dateStr)
 //TODO fix query
     $db_game_info_query_result = runQuery("SELECT * FROM games JOIN teams AS t1 ON games.homeTeam = t1.teamID JOIN teams as t2 ON games.visitingTeam = t2.teamID WHERE date = '{$_GET['date']}' ORDER BY time");
 
-    if ($db_game_info_query_result == NULL)
+    if ($db_game_info_query_result == null)
     {
-        error_log('The game info query result was NULL');
+        error_log('The game info query result was null');
     }
 
     $result = array();
@@ -110,7 +110,7 @@ function getCalendarArray($month, $year)
 {
     // make sure month and year are valid
     if ( !is_int($month) || !is_int($year) || !checkdate($month, 1, $year))
-        return NULL;
+        return null;
 
     $month = sprintf('%02d', $month);
 
@@ -171,8 +171,8 @@ function getCalendarArray($month, $year)
     $gameRow = mysqli_fetch_array($gameList);
     while ($monthlyDayCount <= $numDaysInMonth)
     {
-        $gameDate = NULL;
-        $elementClass = NULL;
+        $gameDate = null;
+        $elementClass = null;
 
         // if there is/was a game on this date, link to it and set the next game date to check for
         if ($monthlyDayCount == getDayFromMySQLDate($gameRow['date']))
@@ -202,7 +202,7 @@ function getCalendarArray($month, $year)
     }
 
 //FIX
-    return NULL;
+    return null;
 }
 
 /*

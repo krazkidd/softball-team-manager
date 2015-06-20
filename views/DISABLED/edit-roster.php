@@ -32,11 +32,11 @@ else if (!empty($_POST['addplayer']))
 {
 //TODO sanitize user input!!!
     // add the new player
-    $db_query_result = runQuery("INSERT INTO team (name, number, gender) VALUES (\"" . $_POST['playerName'] . "\", NULL, NULL)");
+    $db_query_result = runQuery("INSERT INTO team (name, number, gender) VALUES (\"" . $_POST['playerName'] . "\", null, null)");
 //DEBUG
-/*if ($db_query_result == NULL)
+/*if ($db_query_result == null)
 {
-echo "<p class=\"db-error\">The result was NULL :(</p>";
+echo "<p class=\"db-error\">The result was null :(</p>";
 }
 else
 {

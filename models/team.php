@@ -34,7 +34,7 @@ function getTeamInfo($teamID)
             return mysqli_fetch_array($qResult);
     }
 
-    return NULL;
+    return null;
 }
 
 function getTeamManagerInfo($teamInfo)
@@ -42,7 +42,7 @@ function getTeamManagerInfo($teamInfo)
     if ($teamInfo)
         return getPlayerInfo($teamInfo['ManagerID']);
 
-    return NULL;
+    return null;
 }
 
 function getPrimaryColor($teamInfo)

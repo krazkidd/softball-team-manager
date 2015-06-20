@@ -30,7 +30,7 @@ doRequireNoLogin();
 if (isset($_POST['btnRegister']))
 {
 //TODO warn user if a field was missing or passwords don't match.
-//TODO is an empty field ever NULL, or just an empty string?
+//TODO is an empty field ever null, or just an empty string?
     if ($_POST['password1'] == $_POST['password2'] && attemptRegistration($_POST['loginName'], $_POST['password1']))
     {
         $action = 'reg-success';

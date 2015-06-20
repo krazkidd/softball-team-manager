@@ -28,9 +28,9 @@
 //TODO lol what did i delete from this query? $db_query_result = runQuery($db_con, "INSERT ");
 echo "<table><tr><th>Player Name</th><th>Number</th><th>Gender</th></tr>";
 //DEBUG
-if ($db_query_result == NULL)
+if ($db_query_result == null)
 {
-echo "<p class=\"db-error\">The result was NULL :(</p>";
+echo "<p class=\"db-error\">The result was null :(</p>";
 }
 //END DEBUG
 while ($row = mysqli_fetch_array($db_query_result))

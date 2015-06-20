@@ -24,12 +24,12 @@
 require_once dirname(__FILE__) . '/model.php';
 require_once dirname(__FILE__) . '/player.php';
 
-$posArray = NULL;
+$posArray = null;
 
 function doBuildPosArray()
 {
     global $posArray;
-    $posArray = NULL;
+    $posArray = null;
 
     $query_result = runQuery("SELECT * FROM FieldPosition");
 
@@ -83,7 +83,7 @@ function getLineup($gameID, $teamID, $leagueID)
     if ($qResult)
         return mysqli_fetch_array($qResult);
 
-    return NULL;
+    return null;
 }
 
 function getPlayerIDAtFieldPos($lineup, $pos)
@@ -135,7 +135,7 @@ function getPositions($lineup)
             if ($player)
                 $toReturn[$i] = $player;
             else
-                $toReturn[$i] = NULL;
+                $toReturn[$i] = null;
         }
     }
 
@@ -155,7 +155,7 @@ function getBattingOrder($lineup)
             if ($player)
                 $toReturn[$i] = $player;
             else
-                $toReturn[$i] = NULL;
+                $toReturn[$i] = null;
         }
     }
 
@@ -175,7 +175,7 @@ function getExtraPlayers($lineup)
             $toReturn[$i] = $player;
         }
         else
-            $toReturn[$i] = NULL;
+            $toReturn[$i] = null;
     }
 
     return $toReturn;

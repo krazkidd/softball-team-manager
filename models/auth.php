@@ -94,7 +94,7 @@ function attemptRegistration($loginName, $password)
     if ($loginName && strlen($loginName) >= 3
         && $password && strlen($password) >= 6)
     {
-        $ret = runQuery('INSERT INTO `User` VALUES (NULL, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', NULL)');
+        $ret = runQuery('INSERT INTO `User` VALUES (null, \'' . $loginName . '\', \'' . password_hash($password, PASSWORD_DEFAULT) . '\', null)');
 
         if ($ret)
         {
