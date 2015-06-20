@@ -13,12 +13,22 @@ INSERT INTO Player VALUES
     (NULL, NULL, 'Chet', 'Debon', 'Cherry Chet', 'cd@email', '5558181', 'M'),
     (NULL, NULL, 'Harry', 'Topper', 'Hip Harry', 'ht@email', '5553333', 'M'),
     (NULL, NULL, 'Gretta', 'Niehls', NULL, 'gn@email', '5553933', 'F'),
-    (NULL, NULL, 'Maybe', 'Bluth', NULL, NULL, NULL, 'F')
+    (NULL, NULL, 'Maybe', 'Bluth', NULL, NULL, NULL, 'F'),
+    (NULL, NULL, 'Blaze', 'Tender', NULL, NULL, NULL, 'M'),
+    (NULL, NULL, 'Sharon', 'Lee', 'Sharon Baron', NULL, NULL, 'F'),
+    (NULL, NULL, 'Wanda', 'Psyches', NULL, NULL, NULL, 'F'),
+    (NULL, NULL, 'Mario', 'Mario', NULL, NULL, NULL, 'M'),
+    (NULL, NULL, 'Peach', 'Nontando', NULL, NULL, NULL, 'F')
     ;
 
 INSERT INTO `User` VALUES
     /* hashed passwords are from get-pass-hash.php */
-    (NULL, 'jimbean', '$2y$10$fiUObUgbHUtwN7CCx3ri0emrCtAgmunBXu/68P7Z8kt3iv0eAh90a', 1) /* pass: password */
+    (NULL, 'mark', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 1), /* pass: password */
+    (NULL, 'blaze', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 16), /* pass: password */
+    (NULL, 'sharon', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 17), /* pass: password */
+    (NULL, 'wanda', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 18), /* pass: password */
+    (NULL, 'mario', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 19), /* pass: password */
+    (NULL, 'peach', '$2y$10$qqSYfepjXZcSVtqdE5aJeu20RgQ.QGQO9p1H4NdQzCkOG1qzRgYD6', 20) /* pass: password */
     ;
 
 INSERT INTO League VALUES
@@ -26,12 +36,12 @@ INSERT INTO League VALUES
     ;
 
 INSERT INTO Team VALUES
-    (NULL, 'The One Team', '990099', 'eeeeee', 'Motto here', 'Mission here', 'Cool peeps.', 1),
-    (NULL, 'Conspirators', NULL, NULL, NULL, NULL, NULL, NULL),
-    (NULL, 'Dirty Players', NULL, NULL, NULL, NULL, NULL, NULL),
-    (NULL, 'Triple A\'s', NULL, NULL, NULL, NULL, NULL, NULL),
-    (NULL, 'Faaabulous', NULL, NULL, NULL, NULL, NULL, NULL),
-    (NULL, '10 Splitters', NULL, NULL, NULL, NULL, NULL, NULL)
+    (NULL, 'The One Team', '990099', 'eeeeee', 'Lorem Ipsum', 'Bring sexy back.', 'Cool peeps.', 1),
+    (NULL, 'Conspirators', 'fc77a7', '74ddbb', 'There\'s no crying in softball.', 'Win.', NULL, 16),
+    (NULL, 'Dirty Players', '23358f', 'ababab', 'Taking the red pill.', NULL, NULL, 17),
+    (NULL, 'Triple A\'s', '332ffa', '3ffffa', NULL, NULL, NULL, 18),
+    (NULL, 'Faaabulous', 'abcdef1', '234567', NULL, NULL, NULL, 19),
+    (NULL, '10 Splitters', '9f9f9f', '885511', 'Harder. Better. Faster. Stronger.', 'Take it to the limit.', NULL, 20)
     ;
 
 INSERT INTO ParticipatesIn VALUES
@@ -58,12 +68,17 @@ INSERT INTO Roster VALUES
     ('33', NULL, FALSE, 12, 1, 1),
     ('1', NULL, FALSE, 13, 1, 1),
     ('74', NULL, FALSE, 14, 1, 1),
-    (NULL, NULL, FALSE, 15, 1, 1)
+    ('000', NULL, FALSE, 15, 1, 1),
+    ('B9', NULL, FALSE, 16, 2, 1),
+    ('99.9', NULL, FALSE, 17, 3, 1),
+    ('$$', NULL, FALSE, 18, 4, 1),
+    ('07', NULL, FALSE, 19, 5, 1),
+    ('55', NULL, FALSE, 20, 6, 1)
     ;
 
 INSERT INTO Game VALUES
     (NULL, '2013-09-09 18:30:00', 'Regular', 11, 0, NULL, 1, 6, 1),
-    (NULL, '2013-09-16 20:40:00', 'Regular', 6, 0, NULL, 6, 1, 1),
+    (NULL, '2013-09-16 20:40:00', 'Regular', 6, 0, NULL, 2, 1, 1),
     (NULL, '2013-09-23 18:30:00', 'Regular', 12, 0, NULL, 5, 1, 1),
     (NULL, '2013-09-30 18:30:00', 'Regular', 3, 0, NULL, 4, 1, 1),
     (NULL, '2013-10-07 20:40:00', 'Regular', 2, 0, NULL, 3, 1, 1),
@@ -77,5 +92,7 @@ INSERT INTO Game VALUES
 
 INSERT INTO Lineup VALUES
     (1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, NULL),
+    (1, 6, 1, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    (2, 2, 1, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     (2, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, NULL, NULL, NULL)
     ;

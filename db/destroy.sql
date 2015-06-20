@@ -26,8 +26,8 @@ DROP TABLE
     ParticipatesIn,
     Team,
     League,
+    Class,
     FieldPosition,
     `User`,
-    Player,
-    Season
+    Player
     ;
