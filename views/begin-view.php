@@ -28,8 +28,7 @@ $isLoggedIn = isLoggedIn();
 if ($isLoggedIn) {
     $userName = getLoginName();
     $userPID = getUserPlayerID();
-    //TODO need a separate function for ID's
-    //$playerURI =
+    //$playerURI = //TODO need a separate function for ID's
 }
 
 // get a CSS-friendly version of the title (make title lowercase and substitute spaces w/ dashes)

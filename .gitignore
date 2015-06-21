@@ -1,5 +1,5 @@
 img/
-js/
+js/jquery*
 lib/
 
 config/local-config.php

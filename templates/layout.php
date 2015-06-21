@@ -22,13 +22,13 @@
 
   ********************************************************************** --!>
 
-<?php require dirname(__FILE__) . '/../views/begin-view.php'; ?>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title><?= $title . ' - ' . PROJECT_NAME ?></title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <script language="javascript" type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+        <script language="javascript" type="text/javascript" src="/js/team_mgr.js"></script>
     </head>
 
     <body>
