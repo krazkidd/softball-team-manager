@@ -40,7 +40,7 @@ if (isset($id) && isID($id)) {
     $missionStatement = getMissionStatement($teamInfo);
     //TODO notes not used
     //$notes = getNotes($teamInfo);
-    $leagueList = getLeaguesForTeam($id);
+    $leagueList = getLeaguesForTeam($teamInfo);
     if ($mgrInfo) {
         $mgrURI = getPlayerURI($mgrInfo);
         $mgrName = getFullName($mgrInfo);

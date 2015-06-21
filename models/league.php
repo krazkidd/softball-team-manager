@@ -49,9 +49,9 @@ function getLeagueClass($leagueInfo)
     return '';
 }
 
-function getLeaguesForTeam($teamID)
+function getLeaguesForTeam($teamInfo)
 {
-    $qResult = runQuery("SELECT T.ID AS TID, T.TeamName, L.ID AS LID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = $teamID ORDER BY L.StartDate DESC");
+    $qResult = runQuery("SELECT L.ID AS ID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = {$teamInfo['ID']} ORDER BY L.StartDate DESC");
 
     if ($qResult) {
         $result = array();
@@ -80,5 +80,10 @@ function getTeamsInLeague($leagueInfo)
     }
 
     return null;
+}
+
+function getLeagueURI($leagueInfo)
+{
+    return "/league/{$leagueInfo['ID']}";
 }
 

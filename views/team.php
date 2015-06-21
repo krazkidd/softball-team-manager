@@ -21,6 +21,8 @@
 
   **************************************************************************/
 
+require_once dirname(__FILE__) . '/../models/league.php';
+
 $title = 'Team Profile';
 
 ob_start();
@@ -61,7 +63,7 @@ ob_start();
     <p><span class="bold"><?= $teamName ?></span> have played in these leagues:</p>
     <ul>
     <?php foreach ($leagueList as $league): ?>
-        <li><?= getLeagueDescription($league) ?></li>
+        <li><a href="<?= getLeagueURI($league) ?>"><?= getLeagueDescription($league) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
