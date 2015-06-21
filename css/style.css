@@ -34,23 +34,24 @@ body {
 /* site-wide primary color */
 #navbar a,
 #content-player-profile img {
-    color: #3ac6c1;
+    color: #3ac6c1; /* aqua */
 }
-
-/* site-wide primary color */
 #content-player-profile h2 {
-    background-color: #3ac6c1;
+    background-color: #3ac6c1; /* aqua */
+}
+#calendar .todays-date {
+    border-color: #3ac6c1; /* aqua */
 }
 
 /* site-wide secondary color */
-#navbar li:hover {
-	background-color: #ffc973;
+#navbar li:hover,
+#login-module p a {
+	background-color: #ffc973; /* light orange */
 }
 
 #navbar {
 	padding: 0;
-/*TODO #navbar has 0 height because of floated elements. Is this margin the best way to push down the content body? */
-	margin-bottom: 50px;
+	margin-bottom: 50px; /*TODO #navbar has 0 height because of floated elements. Is this margin the best way to push down the content body? */
 }
 
 #navbar ul {
@@ -70,7 +71,7 @@ body {
 }
 
 #navbar a {
-    /* color: site-wide color */
+    /* color: see site-wide color */
 }
 
 #navbar a {
@@ -84,7 +85,7 @@ body {
 }
 
 #navbar li:hover {
-	/* background-color: site-wide color */
+	/* background-color: see site-wide color */
 }
 
 #navLoginName {
@@ -92,7 +93,7 @@ body {
 	padding: 5px;
 	border: 0;
 	float: right;
-	color: #999999;
+	color: #999999; /* gray */
 	font-size: 0.8em;
 	line-height: 2em;
 }
@@ -101,7 +102,7 @@ body {
 .navNotLoggedIn,
 .navNotLoggedIn a {
 	text-decoration: none;
-	color: #999999;
+	color: #999999; /* gray */
 }
 
 .header {
@@ -141,7 +142,7 @@ h1 {
 }
 
 #content-player-profile h2 {
-    /* background-color: site-wide color */ 
+    /* background-color: see site-wide color */ 
 }
 
 h4 {
@@ -177,11 +178,11 @@ p {
   display: block;
   padding: 5px;
   border: 1px solid #000000;
-  background-color: #ffa573;
+  /* background-color: see site-wide color */
   font-family: sans-serif;
   text-decoration: none;
   font-size: 1.2em;
-  color: #000000;
+  color: #000000; /* black */
   text-align:center;
 }
 
@@ -200,14 +201,14 @@ p {
 }
 
 .footer a {
-    color: #000000;
+    color: #000000; /* black */
 }
 
 /* database or general error */
 .db-error,
 .error,
 .warning {
-  color: #ff0000;
+  color: #ff0000; /* red */
   font-weight: bold;
 }
 
@@ -222,7 +223,7 @@ p {
 }
 
 #content-roster table th {
-	background-color: #dddddd;
+	background-color: #dddddd; /* gray */
 }
 
 #content-roster table td {
@@ -278,7 +279,7 @@ p {
 }
 
 #game-list table td {
-	background-color: #cccccc;
+	background-color: #cccccc; /* gray */
 }
 
 #calendar {
@@ -293,7 +294,7 @@ p {
 }
 
 #calendar table th {
-	background-color: #ffffcc;
+	background-color: #ffffcc; /* gray */
 }
 
 #calendar table th,
@@ -308,30 +309,28 @@ p {
 
 #calendar .calDatePassed {
 	background-image: none;
-	background-color: #dddddd;
+	background-color: #dddddd; /* gray */
 }
 
 #calendar .todays-date {
-	border-color: #22eecc;
+	/* border-color: see site-wide color */
 	border-width: 2px;
 }
 
 #player_s-teams table th {
-	background-color: #dddddd;
+	background-color: #dddddd; /* gray */
 }
 
 .gender-f {
-	background-color: #ffccff;
-        /*color: #FF00FF;*/ /* unimaginitive pink */
+	background-color: #ffccff; /* unimaginitive pink */
 }
 
 .gender-m {
-	background-color: #99ffff;
-        /*color: #3333FF;*/ /* electric booga-blue */
+	background-color: #99ffff; /* electric booga-blue */
 }
 
 .gender-u {
-	background-color: #ddccff; /*TODO OMG these colors are offensive */
+	background-color: #ddccff; /* boring purple */
 }
 
 .bold {
@@ -369,14 +368,14 @@ p {
         padding: 0;
         margin: 0;
         margin-top: 2px;
-        background-color: #000000;
+        background-color: #000000; /* black */
         /*width: 100%;*/
 }
 
 #gameInfo p {
 	font-family: sans-serif;
 	font-weight: bold;
-	color: #dd3300;
+	color: #dd3300; /* red-orange */
 	padding: 0;
 	text-align: center;
 	/*margin: auto 0 auto 0;*/
@@ -529,7 +528,7 @@ p {
 }
 
 #final-score {
-	background-color: #ffcccc;
+	background-color: #ffcccc; /* light red */
 }
 
 #final-score p {
@@ -634,17 +633,17 @@ p {
 }
 
 .msg-success {
-	border-color: #00ff00;
-	background-color: #99ffcc;
+	border-color: #00ff00; /* green */
+	background-color: #99ffcc; /* light green */
 }
 
 .msg-failure {
-	border-color: #ff0000;
-	background-color: #ff99cc;
+	border-color: #ff0000; /* red */
+	background-color: #ff99cc; /* light red */
 }
 
 .msg-neutral {
-	border-color: #000000;
-	background-color: #cccccc;
+	border-color: #000000; /* black */
+	background-color: #cccccc; /* gray */
 }
 
