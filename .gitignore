@@ -1,6 +1,13 @@
-LOCAL
-config/local-config*
+img/
+js/
+lib/
+
+config/local-config.php
+
+# developer's notes and project resources
+LOCAL/
+
+# vim and backup files
 *.swp
-img/*
 *.bak
 *.BAK
