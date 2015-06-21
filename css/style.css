@@ -137,7 +137,8 @@ h1 {
 #content-team-profile h2,
 #content-player-profile h2,
 #content-manage h2,
-#content-roster h2 {
+#content-roster h2,
+#content-league h2 {
     text-align: center; /* TODO does this mess up the manage page header that lists all teams? */
 }
 

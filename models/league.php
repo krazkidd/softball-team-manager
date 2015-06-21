@@ -65,3 +65,20 @@ function getLeaguesForTeam($teamID)
     return null;
 }
 
+function getTeamsInLeague($leagueInfo)
+{
+    $qResult = runQuery("SELECT T.* FROM League AS L JOIN Class AS C ON L.ClassID = C.ID JOIN ParticipatesIn AS P ON P.LeagueID = L.ID JOIN Team AS T ON P.TeamID = T.ID WHERE L.ID = {$leagueInfo['ID']}");
+
+    if ($qResult) {
+        $toReturn = array();
+
+        while ($row = mysqli_fetch_array($qResult)) {
+            $toReturn[] = $row;
+        }
+
+        return $toReturn;
+    }
+
+    return null;
+}
+
