@@ -31,6 +31,22 @@ body {
 	padding: 0;
 }
 
+/* site-wide primary color */
+#navbar a,
+#content-player-profile img {
+    color: #3ac6c1;
+}
+
+/* site-wide primary color */
+#content-player-profile h2 {
+    background-color: #3ac6c1;
+}
+
+/* site-wide secondary color */
+#navbar li:hover {
+	background-color: #ffc973;
+}
+
 #navbar {
 	padding: 0;
 /*TODO #navbar has 0 height because of floated elements. Is this margin the best way to push down the content body? */
@@ -54,8 +70,11 @@ body {
 }
 
 #navbar a {
+    /* color: site-wide color */
+}
+
+#navbar a {
 	font-weight: bold;
-	color: #3ac6c1;
 }
 
 #navbar li a {
@@ -65,7 +84,7 @@ body {
 }
 
 #navbar li:hover {
-	background-color: #ffc973;
+	/* background-color: site-wide color */
 }
 
 #navLoginName {
@@ -122,7 +141,7 @@ h1 {
 }
 
 #content-player-profile h2 {
-    background-color: #3ac6c1;
+    /* background-color: site-wide color */ 
 }
 
 h4 {
@@ -235,7 +254,7 @@ p {
 }
 
 #content-player-profile img {
-	color: #3ac6c1;
+	/* color: site-wide color */
 }
 
 #content-game img {
