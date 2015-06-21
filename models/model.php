@@ -32,8 +32,10 @@ function runQuery($queryStr)
 {
     global $db_con;
 
-    if (!$db_con) 
+    if (!$db_con) {
         $db_con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        mysqli_set_charset($db_con, 'utf8');
+    }
 
     $result = null;
 
