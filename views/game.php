@@ -26,8 +26,6 @@ $title = 'Game';
 ob_start();
 
 ?>
-    <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
-
     <h3><?= date('l\, F j\, Y', $gameTime) ?> @ <?= date('g\:i a', $gameTime) ?></h3>
 
 <?php if ($showResults): ?>
@@ -37,18 +35,18 @@ ob_start();
     </div> <!-- final-score -->
 <?php endif; ?>
 
-    <div id="head-to-head">
-        <div id="away-team" style="background-color: #<?= $awaySecColor ?>">
-            <h2><a href="<?= getTeamURI($awayInfo) ?>" style="color: #<?= $awayPriColor ?>"><?= getTeamName($awayInfo) ?></a> - Away</h2>
-            <img alt="<?= getTeamName($awayTeamInfo) ?>" style="border-color: #<?= $awayPriColor ?>" src="/img/team-no-image.png" />
-        </div> <!-- away-team -->
-
-        <div id="home-team" style="background-color: #<?= $homeSecColor ?>">
-            <h2>Home - <a href="<?= getTeamURI($homeInfo) ?>" style="color: #<?= $homePriColor ?>"><?= getTeamName($homeInfo) ?></a></h2>
-            <img alt="<?= getTeamName($homeTeamInfo) ?>" style="border-color: #<?= $homePriColor ?>" src="/img/team-no-image.png" />
-            <!-- TODO show regular season record (whole season or only up to game date?) here. Any other info I can track and display here? -->
-        </div> <!-- home-team -->
-    </div>
+    <div id="away-team" style="background-color: #<?= $awaySecColor ?>">
+        <h2><a href="<?= getTeamURI($awayInfo) ?>" style="color: #<?= $awayPriColor ?>"><?= getTeamName($awayInfo) ?></a> - Away</h2>
+        <img alt="<?= getTeamName($awayTeamInfo) ?>" style="border-color: #<?= $awayPriColor ?>" src="/img/team-no-image.png" />
+        <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
+        <!-- TODO show regular season record (whole season or only up to game date?) here. Any other info I can track and display here? -->
+    </div> <!-- away-team -->
+    <div id="home-team" style="background-color: #<?= $homeSecColor ?>">
+        <h2>Home - <a href="<?= getTeamURI($homeInfo) ?>" style="color: #<?= $homePriColor ?>"><?= getTeamName($homeInfo) ?></a></h2>
+        <img alt="<?= getTeamName($homeTeamInfo) ?>" style="border-color: #<?= $homePriColor ?>" src="/img/team-no-image.png" />
+        <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
+        <!-- TODO show regular season record (whole season or only up to game date?) here. Any other info I can track and display here? -->
+    </div> <!-- home-team -->
 <?php
 
 $content = ob_get_clean();
