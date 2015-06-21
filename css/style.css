@@ -19,34 +19,30 @@
   
 ************************************************************************* */
 
+html,
 body {
 	margin: 0;
 	padding: 0;
-	border: 0;
 }
 
-#container 
-{
+#container {
 	width: 800px;
 	margin: 0 auto;
 	padding: 0;
 }
 
-#navbar
-{
+#navbar {
 	padding: 0;
 /*TODO #navbar has 0 height because of floated elements. Is this margin the best way to push down the content body? */
 	margin-bottom: 50px;
 }
 
-#navbar ul
-{
+#navbar ul {
 	margin: 0;
 	padding: 0
 }
 
-#navbar li
-{
+#navbar li {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -57,26 +53,22 @@ body {
 	/*background-color: #3ac6c1;*/
 }
 
-#navbar a
-{
+#navbar a {
 	font-weight: bold;
 	color: #3ac6c1;
 }
 
-#navbar li a
-{
+#navbar li a {
 	display: block;
 	line-height: 2em;
 	padding: 5px;
 }
 
-#navbar li:hover 
-{
+#navbar li:hover {
 	background-color: #ffc973;
 }
 
-#navLoginName
-{
+#navLoginName {
 	margin: 0;
 	padding: 5px;
 	border: 0;
@@ -88,8 +80,7 @@ body {
 
 /*TODO mark this rule as important to override #navbar style? */
 .navNotLoggedIn,
-.navNotLoggedIn a
-{
+.navNotLoggedIn a {
 	text-decoration: none;
 	color: #999999;
 }
@@ -104,8 +95,14 @@ body {
 	text-indent: -9000px;
 }
 
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
 .content {
 	font-family: sans-serif;
+    min-height: 300px;
 }
 
 #content-index {
@@ -115,6 +112,29 @@ body {
   width: 590px;
   min-height: 400px;
   clear: both;
+}
+
+#content-team-profile h2,
+#content-player-profile h2,
+#content-manage h2,
+#content-roster h2 {
+    text-align: center; /* TODO does this mess up the manage page header that lists all teams? */
+}
+
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin:2px;
+    padding: 0;
+}
+
+#content-manage hr,
+#content-team-profile hr,
+#content-player-profile hr {
+    clear: both;
 }
 
 #login-module {
@@ -143,23 +163,27 @@ body {
 }
 
 .footer {
-  font-size: 0.8em;
   margin: 0;
-  padding: 10px 0;
+  padding: 20px 0;
   clear: both;
   width: 100%;
-  text-align: center;
+}
+
+.footer p {
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 .footer a {
-  color: #000000;
+    color: #000000;
 }
 
 /* database or general error */
 .db-error,
 .error,
-.warning
-{
+.warning {
   color: #ff0000;
   font-weight: bold;
 }
@@ -173,17 +197,29 @@ body {
 	background-color: #dddddd;
 }
 
+#content-roster table td {
+    text-align: center;
+}
+
+#content-roster table td + td {
+    text-align: left;
+}
+
 /* the div that holds the table that shows the teams the player is currently on */
 #player_s-teams {
 
 }
 
-#content-team img,
-#content-player img,
-#content-manage img
-{
+#content-team-profile img,
+#content-player-profile img,
+#content-manage img,
+#content-roster img {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
 	display: block;
 	float: right;
+    width: 300px;
 }
 
 
@@ -211,8 +247,7 @@ body {
 }
 
 #calendar table th,
-#calendar table td
-{
+#calendar table td {
 	height: 2em;
 }
 
@@ -529,41 +564,29 @@ body {
 }
 
 #frmLogin input,
-#frmRegister input
-{
+#frmRegister input {
 }
 
-.msg-success {
-/*TODO center text or shrink box (instead of stretching accross) */
+#msg {
 	margin: 10px 0;
 	padding: 8px;
 	font-weight: bold;
-	border: 1px solid #00ff00;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.msg-success {
+	border-color: #00ff00;
 	background-color: #99ffcc;
 }
 
 .msg-failure {
-/*TODO center text or shrink box (instead of stretching accross) */
-	margin: 10px 0;
-	padding: 8px;
-	font-weight: bold;
-	border: 1px solid #ff0000;
+	border-color: #ff0000;
 	background-color: #ff99cc;
 }
 
 .msg-neutral {
-/*TODO center text or shrink box (instead of stretching accross) */
-	margin: 10px 0;
-	padding: 8px;
-	font-weight: bold;
-	border: 1px solid #000000;
+	border-color: #000000;
 	background-color: #cccccc;
 }
 
-#team-img {
-    float: right;
-}
-
-#player-img {
-    float: right;
-}

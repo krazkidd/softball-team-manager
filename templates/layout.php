@@ -60,7 +60,7 @@
             </div>
 
             <div id="footer-<?= $titleCSS ?>" class="footer">
-                <p><a href="/">Home</a></p>
+                <!-- <p><a href="/">Home</a></p> -->
                 <p>Copyright &copy; 2013. Website design by Mark Ross.</p>
             </div>
         </div>

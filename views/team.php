@@ -28,16 +28,20 @@ ob_start();
 ?>
     <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
 
-    <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+    <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
         <?= $teamName ?>
-    </h1>
+    </h2>
+
+    <h4>Manager</h4>
+    <p>
 <?php if ($isLoggedIn): ?>
     <?php if (isset($mgrURI) && isset($mgrName)): ?>
-    <p>Manager: <a href="<?= $mgrURI ?>"><?= $mgrName ?></a></p>
+        <a href="<?= $mgrURI ?>"><?= $mgrName ?></a>
     <?php else: ?>
-    <p>Manager: None</p>
+        None
     <?php endif; ?>
 <?php endif; ?>
+    </p>
 
     <h4>Motto</h4>
     <p><?= $motto ?></p>
@@ -48,7 +52,7 @@ ob_start();
     <hr />
 
 <?php if ($leagueList): ?>
-    <p><?php echo $teamName ?> have played in these leagues:</p>
+    <p><span class="bold"><?= $teamName ?></span> have played in these leagues:</p>
     <ul>
     <?php foreach ($leagueList as $league): ?>
         <li><?= getLeagueDescription($league) ?></li>

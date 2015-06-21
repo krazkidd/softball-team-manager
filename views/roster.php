@@ -30,12 +30,12 @@ $title = 'Roster';
 ob_start();
 
 ?>
-    <div>
-        <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></span></h1>
-        <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
-        <p><a href="<?= $teamURI ?>"><?= $teamName ?></a></p>
-        <p><?= $leagueDesc ?></p>
-    </div>
+    <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
+
+    <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></h2>
+
+    <h4>League</h4>
+    <p><?= $leagueDesc ?></p>
 
     <div>
         <table>

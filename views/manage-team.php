@@ -29,13 +29,14 @@ $title = 'Manage';
 ob_start();
 
 ?>
-    <h1 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
-        <?= $teamName ?>
-    </h1>
-
     <img id="team-img" title="<?= $teamName ?>" src="<?= $imageURI ?>" />
 
+    <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
+        <?= $teamName ?>
+    </h2>
+
 <?php if ($leagueList): ?>
+    <hr />
     <p>Rosters (ordered by league start date):</p>
     <ul>
     <?php foreach ($leagueList as $roster): ?>
@@ -45,7 +46,7 @@ ob_start();
 <?php else: ?>
     <p>This team has no active rosters.</p>
 <?php endif; ?> 
-<?
+<?php
 
 $content = ob_get_clean();
 

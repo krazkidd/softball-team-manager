@@ -28,7 +28,7 @@ ob_start();
 //TODO show 'Previous', 'Continue' buttons
 
 ?>
-    <p class="msg-<?= $msgClass ?>"><?= $msg ?></p>
+    <p id="msg" class="msg-<?= $msgClass ?>"><?= $msg ?></p>
 <?php
 
 $content = ob_get_clean();

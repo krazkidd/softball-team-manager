@@ -31,20 +31,23 @@ ob_start();
 ?>
     <img id="player-img" title="<?= $name ?>" src="/img/player-no-image.gif" />
 
-    <h1><?= $name ?></h1>
-    <?= !empty($nickName) ? '<h2>"' . $nickName . '"</h2>' : '' ?>
+    <h2><?= $name ?></h2>
+    <?= !empty($nickName) ? "<h3>$nickName</h3>" : '' ?>
 
-    <p><span class="bold">Phone:</span> <?= $phone ?><br />
-    <span class="bold">Email:</span> <?= $email ?><br />
-    <span class="bold">Gender:</span> <?= $gender ?></p>
+    <h4>Phone</h4>
+    <p><?= $phone ?></p>
+    <h4>Email</h4>
+    <p><?= $email ?></p>
+    <h4>Gender</h4>
+    <p><?= $gender ?></p>
 
 <?php if ($teams): ?>
     <hr />
 
-    <p><?= !empty($nickName) ? $nickName : $firstName ?>'s current and past teams:</p>
+    <p><span class="bold"><?= !empty($nickName) ? $nickName : $firstName ?></span>'s current and past teams:</p>
     <ul>
     <?php foreach ($teams as $teamLeague): ?>
-        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . ' - ' . getLeagueDescription($teamLeague) ?></a></li>
+        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . '</a> - ' . getLeagueDescription($teamLeague) ?></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
