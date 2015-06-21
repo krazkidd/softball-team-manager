@@ -22,7 +22,7 @@
 
   ********************************************************************** --!>
 
-<?php require '../views/begin-view.php'; ?>
+<?php require dirname(__FILE__) . '/../views/begin-view.php'; ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -48,9 +48,9 @@
 
                 <p id="navLoginName">
 <?php if ($isLoggedIn) { ?>
-                        You are logged in as <a href="<?= "/player/$userPID" ?>"><?= $userName ?></a> | <a href="/logout" title="Log out">Log out</a>
+                    You are logged in as <a href="<?= "/player/$userPID" ?>"><?= $userName ?></a> | <a href="/logout" title="Log out">Log out</a>
 <?php } else { ?>
-                        You are not logged in | <a href="/login" title="Log in or Register">Log in or Register</a>
+                    You are not logged in | <a href="/login" title="Log in or Register">Log in or Register</a>
 <?php } ?>
                 </p>
             </div>

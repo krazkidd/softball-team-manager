@@ -43,7 +43,7 @@ ob_start();
     <p>Teams I play on (click to go to team's profile):</p>
     <ul>
     <?php foreach ($rosteredTeamsList as $teamLeague): ?>
-        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . ' - ' . getLeagueDescription($teamLeague) ?></a></li>
+        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>

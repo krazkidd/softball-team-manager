@@ -60,19 +60,17 @@ function getEmail($player)
     return '';
 }
 
-function getRosteredTeamsForPlayer($pid)
+function getRosteredTeamsForPlayer($playerInfo)
 {
-    if (isID($pid)) {
-        $qResult = runQuery("SELECT T.ID, T.TeamName, L.Description, C.Name FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID JOIN ParticipatesIn AS P ON P.TeamID = T.ID JOIN League AS L ON P.LeagueID = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE R.PlayerID = $pid ORDER BY L.StartDate DESC");
+    $qResult = runQuery("SELECT DISTINCT T.ID, T.TeamName FROM Team AS T JOIN Roster AS R ON T.ID = R.TeamID JOIN ParticipatesIn AS P ON P.TeamID = T.ID JOIN League AS L ON P.LeagueID = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE R.PlayerID = {$playerInfo['ID']} ORDER BY L.StartDate DESC");
 
-        if ($qResult) {
-            $result = array();
-            while($row = mysqli_fetch_array($qResult)) {
-                $result[] = $row;
-            }
-
-            return $result;
+    if ($qResult) {
+        $result = array();
+        while($row = mysqli_fetch_array($qResult)) {
+            $result[] = $row;
         }
+
+        return $result;
     }
 
     return null;
@@ -134,19 +132,17 @@ function getPlayerID($playerInfo)
     return -1;
 }
 
-function getManagedTeamsForPlayer($pid)
+function getManagedTeamsForPlayer($playerInfo)
 {
-    if (isID($pid + 0)) {
-        $qResult = runQuery("SELECT T.ID, T.TeamName FROM Team AS T WHERE T.ManagerID = $pid");
+    $qResult = runQuery("SELECT T.ID, T.TeamName FROM Team AS T WHERE T.ManagerID = {$playerInfo['ID']}");
 
-        if ($qResult) {
-            $result = array();
-            while($row = mysqli_fetch_array($qResult)) {
-                $result[] = $row;
-            }
-
-            return $result;
+    if ($qResult) {
+        $result = array();
+        while($row = mysqli_fetch_array($qResult)) {
+            $result[] = $row;
         }
+
+        return $result;
     }
 
     return null;

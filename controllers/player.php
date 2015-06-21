@@ -40,7 +40,7 @@ if (isset($id)) {
         $phone = getFormattedPhoneNumber($playerInfo);
         $email = getEmail($playerInfo);
         $gender = getGender($playerInfo, false);
-        $teams = getRosteredTeamsForPlayer($id);
+        $teams = getRosteredTeamsForPlayer($playerInfo);
 
         unset($playerInfo);
 

@@ -53,7 +53,7 @@ if (isset($id)) {
         require dirname(__FILE__) . '/../views/manage-team.php';
     }
 } else {
-    $managedTeamsList = getManagedTeamsForPlayer(getUserPlayerID());
+    $managedTeamsList = getManagedTeamsForPlayer(getPlayerInfo(getUserPlayerID()));
 
     if ($managedTeamsList) {
         require dirname(__FILE__) . '/../views/manage-show-teams.php';

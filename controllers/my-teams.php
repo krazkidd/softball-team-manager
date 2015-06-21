@@ -31,9 +31,10 @@ require_once dirname(__FILE__) . '/../models/user.php';
 require_once dirname(__FILE__) . '/../models/player.php';
 
 $pid = getUserPlayerID();
+$playerInfo = getPlayerInfo($pid);
 
-$managedTeamsList = getManagedTeamsForPlayer($pid);
-$rosteredTeamsList = getRosteredTeamsForPlayer($pid);
+$managedTeamsList = getManagedTeamsForPlayer($playerInfo);
+$rosteredTeamsList = getRosteredTeamsForPlayer($playerInfo);
 
 if ($managedTeamsList || $rosteredTeamsList) {
     require dirname(__FILE__) . '/../views/my-teams.php';

@@ -121,6 +121,10 @@ h1 {
     text-align: center; /* TODO does this mess up the manage page header that lists all teams? */
 }
 
+#content-player-profile h2 {
+    background-color: #3ac6c1;
+}
+
 h4 {
     margin: 0;
     padding: 0;
@@ -219,12 +223,18 @@ p {
 #content-player-profile img,
 #content-manage img,
 #content-roster img {
-    margin: 0;
-    margin-bottom: 10px;
+    margin: 5px 5px 10px 5px;
     padding: 0;
+    border-width: 2px;
+    border-style: solid;
 	display: block;
 	float: right;
-    width: 300px;
+    max-width: 300px;
+    max-height: 400px;
+}
+
+#content-player-profile img {
+	color: #3ac6c1;
 }
 
 #content-team-profile p,

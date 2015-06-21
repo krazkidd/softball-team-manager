@@ -29,7 +29,7 @@ $title = 'Manage';
 ob_start();
 
 ?>
-    <img id="team-img" title="<?= $teamName ?>" src="<?= $imageURI ?>" />
+    <img id="team-img" title="<?= $teamName ?>" style="border-color: #<?= $secColor ?>" src="<?= $imageURI ?>" />
 
     <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
         <?= $teamName ?>

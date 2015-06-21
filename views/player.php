@@ -46,8 +46,8 @@ ob_start();
 
     <p><span class="bold"><?= !empty($nickName) ? $nickName : $firstName ?></span>'s current and past teams:</p>
     <ul>
-    <?php foreach ($teams as $teamLeague): ?>
-        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) . '</a> - ' . getLeagueDescription($teamLeague) ?></li>
+    <?php foreach ($teams as $team): ?>
+        <li><a href="<?= getTeamURI($team) ?>"><?= getTeamName($team) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>

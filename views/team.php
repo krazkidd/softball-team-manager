@@ -26,7 +26,7 @@ $title = 'Team Profile';
 ob_start();
 
 ?>
-    <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
+    <img id="team-img" title="<?= $teamName ?>" style="border-color: #<?= $secColor ?>" src="<?= $teamImageURI ?>" />
 
     <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
         <?= $teamName ?>
@@ -40,6 +40,8 @@ ob_start();
     <?php else: ?>
         None
     <?php endif; ?>
+<?php else: ?>
+    [<a href="<?= getLoginURI() ?>">Log in</a> to view]
 <?php endif; ?>
     </p>
 

@@ -103,3 +103,8 @@ function attemptRegistration($loginName, $password)
     return FALSE;
 }
 
+function getLoginURI()
+{
+    return '/login';
+}
+
