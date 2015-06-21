@@ -188,9 +188,14 @@ p {
   font-weight: bold;
 }
 
-/* the div that holds the roster table */
-#content-roster {
+#div-around-roster-table {
+    margin: 0 auto;
+    padding: 0;
+    width: 50%;
+}
 
+#content-roster table {
+    width: 100%;
 }
 
 #content-roster table th {
@@ -220,6 +225,13 @@ p {
 	display: block;
 	float: right;
     width: 300px;
+}
+
+#content-team-profile p,
+#content-player-profile p,
+#content-manage p,
+#content-roster p {
+    /* TODO need a way to make this text wrap next to those floated images */
 }
 
 

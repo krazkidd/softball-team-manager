@@ -30,14 +30,16 @@ $title = 'Roster';
 ob_start();
 
 ?>
-    <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" />
+    <!-- <img id="team-img" title="<?= $teamName ?>" src="<?= $teamImageURI ?>" /> -->
 
     <h2 style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>"><?= $teamName ?></h2>
 
-    <h4>League</h4>
-    <p><?= $leagueDesc ?></p>
+    <div id="div-around-roster-table">
+        <h4>League</h4>
+        <!-- TODO figure out how to get text to wrap *next* to image. here's some sample text:
+             beertenderfishshelltightpantsrugcouchtelevisionrefrigeratordogspianospellharrypottercomputerdeskkeyboardsuperbowlspeakers -->
+        <p><?= $leagueDesc ?></p>
 
-    <div>
         <table>
             <tr>
                 <th>#</th>

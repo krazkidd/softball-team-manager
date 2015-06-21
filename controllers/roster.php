@@ -38,6 +38,8 @@ if (isset($teamID) && isset($leagueID)) {
 
     $roster = getRoster($teamID, $leagueID);
     $teamName = getTeamName($teamInfo);
+    $priColor = getPrimaryColor($teamInfo);
+    $secColor = getSecondaryColor($teamInfo);
     $teamURI = getTeamURI($teamInfo);
     $teamImageURI = getTeamImageURI($teamInfo);
     $leagueDesc = getLeagueDescription($leagueInfo);
