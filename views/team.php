@@ -45,11 +45,15 @@ ob_start();
 <?php endif; ?>
     </p>
 
+<?php if (!empty($motto)): ?>
     <h4>Motto</h4>
     <p><?= $motto ?></p>
+<?php endif; ?>
 
+<?php if (!empty($missionStatement)): ?>
     <h4>Mission Statement</h4>
     <p><?= $missionStatement ?></p>
+<?php endif; ?>
 
     <hr />
 

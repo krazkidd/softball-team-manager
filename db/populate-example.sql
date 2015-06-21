@@ -37,8 +37,8 @@ INSERT INTO League VALUES
 
 INSERT INTO Team VALUES
     (NULL, 'The One Team', '990099', 'eeeeee', 'Lorem Ipsum', 'Bring sexy back.', 'Cool peeps.', 1),
-    (NULL, 'Conspirators', 'fc77a7', '74ddbb', 'There\'s no crying in softball.', 'Win.', NULL, 16),
-    (NULL, 'Dirty Players', '23358f', 'ababab', 'Taking the red pill.', NULL, NULL, 17),
+    (NULL, 'Conspirators', 'fc77a7', '74ddbb', 'There\'s no crying in softball.', 'We want to win.', NULL, 16),
+    (NULL, 'Dirty Players', '23358f', 'ababab', 'Take the red pill.', NULL, NULL, 17),
     (NULL, 'Triple A\'s', '332ffa', '3ffffa', NULL, NULL, NULL, 18),
     (NULL, 'Faaabulous', 'abcdef1', '234567', NULL, NULL, NULL, 19),
     (NULL, '10 Splitters', '9f9f9f', '885511', 'Harder. Better. Faster. Stronger.', 'Take it to the limit.', NULL, 20)
