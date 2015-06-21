@@ -222,7 +222,8 @@ p {
 #content-team-profile img,
 #content-player-profile img,
 #content-manage img,
-#content-roster img {
+#content-roster img,
+#content-game img {
     margin: 5px 5px 10px 5px;
     padding: 0;
     border-width: 2px;
@@ -235,6 +236,14 @@ p {
 
 #content-player-profile img {
 	color: #3ac6c1;
+}
+
+#content-game img {
+    margin: 5px auto 10px auto;
+	display: block;
+	float: none;
+    max-width: 300px;
+    max-height: 400px;
 }
 
 #content-team-profile p,
@@ -317,7 +326,8 @@ p {
 /************* field layout rules *************/
 
 #content-field-layout h3,
-#content-lineup h3 {
+#content-lineup h3,
+#content-game h3{
     text-align: center;
 }
 
@@ -470,20 +480,28 @@ p {
 
 /************* END field layout rules *************/
 
+#content-game h2 {
+    text-align: center;
+}
+
+#head-to-head {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
 #home-team {
-	background-color: yellow;
-	float: left;
-	width: 40%;
-	padding:10px;
-	margin: 2px;
+	width: 50%;
+	margin: 0;
+	padding: 0;
+    float: left;
 }
 
 #away-team {
-	background-color: orange;
-	float: left;
-	width: 40%;
-	padding:10px;
-	margin: 2px;
+	width: 50%;
+	margin: 0;
+	padding: 0;
+    float: left;
 }
 
 #home-team h3, #away-team h3 {
@@ -493,7 +511,6 @@ p {
 
 #final-score {
 	background-color: #ffcccc;
-	clear: both;
 }
 
 #final-score p {

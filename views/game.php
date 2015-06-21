@@ -28,27 +28,27 @@ ob_start();
 ?>
     <!--TODO only show for the team the player is on: <p><a href="/field-layout">View Field Layout &gt; &gt;</a></p> -->
 
-    <div id="game-info">
-        <p><?= date("l\, F j\, Y", $gameTime) ?></p>
-        <p><?= date("g\:i a", $gameTime) ?></p>
-    </div> <!-- game-info -->
+    <h3><?= date('l\, F j\, Y', $gameTime) ?> @ <?= date('g\:i a', $gameTime) ?></h3>
 
-    <div id="away-team">
-        <h2>Away - <a href="/team/<?= $awayTeamInfo['ID'] ?>"><?= $awayTeamInfo['TeamName'] ?></a></h2>
-        <img alt="<?= $awayTeamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
-    </div> <!-- away-team -->
-
-    <div id="home-team">
-        <h2>Home - <a href="/team/<?= $homeTeamInfo['ID'] ?>"><?= $homeTeamInfo['TeamName'] ?></a></h2>
-        <img alt="<?= $homeTeamInfo['TeamName'] ?>" src="/img/team-no-image.png" />
-        <p>Regular season record (whole season or only up to game date?) here. Any other info I can track and display here?</p>
-    </div> <!-- home-team -->
 <?php if ($showResults): ?>
-    <div id="final-score">
-        <p>Final Score</p>
-        <p><?= $gameInfo['AwayTeamScore'] ?> - <?= $gameInfo['HomeTeamScore'] ?></p>
+    <div id="final-score" <?= isset($winColor) ? "style=\"background-color: #$winColor\"" : '' ?>>
+        <p class="bold">Final Score</p>
+        <p><?= $awayScore ?> - <?= $homeScore ?></p>
     </div> <!-- final-score -->
 <?php endif; ?>
+
+    <div id="head-to-head">
+        <div id="away-team" style="background-color: #<?= $awaySecColor ?>">
+            <h2><a href="<?= getTeamURI($awayInfo) ?>" style="color: #<?= $awayPriColor ?>"><?= getTeamName($awayInfo) ?></a> - Away</h2>
+            <img alt="<?= getTeamName($awayTeamInfo) ?>" style="border-color: #<?= $awayPriColor ?>" src="/img/team-no-image.png" />
+        </div> <!-- away-team -->
+
+        <div id="home-team" style="background-color: #<?= $homeSecColor ?>">
+            <h2>Home - <a href="<?= getTeamURI($homeInfo) ?>" style="color: #<?= $homePriColor ?>"><?= getTeamName($homeInfo) ?></a></h2>
+            <img alt="<?= getTeamName($homeTeamInfo) ?>" style="border-color: #<?= $homePriColor ?>" src="/img/team-no-image.png" />
+            <!-- TODO show regular season record (whole season or only up to game date?) here. Any other info I can track and display here? -->
+        </div> <!-- home-team -->
+    </div>
 <?php
 
 $content = ob_get_clean();

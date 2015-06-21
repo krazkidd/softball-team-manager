@@ -22,6 +22,7 @@
   **************************************************************************/
 
 require_once dirname(__FILE__) . '/calendar.php';
+require_once dirname(__FILE__) . '/team.php';
 
 /*
  *    getGameInfo --
@@ -36,5 +37,25 @@ function getGameInfo($gameID)
 function getGameDateTime($gameInfo)
 {
     return mktimeFromMySQLDateTime($gameInfo['DateTime']);
+}
+
+function getHomeTeamScore($gameInfo)
+{
+    return $gameInfo['HomeTeamScore'];
+}
+
+function getAwayTeamScore($gameInfo)
+{
+    return $gameInfo['AwayTeamScore'];
+}
+
+function getHomeTeamInfo($gameInfo)
+{
+    return getTeamInfo($gameInfo['HomeID']);
+}
+
+function getAwayTeamInfo($gameInfo)
+{
+    return getTeamInfo($gameInfo['AwayID']);
 }
 

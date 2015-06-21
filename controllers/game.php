@@ -27,16 +27,28 @@ require_once dirname(__FILE__) . '/../models/calendar.php';
 require_once dirname(__FILE__) . '/../models/game.php';
 require_once dirname(__FILE__) . '/../models/team.php';
 
-if (isset($gameID)) {
-    $gameInfo = getGameInfo($gameID);
+if (isset($id)) {
+    $gameInfo = getGameInfo($id);
     $gameTime = mktimeFromMySQLDateTime($gameInfo['DateTime']);
     //TODO allow for home/away to be null and show 'TBD' or somesuch
-    $homeTeamInfo = getTeamInfo($gameInfo['HomeID']);
-    $awayTeamInfo = getTeamInfo($gameInfo['AwayID']);
+    //TODO show W/L (in parentheses next to Away/Home)
+    //TODO show if there was a forfeit
+    $homeInfo = getHomeTeamInfo($gameInfo);
+    $awayInfo = getAwayTeamInfo($gameInfo);
+    $homeScore = getHomeTeamScore($gameInfo);
+    $awayScore = getAwayTeamScore($gameInfo);
+    $homePriColor = getPrimaryColor($homeInfo);
+    $homeSecColor = getSecondaryColor($homeInfo);
+    $awayPriColor = getPrimaryColor($awayInfo);
+    $awaySecColor = getSecondaryColor($awayInfo);
+    if ($homeScore > $awayScore) {
+        $winColor =  $homeSecColor;
+    } elseif ($awayScore > $homeScore) {
+        $winColor =  $awaySecColor;
+    }
 
-    $showResults = false;
-    if (time() > $gameTime)
-        $showResults = true;
+    // just in case a game can end in a tie, show scores after game has been played
+    $showResults = ($homeScore > 0 || $awayScore > 0) || time() > $gameTime;
 
     require dirname(__FILE__) . '/../views/game.php';
 } else {
