@@ -116,3 +116,8 @@ function getTeamImageURI($teamInfo)
     return '/img/team-no-image.png';
 }
 
+function getTeamID($teamInfo)
+{
+    return $teamInfo['ID'];
+}
+

@@ -38,6 +38,7 @@ if (isset($id)) {
     $teamInfo = getTeamInfo($id);
 
     if ($teamInfo) {
+        $teamID = getTeamID($teamInfo);
         $teamName = getTeamname($teamInfo);
         $imageURI = getTeamImageURI($teamInfo);
         $priColor = getPrimaryColor($teamInfo);
@@ -46,7 +47,7 @@ if (isset($id)) {
         //TODO missionStatement and notes not used
         //$missionStatement = getMissionStatement($teamInfo);
         //$notes = getNotes($teamInfo);
-        $leagueList = getLeaguesForTeam($id);
+        $leagueList = getLeaguesForTeam($teamInfo);
 
         unset($teamInfo);
 

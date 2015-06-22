@@ -28,6 +28,13 @@ ob_start();
 ?>
     <h2><?= $leagueDesc ?></h2>
 
+    <h4>Opening day</h4>
+    <p><?= $beginDate ?></p>
+    <h4>Roster freeze</h4>
+    <p>TODO</p>
+    <h4>Last game</h4>
+    <p>TODO</p>
+
     <table>
         <tr>
             <th colspan="7"><?= "$monthName $year" ?></th>

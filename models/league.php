@@ -51,7 +51,7 @@ function getLeagueClass($leagueInfo)
 
 function getLeaguesForTeam($teamInfo)
 {
-    $qResult = runQuery("SELECT L.ID AS ID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = {$teamInfo['ID']} ORDER BY L.StartDate DESC");
+    $qResult = runQuery("SELECT L.ID, L.Description, C.Name FROM Team AS T JOIN ParticipatesIn AS P ON T.ID = P.TeamID JOIN League AS L ON P.LeagueId = L.ID JOIN Class AS C ON L.ClassID = C.ID WHERE T.ID = {$teamInfo['ID']} ORDER BY L.StartDate DESC");
 
     if ($qResult) {
         $result = array();
@@ -85,5 +85,36 @@ function getTeamsInLeague($leagueInfo)
 function getLeagueURI($leagueInfo)
 {
     return "/league/{$leagueInfo['ID']}";
+}
+
+function getGamesInMonth($month, $year, $leagueInfo)
+{
+    $qResult = runQuery("SELECT G.* FROM Game AS G JOIN League AS L ON L.ID = G.LeagueID WHERE DateTime LIKE '$year-$month-%' GROUP BY DateTime ORDER BY DateTime ASC");
+
+    if ($qResult) {
+        $toReturn = array();
+
+        while ($row = mysqli_fetch_array($qResult)) {
+            $toReturn[] = getDayFromMySQLDate($row['DateTime']);
+        }
+
+        return $toReturn;
+    }
+
+    return null;
+}
+
+//function getLastGame($leagueInfo)
+//{
+//    //TODO
+//}
+
+function getStartDateStr($leagueInfo)
+{
+    //TODO return a time instead (and format it in the view)
+    $day = getDayFromMySQLDate($leagueInfo['StartDate']);
+    $mo = getMonthFromMySQLDate($leagueInfo['StartDate']);
+    $yr = getYearFromMySQLDate($leagueInfo['StartDate']);
+    return date('l, j F Y', mktime(0, 0, 0, $mo, $day, $yr));
 }
 

@@ -31,21 +31,18 @@ if (isset($id) && isID($id)) {
     $leagueInfo = getLeagueInfo($leagueID);
 
     $leagueDesc = getLeagueDescription($leagueInfo);
-    $now = time();
+    $beginDate = getStartDateStr($leagueInfo);
 
-    $monthNum = date('m', $now); // 2-digit (i.e. 01)
-    $year = date('Y', $now);     // YYYY
+    $now = time();
+    $thisMonth = date('m', $now); // 2-digit (i.e. 01)
+    $thisYear = date('Y', $now);     // YYYY
 
     //TODO this seems to be working but what page are we supposed to be linking to?
     //     we need a view for all the games on a certain date
-    $qResult = runQuery("SELECT G.ID, G.DateTime FROM Game AS G JOIN League AS L ON L.ID = G.LeagueID WHERE DateTime LIKE '$year-$monthNum-%' GROUP BY DateTime ORDER BY DateTime ASC");
-    $gameDays = array();
-    while ($row = mysqli_fetch_array($qResult)) {
-        $gameDays[] = getDayFromMySQLDate($row['DateTime']);
-    }
+    $gameDays = getGamesInMonth($thisMonth, $thisYear, $leagueInfo);
 
     // get the time for the 1st of the month
-    $timeOfFirstDay = mktime(0, 0, 0, $monthNum, 1, $year);
+    $timeOfFirstDay = mktime(0, 0, 0, $thisMonth, 1, $thisYear);
 
     // get full name of the month
     $monthName = date('F', $timeOfFirstDay);
