@@ -24,65 +24,51 @@
 require dirname(__FILE__) . '/begin-controller.php';
 
 require_once dirname(__FILE__) . '/../models/calendar.php';
+require_once dirname(__FILE__) . '/../models/league.php';
 
-//TODO when no team is given, don't show all games in cal. ask user to select region/season/league
-//TODO by default, show everything for the logged-in user. but check GET or POST for a particular season/league/team(/game?)
+if (isset($id) && isID($id)) {
+    $leagueID = $id;
+    $leagueInfo = getLeagueInfo($leagueID);
 
-// show all leagues that play on a certain day of the week when the user clicks on the day header
-/*if (isset($_GET['view']) && $_GET['view'] == 'daily' && isset($_GET['day']))
-{
-    // show leagues that play on selected day
-    $action = 'list-leagues-day-of-week';
-    $day = ucwords(strtolower($_GET['day']));
-    $leaguesList = getLeaguesThatPlayOnDayOfWeek($_GET['day']);
-}
-else if (isset($_GET['date']))
-{
-    $action = 'list-games-on-date';
-    $date = null;
-//TODO make sure to grab game scores when getting games list
-//TODO check to see if the scores are null and output something appropriate (because I show the score columns before all games have finished)
-    $gamesList = null;
-//TODO when to show results columns? (game time + 1 hr.?) -->
-//TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page -->
-    if (time() > mktime(getHourFromMySQLTime($row['time']) + 1, getMinuteFromMySQLTime($row['time']), 0, getMonthFromMySQLDate($row['date']), getDayFromMySQLDate($row['date']), getYearFromMySQLDate($row['date'])))
-        $showResults = false;
-    else
-        $showResults = true;
+    $leagueDesc = getLeagueDescription($leagueInfo);
+    $now = time();
 
-    // get team info
-    //TODO where does $row come from?
-    //$homeTeamInfo = getTeamInfo($row['HomeID']);
-    //$awayTeamInfo = getTeamInfo($row['AwayID']);
-}
-else
-//TODO fix this block!
-{
-//TODO make a 2-d array for the month with date and game info
-    if (isset($_GET['mo']))
-    {
-        $month = $_GET['mo'];
-        if (isset($_GET['yr']))
-            $year = $_GET['yr'];
-        else
-            $year = date('Y');
-    }
-    else
-    {
-        $month = date('m');
-        $year = date('Y');
+    $monthNum = date('m', $now); // 2-digit (i.e. 01)
+    $year = date('Y', $now);     // YYYY
+
+    //TODO this seems to be working but what page are we supposed to be linking to?
+    //     we need a view for all the games on a certain date
+    $qResult = runQuery("SELECT G.ID, G.DateTime FROM Game AS G JOIN League AS L ON L.ID = G.LeagueID WHERE DateTime LIKE '$year-$monthNum-%' GROUP BY DateTime ORDER BY DateTime ASC");
+    $gameDays = array();
+    while ($row = mysqli_fetch_array($qResult)) {
+        $gameDays[] = getDayFromMySQLDate($row['DateTime']);
     }
 
-    $calendarArray = getCalendarArray($month, $year);
-    $action = 'show-month';
+    // get the time for the 1st of the month
+    $timeOfFirstDay = mktime(0, 0, 0, $monthNum, 1, $year);
+
+    // get full name of the month
+    $monthName = date('F', $timeOfFirstDay);
+
+    // get the day of week the 1st falls on
+    // 1 (for Monday) through 7 (for Sunday)
+    $dayOfWeek = date('N', $timeOfFirstDay) % 7;
+
+    // get number of days in month
+    $numDaysInMonth = date('t', $timeOfFirstDay);
+
+    //TODO get days in previous month. PROBLEM: what if prev month is Dec? SOLUTION: just subtract 24 hours from $timeOfFirstDay
+    //$numDaysInPrevMonth = date('t', mktime(0, 0, 0, $month
+
+    unset($leagueInfo);
+
+    require dirname(__FILE__) . '/../views/calendar.php';
+} else {
+    $msgTitle = "Calendar";
+    $msg = "League ID required.";
+    $msgClass = "failure";
+    require dirname(__FILE__) . '/../views/show-message.php';
 }
-
-require dirname(__FILE__) . '/../views/calendar.php';*/
-
-$msgTitle = "Calendar (DISABLED)";
-$msg = "The calendar function is not working right now.";
-$msgClass = "failure";
-require dirname(__FILE__) . '/../views/show-message.php';
 
 require dirname(__FILE__) . '/end-controller.php';
 

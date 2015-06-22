@@ -138,7 +138,8 @@ h1 {
 #content-player-profile h2,
 #content-manage h2,
 #content-roster h2,
-#content-league h2 {
+#content-league h2,
+#content-calendar h2 {
     text-align: center; /* TODO does this mess up the manage page header that lists all teams? */
 }
 
@@ -283,32 +284,39 @@ p {
 	background-color: #cccccc; /* gray */
 }
 
-#calendar {
-
-}
-
-/*TODO this style is specific to calendar.php, but what if we want to display the calendar somewhere else? allow for a minimized version */
-#calendar table {
-	text-align: center;
+#content-calendar table {
 	margin: 0 auto;
+	text-align: center;
 	width: 80%;
+    border-collapse: collapse;
 }
 
-#calendar table th {
-	background-color: #ffffcc; /* gray */
+#content-calendar table th {
+	background-color: #ffffcc; /* light yellow */
 }
 
-#calendar table th,
-#calendar table td {
+#content-calendar table th,
+#content-calendar table td {
 	height: 2em;
 }
 
-#calendar .gameday {
-	background-image: url('img/ball.png');
-	font-weight: bold;
+#content-calendar table tr td {
+    width: 15%;
 }
 
-#calendar .calDatePassed {
+#content-calendar table tr td + td,
+#content-calendar table tr td + td + td,
+#content-calendar table tr td + td + td + td,
+#content-calendar table tr td + td + td + td + td,
+#content-calendar table tr td + td + td + td + td + td {
+    width: 14%;
+}
+
+#content-calendar table tr td + td + td + td + td + td + td {
+    width: 15%;
+}
+
+.calDatePassed {
 	background-image: none;
 	background-color: #dddddd; /* gray */
 }
@@ -346,7 +354,7 @@ p {
 
 #content-field-layout h3,
 #content-lineup h3,
-#content-game h3{
+#content-game h3 {
     text-align: center;
 }
 

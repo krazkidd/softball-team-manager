@@ -59,3 +59,8 @@ function getAwayTeamInfo($gameInfo)
     return getTeamInfo($gameInfo['AwayID']);
 }
 
+function getGameURI($gameInfo)
+{
+    return "/game/{$gameInfo['ID']}";
+}
+

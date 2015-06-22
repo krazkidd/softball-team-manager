@@ -25,87 +25,58 @@ $title = 'Calendar';
 
 ob_start();
 
-if ($action == 'list-leagues-day-of-week') {
 ?>
-    <h2><?= $day ?> Leagues</h2>
+    <h2><?= $leagueDesc ?></h2>
 
     <table>
         <tr>
-            <th>Division</th>
-            <th>Class</th>
-            <th>Description</th>
+            <th colspan="7"><?= "$monthName $year" ?></th>
         </tr>
-        <?php foreach ($leaguesList as $league) { ?>
-            <tr>
-<!--TODO fix associated array keys -->
-<!--TODO add a link to league info (i don't have a league info page yet) -->
-<!--TODO add the other columns retrieved in query above. -->
-                <td><?= $league['division'] ?></td>
-                <td><?= $league['class'] ?></td>
-                <td><?= $league['description'] ?></td>
-            </tr>
-        <?php } ?>
-    </table>
-<!--TODO fix. if  -->
-<?php
-}
-else if ($action = 'list-games-on-date')
-{ ?>
-    <h3><?= $date ?></h3>
+        <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+        </tr>
+<?php if ($dayOfWeek != 0): ?>
+        <tr>
+    <?php for ($i = 0; $i < $dayOfWeek; $i++): ?>
+            <td>&nbsp;</td>
+    <?php endfor; ?>
+<?php endif; ?>
 
-    <div id="game-list">
-        <table>
-            <tr>
-                <th>Time</th>
-                <th>Home Team</th>
-                <th>Visiting Team</th>
-                <?php if ($showResults) { ?>
-                    <th>Final Home Score</th>
-                    <th>Final Visiting Score</th>
-                <?php } ?>
-            </tr>
-            <?php foreach ($gamesList as $game) { ?>
-                <tr>
-                    <td><a href="/game/<?= $row['gameID'] ?>"><?= date("g\:i a", mktimeFromMySQLTime($row['time'])) ?></a></td>
-                    <!-- TODO add link to /team/TEAM_ID -->
-                    <td><?= $homeTeamRow["name"] ?></td>
-                    <td><?= $awayTeamRow["name"] ?></td>
-                    <?php if ($showResults) { ?>
-                        <td><?= $finalHome ?> <?= $finalHome > $finalAway ? "<img alt=\"Winner\" src=\"img/1373708645_trophy.png\" />" : "" ?></td>
-                        <td><?= $finalAway ?> <?= $finalAway > $finalHome ? "<img alt=\"Winner\" src=\"img/1373708645_trophy.png\" />" : "" ?></td>
-                    <?php } ?>
-                </tr>
-            <?php } ?>
-        </table>
-    </div> <!-- game-list -->
-<?php
-}
-else
-{ ?>
-    <table id="calendar-table">
+<?php for ($i = 1; $i <= $numDaysInMonth; $i++): ?>
+    <?php if ($dayOfWeek == 0): ?>
         <tr>
-            <th colspan="7"><?= $monthName ?> <?= $year ?></th>
+    <?php endif; ?>
+    <?php $dayTime = mktime(23, 59, 59, $monthNum, $i, $year); ?>
+            <td<?= $dayTime < $now ? ' class="calDatePassed"' : '' ?>>
+    <?php $gameDay = in_array($i, $gameDays); ?>
+    <?php if ($gameDay): ?>
+                <a href="<?= '#' ?>">
+    <?php endif; ?>
+                    <?= $i ?>
+    <?php if ($gameDay): ?>
+                </a>
+    <?php endif; ?>
+            </td>
+    <?php $dayOfWeek = ($dayOfWeek + 1) % 7; ?>
+    <?php if ($dayOfWeek == 0): ?> 
         </tr>
-        <tr>
-            <!-- TODO these urls need to be rewritten. see nginx rules -->
-            <td><a href="/calendar/view=daily&amp;day=sun">Sun</a></td>
-            <td><a href="/calendar/view=daily&amp;day=mon">Mon</a></td>
-            <td><a href="/calendar/view=daily&amp;day=tue">Tue</a></td>
-            <td><a href="/calendar/view=daily&amp;day=wed">Wed</a></td>
-            <td><a href="/calendar/view=daily&amp;day=thu">Thu</a></td>
-            <td><a href="/calendar/view=daily&amp;day=fri">Fri</a></td>
-            <td><a href="/calendar/view=daily&amp;day=sat">Sat</a></td>
+    <?php endif; ?>
+<?php endfor; ?>
+
+<?php if ($dayOfWeek != 0): ?>
+    <?php for ($i = $dayOfWeek; $i < 7; $i++): ?>
+                <td>&nbsp;</td>
+    <?php endfor; ?>
         </tr>
-WHILE LOOP HERE
-        <tr>
-ERROR print calendar from array
-                <td>$calendarArray[FIX][FIX]</td>
-//TODO how do I want the date to show in the URL (i.e. with or without dashes?), and do dashes need to be escaped?
-                <td<?= $elementClass != null ? " class=\"$elementClass\"" : "" ?>><?= $gameDate != null ? "<a href=\"/calendar/date={$gameDate}\">$monthlyDayCount</a>" : $monthlyDayCount ?></td>
-        </tr>
+<?php endif; ?>
     </table>
 <?php
-}
 
 $content = ob_get_clean();
 

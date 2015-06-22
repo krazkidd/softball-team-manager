@@ -33,6 +33,10 @@ ob_start();
         <?= $leagueDesc ?>
     </h2>
 
+    <p><a href="<?= $leagueURI ?>">Calendar</a></p>
+
+    <br />
+
 <?php if ($teamsInLeague): ?>
     <p>Teams:</p>
     <ul>

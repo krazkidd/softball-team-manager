@@ -25,6 +25,7 @@
 require dirname(__FILE__) . '/begin-controller.php';
 
 require_once dirname(__FILE__) . '/../models/league.php';
+require_once dirname(__FILE__) . '/../models/calendar.php';
 
 if (isset($id)) {
     $leagueInfo = getLeagueInfo($id);
@@ -32,6 +33,7 @@ if (isset($id)) {
     if ($leagueInfo) {
         $leagueDesc = getLeagueDescription($leagueInfo);
         $teamsInLeague = getTeamsInLeague($leagueInfo);
+        $leagueURI = getCalendarURI($leagueInfo);
 
         unset($leagueInfo);
 

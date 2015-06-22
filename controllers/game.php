@@ -48,6 +48,7 @@ if (isset($id)) {
     }
 
     // just in case a game can end in a tie, show scores after game has been played
+    //TODO i guess there might be a problem comparing time and mktime values. see gmmktime doc page -->
     $showResults = ($homeScore > 0 || $awayScore > 0) || time() > $gameTime;
 
     require dirname(__FILE__) . '/../views/game.php';
