@@ -37,7 +37,7 @@ ob_start();
 
     <table>
         <tr>
-            <th colspan="7"><?= "$monthName $year" ?></th>
+            <th colspan="7"><?= "$monthName $thisYear" ?></th>
         </tr>
         <tr>
             <th>Sun</th>
@@ -59,7 +59,7 @@ ob_start();
     <?php if ($dayOfWeek == 0): ?>
         <tr>
     <?php endif; ?>
-    <?php $dayTime = mktime(23, 59, 59, $monthNum, $i, $year); ?>
+    <?php $dayTime = mktime(23, 59, 59, $thisMonth, $i, $thisYear); ?>
             <td<?= $dayTime < $now ? ' class="calDatePassed"' : '' ?>>
     <?php $gameDay = in_array($i, $gameDays); ?>
     <?php if ($gameDay): ?>
