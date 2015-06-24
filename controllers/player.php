@@ -29,7 +29,7 @@ doRequireLogin();
 
 require_once dirname(__FILE__) . '/../models/player.php';
 
-if (isset($id) && isID($id)) {
+if (isset($id)) {
     $playerInfo = getPlayerInfo($id);
 
     if ($playerInfo) {
@@ -48,7 +48,7 @@ if (isset($id) && isID($id)) {
     }
     else {
         $msgTitle = "Player";
-        $msg = "Not a valid player id.";
+        $msg = "Missing or invalid player id.";
         $msgClass = "failure";
         require dirname(__FILE__) . '/../views/show-message.php';
     }
