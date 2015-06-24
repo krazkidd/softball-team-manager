@@ -35,11 +35,25 @@ ob_start();
     <?= !empty($nickName) ? "<h3>$nickName</h3>" : '' ?>
 
     <h4>Phone</h4>
+<?php if ($phone): ?>
     <p><?= $phone ?></p>
+<?php else: ?>
+    <p>[Unspecified]</p>
+<?php endif; ?>
+
     <h4>Email</h4>
+<?php if ($email): ?>
     <p><?= $email ?></p>
+<?php else: ?>
+    <p>[Unspecified]</p>
+<?php endif; ?>
+
     <h4>Gender</h4>
+<?php if ($gender): ?>
     <p><?= $gender ?></p>
+<?php else: ?>
+    <p>[Unspecified]</p>
+<?php endif; ?>
 
 <?php if ($teams): ?>
     <hr />

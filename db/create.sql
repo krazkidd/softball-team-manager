@@ -24,13 +24,13 @@
 /* player entity */
 CREATE TABLE Player (
     ID          INTEGER NOT NULL AUTO_INCREMENT,
-    DisplayID     VARCHAR(16),
+    DisplayID   VARCHAR(16),
     FirstName   VARCHAR(64),
     LastName    VARCHAR(128),
     NickName    VARCHAR(64),
     Email       VARCHAR(128) UNIQUE, /* UNIQUE constraint does not apply to NULL values */
     PhoneNumber CHAR(10),
-    Gender      CHAR(1),
+    Gender      VARCHAR(15),
 
     PRIMARY KEY (ID)
     )
@@ -72,8 +72,8 @@ INSERT INTO FieldPosition VALUES
     ;
 
 CREATE TABLE Class (
-    ID       INTEGER UNSIGNED NOT NULL,
-    Name     CHAR(64),
+    ID   INTEGER UNSIGNED NOT NULL,
+    Name CHAR(64),
 
     PRIMARY KEY (ID)
     );
@@ -85,12 +85,12 @@ INSERT INTO Class VALUES
 
 /* league entity */
 CREATE TABLE League (
-    ID                INTEGER NOT NULL AUTO_INCREMENT,
-    Description       VARCHAR(128),
-    StartDate         DATE,
-    RosterFreezeDate  DATE,
+    ID               INTEGER NOT NULL AUTO_INCREMENT,
+    Description      VARCHAR(128),
+    StartDate        DATE,
+    RosterFreezeDate DATE,
 
-    ClassID           INTEGER UNSIGNED NULL,
+    ClassID          INTEGER UNSIGNED NULL,
 
     FOREIGN KEY (ClassID) REFERENCES Class(ID),
     PRIMARY KEY (ID)
@@ -165,35 +165,35 @@ CREATE TABLE Game (
 
 /* lineup entity */
 CREATE TABLE Lineup (
-    GameID            INTEGER,
-    TeamID            INTEGER,
-    LeagueID          INTEGER, /*TODO allow null for non-league games? (or make a "Non-League", i.e. LeagueID = 0) */
+    GameID          INTEGER,
+    TeamID          INTEGER,
+    LeagueID        INTEGER, /*TODO allow null for non-league games? (or make a "Non-League", i.e. LeagueID = 0) */
 
-    FieldPos1PID      INTEGER NULL,
-    FieldPos2PID      INTEGER NULL,
-    FieldPos3PID      INTEGER NULL,
-    FieldPos4PID      INTEGER NULL,
-    FieldPos5PID      INTEGER NULL,
-    FieldPos6PID      INTEGER NULL,
-    FieldPos7PID      INTEGER NULL,
-    FieldPos8PID      INTEGER NULL,
-    FieldPos9PID      INTEGER NULL,
-    FieldPos10PID     INTEGER NULL,
-    BatPos1PID        INTEGER NULL,
-    BatPos2PID        INTEGER NULL,
-    BatPos3PID        INTEGER NULL,
-    BatPos4PID        INTEGER NULL,
-    BatPos5PID        INTEGER NULL,
-    BatPos6PID        INTEGER NULL,
-    BatPos7PID        INTEGER NULL,
-    BatPos8PID        INTEGER NULL,
-    BatPos9PID        INTEGER NULL,
-    BatPos10PID       INTEGER NULL,
-    BatPos11PID       INTEGER NULL,
-    BatPos12PID       INTEGER NULL,
-    ExtraPlayer1PID   INTEGER NULL,
-    ExtraPlayer2PID   INTEGER NULL,
-    ExtraPlayer3PID   INTEGER NULL,
+    FieldPos1PID    INTEGER NULL,
+    FieldPos2PID    INTEGER NULL,
+    FieldPos3PID    INTEGER NULL,
+    FieldPos4PID    INTEGER NULL,
+    FieldPos5PID    INTEGER NULL,
+    FieldPos6PID    INTEGER NULL,
+    FieldPos7PID    INTEGER NULL,
+    FieldPos8PID    INTEGER NULL,
+    FieldPos9PID    INTEGER NULL,
+    FieldPos10PID   INTEGER NULL,
+    BatPos1PID      INTEGER NULL,
+    BatPos2PID      INTEGER NULL,
+    BatPos3PID      INTEGER NULL,
+    BatPos4PID      INTEGER NULL,
+    BatPos5PID      INTEGER NULL,
+    BatPos6PID      INTEGER NULL,
+    BatPos7PID      INTEGER NULL,
+    BatPos8PID      INTEGER NULL,
+    BatPos9PID      INTEGER NULL,
+    BatPos10PID     INTEGER NULL,
+    BatPos11PID     INTEGER NULL,
+    BatPos12PID     INTEGER NULL,
+    ExtraPlayer1PID INTEGER NULL,
+    ExtraPlayer2PID INTEGER NULL,
+    ExtraPlayer3PID INTEGER NULL,
 
     FOREIGN KEY (GameID) REFERENCES Game(ID),
     FOREIGN KEY (TeamID) REFERENCES Team(ID),

@@ -336,18 +336,6 @@ p {
 	background-color: #dddddd; /* gray */
 }
 
-.gender-f {
-	background-color: #ffccff; /* unimaginitive pink */
-}
-
-.gender-m {
-	background-color: #99ffff; /* electric booga-blue */
-}
-
-.gender-u {
-	background-color: #ddccff; /* boring purple */
-}
-
 .bold {
 	font-weight: bold;
 }
