@@ -41,3 +41,9 @@ if (isset($_GET['leagueid']) && isID($_GET['leagueid']))
 
 //TODO get other url params here instead of other controller files
 
+function my_autoloader($class) {
+        include dirname(__FILE__) . '/../models/' . $class . '.class.php';
+}
+
+spl_autoload_register('my_autoloader');
+

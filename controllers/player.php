@@ -27,22 +27,20 @@ require_once dirname(__FILE__) . '/../models/auth.php';
 
 doRequireLogin();
 
-require_once dirname(__FILE__) . '/../models/player.php';
-
 if (isset($id)) {
-    $playerInfo = getPlayerInfo($id);
+    $p = new Player($id);
 
-    if ($playerInfo) {
-        $name = getFullName($playerInfo);
-        $firstName = getFirstName($playerInfo);
-        $nickName = getNickName($playerInfo);
+    if ($p) {
+        $name = $p->getFullName();
+        $firstName = $p->getFirstName();
+        $nickName = $p->getNickName();
         //TODO only show this stuff to the player's managers
-        $phone = getFormattedPhoneNumber($playerInfo);
-        $email = getEmail($playerInfo);
-        $gender = getGender($playerInfo, false);
-        $teams = getRosteredTeamsForPlayer($playerInfo);
+        $phone = $p->getFormattedPhoneNumber();
+        $email = $p->getEmail();
+        $gender = $p->getGender();
+        $teams = $p->getRosteredTeamsForPlayer();
 
-        unset($playerInfo);
+        $p = null;
 
         require dirname(__FILE__) . '/../views/player.php';
     }
