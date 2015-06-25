@@ -1,4 +1,3 @@
-
 <?php
 
   /**************************************************************************
@@ -48,7 +47,7 @@ abstract class BaseModel
         self::$mInstanceCount++;
     }
 
-    public final function __destruct()
+    final public function __destruct()
     {
         self::$mInstanceCount--;
 
@@ -58,15 +57,15 @@ abstract class BaseModel
     }
 
     //TODO what was i gonna put here?
-    //protected final function
+    //final protected function
 
-    private static final function openDB()
+    final private static function openDB()
     {
         self::$mDBCon = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         self::$mDBCon->set_charset('utf8');
     }
 
-    private static final function closeDB()
+    final private static function closeDB()
     {
         if (!self::$mDBCon)
             return false;
@@ -75,10 +74,10 @@ abstract class BaseModel
         return self::$mDBCon->close();
     }
 
-    protected abstract function loadFromDB();
-    public abstract function saveToDB();
+    abstract protected function loadFromDB();
+    abstract public function saveToDB();
 
-    protected static final function runQuery($queryStr)
+    final protected static function runQuery($queryStr)
     {
         if (!self::$mDBCon) {
             self::openDB();
@@ -95,11 +94,11 @@ abstract class BaseModel
     /*
      * Gets the ID of the object.
      */
-    public final function getID()
+    final public function getID()
     {
         return $this->mID;
     }
 
-    public abstract function getURI();
+    abstract public function getURI();
 }
 
