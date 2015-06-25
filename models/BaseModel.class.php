@@ -60,13 +60,13 @@ abstract class BaseModel
     //TODO what was i gonna put here?
     //protected final function
 
-    private final function openDB()
+    private static final function openDB()
     {
         self::$mDBCon = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         self::$mDBCon->set_charset('utf8');
     }
 
-    private final function closeDB()
+    private static final function closeDB()
     {
         if (!self::$mDBCon)
             return false;
@@ -78,7 +78,7 @@ abstract class BaseModel
     protected abstract function loadFromDB();
     public abstract function saveToDB();
 
-    protected final function runQuery($queryStr)
+    protected static final function runQuery($queryStr)
     {
         if (!self::$mDBCon) {
             self::openDB();

@@ -23,13 +23,10 @@
 
 require dirname(__FILE__) . '/begin-controller.php';
 
-require_once dirname(__FILE__) . '/../models/auth.php';
-
-//TODO save any Guest session preferences
-doRequireNoLogin();
+Auth::doRequireNoLogin();
 
 //TODO i need to add some kind of timestamp or token so that this login attempt expires and can't be re-sent
-if (isset($_POST['btnLogIn']) && attemptLogin($_POST['loginName'], $_POST['password'])) {
+if (isset($_POST['btnLogIn']) && Auth::attemptLogin($_POST['loginName'], $_POST['password'])) {
     //TODO add a "remember me" button and check for it here (p.s. it's a little hard to
     //     do, security-wise, so do a good search on the topic)
 

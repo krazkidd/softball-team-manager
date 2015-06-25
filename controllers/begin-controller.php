@@ -4,7 +4,7 @@
 
   This file is part of Team Manager.
 
-  Copyright © 2013 Mark Ross <krazkidd@gmail.com>
+  Copyright © 2013-2015 Mark Ross <krazkidd@gmail.com>
 
   Team Manager is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -23,27 +23,42 @@
 
 session_start();
 
-require_once dirname(__FILE__) . '/../models/model.php';
-
-//TODO are array indexes case-sensitive? YES. so we need to write a controller class
-//     to at least handle url parameters
-if (isset($_GET['id']) && isID($_GET['id']))
-    $id = $_GET['id'];
-
-if (isset($_GET['teamid']) && isID($_GET['teamid']))
-    $teamID = $_GET['teamid'];
-
-if (isset($_GET['gameid']) && isID($_GET['gameid']))
-    $gameID = $_GET['gameid'];
-
-if (isset($_GET['leagueid']) && isID($_GET['leagueid']))
-    $leagueID = $_GET['leagueid'];
-
-//TODO get other url params here instead of other controller files
+require_once dirname(__FILE__) . '/../config/config.php';
 
 function my_autoloader($class) {
         include dirname(__FILE__) . '/../models/' . $class . '.class.php';
 }
 
+function isID($id)
+{
+    return is_numeric($id) && is_int($id + 0) && $id > 0;
+}
+
+
 spl_autoload_register('my_autoloader');
+
+foreach ($_GET as $key => $val) {
+    switch (strtolower($key)) {
+        case 'id':
+            if (isID($val)) {
+                $id  = $val;
+            }
+            break;
+        case 'teamid':
+            if (isID($val)) {
+                $teamid  = $val;
+            }
+            break;
+        case 'leagueid':
+            if (isID($val)) {
+                $leagueid  = $val;
+            }
+            break;
+        case 'gameid':
+            if (isID($val)) {
+                $gameid  = $val;
+            }
+            break;
+    }
+}
 

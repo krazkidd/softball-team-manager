@@ -61,8 +61,3 @@ function closeDB()
     return mysqli_close($db_con);
 }
 
-function isID($id)
-{
-    return is_numeric($id) && is_int($id + 0) && $id > 0;
-}
-
