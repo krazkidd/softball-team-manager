@@ -46,17 +46,17 @@ foreach ($_GET as $key => $val) {
             break;
         case 'teamid':
             if (isID($val)) {
-                $teamid  = $val;
+                $teamID  = $val;
             }
             break;
         case 'leagueid':
             if (isID($val)) {
-                $leagueid  = $val;
+                $leagueID  = $val;
             }
             break;
         case 'gameid':
             if (isID($val)) {
-                $gameid  = $val;
+                $gameID  = $val;
             }
             break;
     }
