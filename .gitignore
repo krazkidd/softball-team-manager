@@ -3,11 +3,3 @@ js/jquery*
 lib/
 
 config/local-config.php
-
-# developer's notes and project resources
-LOCAL/
-
-# vim and backup files
-*.swp
-*.bak
-*.BAK
