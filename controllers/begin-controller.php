@@ -21,12 +21,8 @@
 
   **************************************************************************/
 
-session_start();
-
-require_once dirname(__FILE__) . '/../config/config.php';
-
-function my_autoloader($class) {
-        include dirname(__FILE__) . '/../models/' . $class . '.class.php';
+function autoloadClass($class) {
+    include dirname(__FILE__) . '/../models/' . $class . '.class.php';
 }
 
 function isID($id)
@@ -34,8 +30,9 @@ function isID($id)
     return is_numeric($id) && is_int($id + 0) && $id > 0;
 }
 
+spl_autoload_register('autoloadClass');
 
-spl_autoload_register('my_autoloader');
+session_start();
 
 foreach ($_GET as $key => $val) {
     switch (strtolower($key)) {

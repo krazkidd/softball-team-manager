@@ -79,6 +79,10 @@ abstract class BaseModel
 
     final protected static function runQuery($queryStr)
     {
+        //TODO this still works with Auth being abstract class; that is, the Auth class has no instances
+        //     and so doesn't increase the instance count and so the destructor won't close the DB
+        //     connection when we want/expect it to, but it still works because it forces open a connection.
+        //     It shouldn't do that.
         if (!self::$mDBCon) {
             self::openDB();
         }
