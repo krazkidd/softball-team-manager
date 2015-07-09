@@ -26,10 +26,10 @@ require_once dirname(__FILE__) . '/../config/config.php';
 abstract class BaseModel
 {
     /*
-     * How man objects of this type have been instantiated. The count
+     * How many objects of this type have been instantiated. The count
      * is incremented in self's constructor and decremented in self's
      * destructor. When falling to a value of 0, the DB connection
-     * should be closed.
+     * is severed.
      */
     private static $mInstanceCount = 0;
     private static $mDBCon = null;
@@ -38,7 +38,21 @@ abstract class BaseModel
 
     protected function __construct($id)
     {
-        if (is_int($id + 0) && $id > 0) {
+        if (is_array($id)) {
+            $isValid = true;
+            foreach ($id as $k => $val) {
+                if (!(is_int($val + 0) && $val > 0)) {
+                    $isValid = false;
+                    break;
+                }
+            }
+
+            if ($isValid) {
+                $this->mID = $id;
+
+                $this->loadFromDB();
+            }
+        } else if (is_int($id + 0) && $id > 0) {
             $this->mID = $id;
 
             $this->loadFromDB();
@@ -55,9 +69,6 @@ abstract class BaseModel
             self::closeDB();
         }
     }
-
-    //TODO what was i gonna put here?
-    //final protected function
 
     final private static function openDB()
     {
@@ -79,10 +90,6 @@ abstract class BaseModel
 
     final protected static function runQuery($queryStr)
     {
-        //TODO this still works with Auth being abstract class; that is, the Auth class has no instances
-        //     and so doesn't increase the instance count and so the destructor won't close the DB
-        //     connection when we want/expect it to, but it still works because it forces open a connection.
-        //     It shouldn't do that.
         if (!self::$mDBCon) {
             self::openDB();
         }
@@ -95,14 +102,7 @@ abstract class BaseModel
         return null;
     }
 
-    /*
-     * Gets the ID of the object.
-     */
-    final public function getID()
-    {
-        return $this->mID;
-    }
-
     abstract public function getURI();
+    abstract public function getJSON();
 }
 
