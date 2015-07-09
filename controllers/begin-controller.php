@@ -21,41 +21,9 @@
 
   **************************************************************************/
 
-function autoloadClass($class) {
-    include dirname(__FILE__) . '/../models/' . $class . '.class.php';
-}
-
-function isID($id)
-{
-    return is_numeric($id) && is_int($id + 0) && $id > 0;
-}
-
-spl_autoload_register('autoloadClass');
+require_once dirname(__FILE__) . '/../config/config.php';
 
 session_start();
 
-foreach ($_GET as $key => $val) {
-    switch (strtolower($key)) {
-        case 'id':
-            if (isID($val)) {
-                $id  = $val;
-            }
-            break;
-        case 'teamid':
-            if (isID($val)) {
-                $teamID  = $val;
-            }
-            break;
-        case 'leagueid':
-            if (isID($val)) {
-                $leagueID  = $val;
-            }
-            break;
-        case 'gameid':
-            if (isID($val)) {
-                $gameID  = $val;
-            }
-            break;
-    }
-}
+parseModelArgs();
 

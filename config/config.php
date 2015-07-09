@@ -21,6 +21,10 @@
 
   **************************************************************************/
 
+require_once dirname(__FILE__) . '/local-config.php';
+
+define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME);
+
 //NOTE: PHP_VERSION_ID and the *_VERSION constants were introduced in 5.2.7
 if ( !defined('PHP_VERSION_ID') || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
     exit("PHP version 5.3.7 or greater is required for this site to run.");
@@ -32,7 +36,45 @@ if ( !defined('PHP_VERSION_ID') || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION 
     require_once '../lib/password.php';
 }
 
-require_once 'local-config.php';
+function autoloadClass($class) {
+    include dirname(__FILE__) . '/../models/' . $class . '.class.php';
+}
 
-define('DB_NAME', (empty(DB_PREFIX) ? '' : DB_PREFIX . '_') . DB_SHORTNAME);
+function isID($id)
+{
+    return is_numeric($id) && is_int($id + 0) && $id > 0;
+}
+
+function parseModelArgs()
+{
+    // NOTE: This adds things to the $GLOBALS array, which is bad because that means
+    //       my namespace is leaking.
+
+    foreach ($_GET as $key => $val) {
+        switch (strtolower($key)) {
+            case 'id':
+                if (isID($val)) {
+                    $GLOBALS['id'] = $val;
+                }
+                break;
+            case 'teamid':
+                if (isID($val)) {
+                    $GLOBALS['teamID'] = $val;
+                }
+                break;
+            case 'leagueid':
+                if (isID($val)) {
+                    $GLOBALS['leagueID'] = $val;
+                }
+                break;
+            case 'gameid':
+                if (isID($val)) {
+                    $GLOBALS['gameID'] = $val;
+                }
+                break;
+        }
+    }
+}
+
+spl_autoload_register('autoloadClass');
 
