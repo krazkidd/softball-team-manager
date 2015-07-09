@@ -24,6 +24,8 @@
 //TODO does this file not need a session_start() to use $_SESSION['loginname']?
 //     begin-controller.php now makes that function call.
 
+//FIXME this needs to not extend BaseModel, *UNLESS* i'm saving user logins to the DB?
+
 abstract class Auth extends BaseModel
 {
     public static function doRequireLogin()

@@ -18,10 +18,16 @@ server {
 		# as directory, then fall back to displaying a 404.
 		#try_files $uri $uri/ =404;
 
-        # rename requests to look in controllers/ directory
+		# make all requests look in controllers/ directory
 		rewrite ^/([a-zA-Z0-9_\-]+)$ /controllers/$1.php;
-		rewrite ^/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]*)$ /controllers/$1.php?id=$2;
+		# convert numerical "subdirectory" to a GET query
+		rewrite ^/([a-zA-Z0-9_\-]+)/([0-9]+)$ /controllers/$1.php?id=$2;
 	}
+
+	#TODO block API requests
+	#location /api/ {
+	#
+	#}
 
 	location ~ \.php$ {
   		#try_files $uri =404;

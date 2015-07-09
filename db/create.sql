@@ -2,7 +2,7 @@
 
   This file is part of Team Manager.
 
-  Copyright © 2013 Mark Ross <krazkidd@gmail.com>
+  Copyright © 2013-2015 Mark Ross <krazkidd@gmail.com>
 
   Team Manager is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
