@@ -41,9 +41,9 @@ class Player extends BaseModel
         if ($this->mID > 0) {
             $qResult = self::runQuery("SELECT * FROM Player WHERE Player.ID = $this->mID");
 
-            $result = $qResult->fetch_array(MYSQLI_ASSOC);
-
             if ($qResult) {
+                $result = $qResult->fetch_array(MYSQLI_ASSOC);
+
                 $this->mDisplayID = $result['DisplayID'];
                 $this->mFirstName = $result['FirstName'];
                 $this->mLastName = $result['LastName'];
@@ -151,6 +151,25 @@ class Player extends BaseModel
 
         //TODO we need a better way to show this player doesn't exist (either send them to ID 0 or use jquery to show message...)
         return '#';
+    }
+
+    public function getJSON()
+    {
+        //TODO return null or whatever is a JSON null value if
+        //if ($this->mID > 0) {
+        //    return NULL...
+        //}
+
+        $arr = array();
+        $arr['displayID'] = $this->mDisplayID;
+        $arr['firstName'] = $this->mFirstName;
+        $arr['lastName'] = $this->mLastName;
+        $arr['nickName'] = $this->mNickName;
+        $arr['email'] = $this->mEmail;
+        $arr['phoneNumber'] = $this->mPhoneNumber;
+        $arr['gender'] = $this->mGender;
+
+        return json_encode($arr);
     }
 
     public function getManagedTeams()
