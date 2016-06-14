@@ -39,7 +39,7 @@
 
             <div id="navbar">
                 <ul>
-                    <li><a href="<?= $app_dir ?>" title="Home">Home</a></li>
+                    <li><a href="<?= $app_dir ?>/" title="Home">Home</a></li>
                     <?= $isLoggedIn ? '<li><a href="<?= $app_dir ?>/my-teams">My Teams</a></li>' : '' ?>
                     <!-- <li><a href="<?= $app_dir ?>/calendar">Calendar</a></li> -->
                     <li><a href="<?= $app_dir ?>/about" title="About this site">About</a></li>
