@@ -28,7 +28,7 @@ ob_start();
 ?>
     <p>This website uses cookies to track your session.</p>
 
-    <form action="/login" method="post">
+    <form action="<?= $app_dir ?>/login" method="post">
         <div id="frmLogin">
             <label for="loginName">Login name:</label>
             <input type="text" name="loginName" id="loginName" value="<?= isset($failedLoginName) ? $failedLoginName : '' ?>"/><br />

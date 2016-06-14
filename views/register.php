@@ -37,7 +37,7 @@ ob_start();
         saving it, it is still transmitted in plaintext across the Internet before doing so. (I need an SSL certificate
         to prevent that.)</p>
 
-    <form action="/register" method="post">
+    <form action="<?= $app_dir ?>/register" method="post">
         <div id="frmLogin">
             <label for="loginName">Login name:</label>
             <input type="text" name="loginName" id="loginName" value="<?= isset($_POST['loginName']) ? $_POST['loginName'] : '' ?>" /><br />

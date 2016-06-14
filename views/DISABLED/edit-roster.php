@@ -69,7 +69,7 @@ displayRosterTable();
 
     <div id="form-add-player">
 <!-- //TODO labels for input fields! -->
-        <form action="/edit-roster" method="post">
+        <form action="<?= $app_dir ?>/edit-roster" method="post">
             <input type="input" name="playerName" />
 <!-- //TODO use btnName or nameBtn for form elements (in given case, a button) -->
             <input type="submit" name="addplayer" value="Add this player to my roster" />
