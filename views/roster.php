@@ -48,7 +48,7 @@ ob_start();
 <?php foreach ($roster as $player): ?>
             <tr>
                 <td><?= getShirtNum($player) ?></td>
-                <td><a href="<?= getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
+                <td><a href="<?= $app_dir . getPlayerURI($player) ?>"><?= getFullName($player) ?></a></td>
             </tr>
 <?php endforeach; ?>
         </table>

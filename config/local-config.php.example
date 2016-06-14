@@ -10,3 +10,9 @@ define('DB_PASS', 'pass');
 define('DB_PREFIX', '');
 define('DB_SHORTNAME', 'team_mgr');
 
+/* The directory that Softball Team Manager is available on your web server
+   Be sure to prepend a / character, and don't append a / character.
+   e.g. http://www.your-domain.com<$app_dir>
+   - leave blank for root directory
+   - leave . for relative */
+$app_dir = '/softball-team-manager';

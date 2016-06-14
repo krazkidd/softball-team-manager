@@ -28,7 +28,7 @@ ob_start();
 ?>
     <p>This website uses cookies to track your session.</p>
 
-    <form action="/login" method="post">
+    <form action="<?= $app_dir ?>/login" method="post">
         <div id="frmLogin">
             <label for="loginName">Login name:</label>
             <input type="text" name="loginName" id="loginName" value="<?= isset($failedLoginName) ? $failedLoginName : '' ?>"/><br />
@@ -46,7 +46,7 @@ ob_start();
     <p class='msg-failure'>Login failed!</p>
 <?php endif; ?>
 
-    <p>or <a href="/register" title="Register">Register</a></p>
+    <p>or <a href="<?= $app_dir ?>/register" title="Register">Register</a></p>
 <?php
 
 $content = ob_get_clean();

@@ -31,7 +31,7 @@ ob_start();
     <p>Which team do you want to manage?</p>
     <ul>
 <?php foreach ($managedTeamsList as $team): ?>
-            <li><a href="<?= getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
+            <li><a href="<?= $app_dir . getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
 <?php endforeach; ?>
     </ul>
 <?php

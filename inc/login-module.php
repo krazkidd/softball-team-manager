@@ -29,9 +29,9 @@ $name = getLoginName();
     <div id="login-module">
         <p>Hello, <?= empty($name) ? 'Guest' : $name ?>!<br />
         <?php if (empty($name)) { ?>
-            <a href="/login">Login</a>
+            <a href="<?= $app_dir ?>/login">Login</a>
         <?php } else { ?>
-            <a href="/logout">Logout</a>
+            <a href="<?= $app_dir ?>/logout">Logout</a>
         <?php } ?>
         </p>
     </div>

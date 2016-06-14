@@ -40,7 +40,7 @@ ob_start();
     <p>Rosters (ordered by league start date):</p>
     <ul>
     <?php foreach ($leagueList as $roster): ?>
-        <li><a href="<?= getRosterURI($teamID, $roster['ID']) ?>"><?= getLeagueDescription($roster) ?></a></li>
+        <li><a href="<?= $app_dir . getRosterURI($teamID, $roster['ID']) ?>"><?= getLeagueDescription($roster) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php else: ?>

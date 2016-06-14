@@ -39,7 +39,7 @@ ob_start();
             <?php $shirtNum = getShirtNum($lineup, $player); ?>
             <tr style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
                 <td><?= $shirtNum ? "#$shirtNum" : '' ?></td>
-                <td><a style="color: #<?= $priColor ?>" href="<?= getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
+                <td><a style="color: #<?= $priColor ?>" href="<?= $app_dir . getPlayerURI($player) ?>"><?= getShortName($player) ?></a></td>
             </tr>
         <?php endif; ?>
     <?php endforeach; ?>
@@ -59,14 +59,14 @@ ob_start();
         <div id="field-pos-<?= $i ?>" class="playerPos playerPos-left">
 <!-- TODO long names are getting wrapped. why? -->
             <p class="playerPos-left" style="color: #<?= $priColor ?>; background-color: #<?= $secColor ?>">
-                <?= $shirtNum ? "#$shirtNum " : ' ' ?><a href="<?= getPlayerURI($player) ?>" style="color: #<?= $priColor ?>"><?= getShortName($player) ?></a>
+                <?= $shirtNum ? "#$shirtNum " : ' ' ?><a href="<?= $app_dir . getPlayerURI($player) ?>" style="color: #<?= $priColor ?>"><?= getShortName($player) ?></a>
             </p>
         </div>
     <?php endif; ?>
 <?php endfor; ?>
     </div>
 
-    <p>View the <a href="<?= getLineupURI($lineup) ?>">Lineup</a>.</p>
+    <p>View the <a href="<?= $app_dir . getLineupURI($lineup) ?>">Lineup</a>.</p>
 <?php
 
 $content = ob_get_clean();

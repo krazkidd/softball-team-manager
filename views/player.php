@@ -61,7 +61,7 @@ ob_start();
     <p><span class="bold"><?= !empty($nickName) ? $nickName : $firstName ?></span>'s current and past teams:</p>
     <ul>
     <?php foreach ($teams as $team): ?>
-        <li><a href="<?= getTeamURI($team) ?>"><?= getTeamName($team) ?></a></li>
+        <li><a href="<?= $app_dir . getTeamURI($team) ?>"><?= getTeamName($team) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>

@@ -34,7 +34,7 @@ ob_start();
     <p>Teams I manage (click to go to team's management interface):</p>
     <ul>
     <?php foreach ($managedTeamsList as $team ): ?>
-        <li><a href="<?= getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
+        <li><a href="<?= $app_dir . getManageURI($team) ?>"><?= getTeamName($team) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
@@ -43,7 +43,7 @@ ob_start();
     <p>Teams I play on (click to go to team's profile):</p>
     <ul>
     <?php foreach ($rosteredTeamsList as $teamLeague): ?>
-        <li><a href="<?= getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) ?></a></li>
+        <li><a href="<?= $app_dir . getTeamURI($teamLeague) ?>"><?= getTeamName($teamLeague) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
