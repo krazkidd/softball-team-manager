@@ -28,16 +28,16 @@ $isLoggedIn = isLoggedIn()
 ?>
     <div id="navbar">
         <ul>
-            <li><a href="/" title="Home">Home</a></li>
+            <li><a href="<?= $app_dir ?>/" title="Home">Home</a></li>
             <!-- <li<?= !$isLoggedIn ? ' class="navNotLoggedIn"' : "" ?>><a href="/roster">Roster</a></li> -->
-            <?= $isLoggedIn ? '<li><a href="/my-teams">My Teams</a></li>' : "" ?>
-            <li><a href="/calendar">Calendar</a></li>
-            <li><a href="/about" title="About this site">About</a></li>
-            <li><a href="/help" title="How to use this site">Help</a></li>
+            <?= $isLoggedIn ? '<li><a href="<?= $app_dir ?>/my-teams">My Teams</a></li>' : "" ?>
+            <li><a href="<?= $app_dir ?>/calendar">Calendar</a></li>
+            <li><a href="<?= $app_dir ?>/about" title="About this site">About</a></li>
+            <li><a href="<?= $app_dir ?>/help" title="How to use this site">Help</a></li>
         </ul>
 
-        <p id="navLoginName"><?= $isLoggedIn ? "You are logged in as " . getLoginName() . ". <a href=\"/logout\" title=\"Log out\">Log out</a>"
-                                             : "You are not logged in. <a href=\"/login\" title=\"Log in or Register\">Log in or Register</a>" ?>
+        <p id="navLoginName"><?= $isLoggedIn ? "You are logged in as " . getLoginName() . ". <a href=" . $app_dir . "\"/logout\" title=\"Log out\">Log out</a>"
+                                             : "You are not logged in. <a href=" . $app_dir . "\"/login\" title=\"Log in or Register\">Log in or Register</a>" ?>
         </p>
     </div>
 

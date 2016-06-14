@@ -33,7 +33,7 @@ ob_start();
         <?= $leagueDesc ?>
     </h2>
 
-    <p><a href="<?= $leagueURI ?>">Calendar</a></p>
+    <p><a href="<?= $app_dir . $leagueURI ?>">Calendar</a></p>
 
     <br />
 
@@ -41,7 +41,7 @@ ob_start();
     <p>Teams:</p>
     <ul>
     <?php foreach ($teamsInLeague as $team): ?>
-        <li><a href="<?= getTeamURI($team) ?>"><?= getTeamName($team) ?></a></li>
+        <li><a href="<?= $app_dir . getTeamURI($team) ?>"><?= getTeamName($team) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php else: ?>

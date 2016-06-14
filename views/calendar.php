@@ -63,7 +63,7 @@ ob_start();
             <td<?= $dayTime < $now ? ' class="calDatePassed"' : '' ?>>
     <?php $gameDay = in_array($i, $gameDays); ?>
     <?php if ($gameDay): ?>
-                <a href="<?= '#' ?>">
+                <a href="<?= $app_dir . '#' ?>">
     <?php endif; ?>
                     <?= $i ?>
     <?php if ($gameDay): ?>

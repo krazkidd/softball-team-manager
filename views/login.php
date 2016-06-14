@@ -46,7 +46,7 @@ ob_start();
     <p class='msg-failure'>Login failed!</p>
 <?php endif; ?>
 
-    <p>or <a href="/register" title="Register">Register</a></p>
+    <p>or <a href="<?= $app_dir ?>/register" title="Register">Register</a></p>
 <?php
 
 $content = ob_get_clean();

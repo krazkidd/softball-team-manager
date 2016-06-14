@@ -38,12 +38,12 @@ ob_start();
     <p>
 <?php if ($isLoggedIn): ?>
     <?php if (isset($mgrURI) && isset($mgrName)): ?>
-        <a href="<?= $mgrURI ?>"><?= $mgrName ?></a>
+        <a href="<?= $app_dir . $mgrURI ?>"><?= $mgrName ?></a>
     <?php else: ?>
         None
     <?php endif; ?>
 <?php else: ?>
-    [<a href="<?= getLoginURI() ?>">Log in</a> to view]
+    [<a href="<?= $app_dir . getLoginURI() ?>">Log in</a> to view]
 <?php endif; ?>
     </p>
 
@@ -63,7 +63,7 @@ ob_start();
     <p><span class="bold"><?= $teamName ?></span> have played in these leagues:</p>
     <ul>
     <?php foreach ($leagueList as $league): ?>
-        <li><a href="<?= getLeagueURI($league) ?>"><?= getLeagueDescription($league) ?></a></li>
+        <li><a href="<?= $app_dir . getLeagueURI($league) ?>"><?= getLeagueDescription($league) ?></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
